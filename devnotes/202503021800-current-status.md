@@ -35,12 +35,13 @@
 - **0-5 ファイル管理ルール**
   - wp-config の扱い・2台運用の注意事項を devnotes に記載済み
   - テーマ・プラグインはリポジトリ内ファイルで Git 共有する方針を明記
+  - **DB・メディアの主環境**: **本機**に決定
 
 ### 未実施・要確認
 
 - **0-2 SourceTree**: 本マシン・別マシンでのインストール・リポジトリ登録（push は成功しているため実質利用中）
 - **0-4 別マシン**: 別マシンでの clone → .env → docker-compose → WordPress 初期設定の確認（2台運用時）
-- **0-5**: 「DB・メディアの主環境」をどちらのマシンにするか（2台運用時のみ決定）
+- **0-5**: 「DB・メディアの主環境」→ **本機**に決定済み
 - **0-6 完了確認**: プル→編集→コミット→プッシュの一連動作の明示的な確認、別マシンでの同様の確認
 
 ---
@@ -74,7 +75,7 @@
 |----------|------|
 | devnotes/202503021430-dev-env-and-implementation-plan.md | 全体実装計画・フェーズ0〜8 の TODO |
 | devnotes/202503021500-phase0-runbook.md | フェーズ0 実施手順（本マシン・別マシン） |
-| devnotes/202503021430-git-workflow-and-branches.md | ブランチ戦略・SourceTree 運用ルール |
+| devnotes/202503021430-git-workflow-and-branches.md | ブランチ戦略・SourceTree 運用ルール。**本機=develop、ノート機=feature/xxx 推奨**の記載あり |
 | devnotes/202503021500-wpconfig-and-2machine-notes.md | wp-config・2台運用の注意事項 |
 | devnotes/202503021600-github-auth-sourcetree.md | GitHub 認証（403・PAT・SSH）対処 |
 
@@ -88,7 +89,7 @@
    - 本マシンで「プル → 軽い編集 → コミット → プッシュ」を一度実施
 3. **2台運用する場合**  
    - 別マシンで clone → .env 作成 → docker-compose up -d → WordPress 初期設定  
-   - 「DB・メディアの主環境」をどちらにするか決定
+   - DB・メディアの主環境は **本機**（コンテンツ・投稿・メディアは本機で編集し、必要に応じて別マシンへエクスポートで共有）
 4. **フェーズ0 完了後**  
    - フェーズ1（キックオフ）に進行
 
