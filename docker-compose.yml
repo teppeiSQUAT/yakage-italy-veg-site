@@ -1,0 +1,52 @@
+# 矢掛町イタリア野菜プロジェクト - 開発環境（2台同一構成）
+# 起動: docker-compose up -d
+# WordPress: http://localhost:8080  / phpMyAdmin: http://localhost:8888
+version: "3.8"
+services:
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    container_name: yakage_italy_veg_db
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-yakage_italy_veg_db}
+      MYSQL_USER: ${MYSQL_USER:-wp_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wp_password}
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+
+  wordpress:
+    image: wordpress:latest
+    container_name: yakage_italy_veg_wordpress
+    volumes:
+      - ./wordpress/html:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-yakage_italy_veg_db}
+      WORDPRESS_DB_USER: ${MYSQL_USER:-wp_user}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD:-wp_password}
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_DEBUG_LOG: 1
+      WORDPRESS_DEBUG_DISPLAY: 0
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: yakage_italy_veg_phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8888:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: ${MYSQL_USER:-wp_user}
+      PMA_PASSWORD: ${MYSQL_PASSWORD:-wp_password}

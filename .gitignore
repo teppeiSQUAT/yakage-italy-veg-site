@@ -1,0 +1,28 @@
+# WordPress 環境依存（リポジトリに含めない）
+wp-config.php
+wordpress/html/wp-config.php
+
+# Docker データ（永続化はローカルのみ）
+db/mysql/
+
+# WordPress コア（コンテナで展開されるためリポジトリでは管理しない）
+# カスタムテーマは別ディレクトリで管理し、マウントまたはデプロイで反映
+wordpress/html/
+
+# 環境変数（機密情報）
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ログ・一時ファイル
+*.log
+*.tmp
