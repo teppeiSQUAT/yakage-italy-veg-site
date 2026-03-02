@@ -58,17 +58,18 @@
 
 ## 0-1. Git・リポジトリ基盤
 
-- [ ] リモートリポジトリの確定
-  - [ ] GitHub / GitLab / Bitbucket 等のホストを決定
-  - [ ] リポジトリ作成（未作成の場合）
-  - [ ] 本マシンで `git remote` 設定・push 確認
-- [ ] ブランチ戦略の決定
-  - [ ] main（本番相当）/ develop（開発）等の運用ルールを文書化
-  - [ ] 作業ブランチの命名ルール（例: `feature/xxx`, `fix/xxx`）を devnotes に記載
-- [ ] .gitignore の整備
-  - [ ] WordPress の `wp-config.php`（環境依存）を除外する方針の確認
-  - [ ] `db/mysql`、`wordpress/html` の扱いを決定（永続データは共有しない前提で .gitignore に追加推奨）
-  - [ ] 環境別の設定例（`.env.example` 等）をリポジトリに含めるか決定
+- [x] リモートリポジトリの確定
+  - [x] GitHub / GitLab / Bitbucket 等のホストを決定（GitHub: teppeiSQUAT/yakage-italy-veg-site）
+  - [x] リポジトリ作成（未作成の場合）
+  - [ ] 本マシンで `git push origin main` および `git push origin develop` を実行して push 確認（要: 認証設定）
+- [x] ブランチ戦略の決定
+  - [x] main（本番相当）/ develop（開発）等の運用ルールを文書化（devnotes/202503021430-git-workflow-and-branches.md）
+  - [x] 作業ブランチの命名ルール（feature/xxx, fix/xxx）を devnotes に記載
+  - [x] develop ブランチをローカルで作成済み
+- [x] .gitignore の整備
+  - [x] WordPress の `wp-config.php`（環境依存）を除外する方針の確認
+  - [x] `db/mysql`、`wordpress/html` の扱いを決定（.gitignore に追加済み）
+  - [x] 環境別の設定例（`.env.example`）をリポジトリに含める
 
 ## 0-2. SourceTree による運用統一
 
@@ -83,16 +84,16 @@
 
 - [ ] 本マシンに Docker / Docker Compose のインストール・動作確認
 - [ ] 別マシンに Docker / Docker Compose のインストール・動作確認
-- [ ] プロジェクト用 `docker-compose.yml` の作成
-  - [ ] サービス: `db`（MySQL 8.0）, `wordpress`, `phpmyadmin`
-  - [ ] コンテナ名・プロジェクト名は `yakage-italy-veg` 等で統一
-  - [ ] ポート競合回避（例: 8080:80, 8888:80 for phpMyAdmin）
-- [ ] 必要なディレクトリ・設定ファイルの作成
-  - [ ] `db/mysql`（ボリューム用）、`wordpress/html`（マウント用）
-  - [ ] `php/php.ini`（upload_max_filesize, memory_limit 等）
-- [ ] 環境変数・パスワードの管理方針
-  - [ ] 本番と同じパスワードをリポジトリに含めない
-  - [ ] `.env` は `.env.example` をコピーして作成し、値を設定（手順は devnotes に記載済み）
+- [x] プロジェクト用 `docker-compose.yml` の作成
+  - [x] サービス: `db`（MySQL 8.0）, `wordpress`, `phpmyadmin`
+  - [x] コンテナ名は `yakage_italy_veg_*` で統一
+  - [x] ポート: 8080（WordPress）, 8888（phpMyAdmin）
+- [x] 必要なディレクトリ・設定ファイルの作成
+  - [x] `db/`（.gitkeep）, `wordpress/`（.gitkeep）。`db/mysql`・`wordpress/html` はコンテナ起動時に自動作成
+  - [x] `php/php.ini`（upload_max_filesize, memory_limit 等）
+- [x] 環境変数・パスワードの管理方針
+  - [x] 本番と同じパスワードをリポジトリに含めない
+  - [x] `.env` は `.env.example` をコピーして作成（手順: devnotes/202503021500-phase0-runbook.md）
 
 ## 0-4. WordPress 開発環境の立ち上げ
 
@@ -104,9 +105,9 @@
 ## 0-5. ファイル管理・システム管理のルール化
 
 - [ ] どちらのマシンで「DB・メディアの主環境」とするか決定（必要なら片方のみ DB を永続化等）
-- [ ] テーマ・プラグインの編集は「リポジトリ内のファイルのみ」とし、Git で共有することをルール化
-- [ ] `wp-config.php` は環境ごとに異なるため、リポジトリには `wp-config-sample.php` のみ置き、手順を devnotes に記載
-- [ ] 2台間でコンフリクトしやすいファイル（設定・アップロードパス等）を一覧化し、注意事項を devnotes に残す
+- [x] テーマ・プラグインの編集は「リポジトリ内のファイルのみ」とし、Git で共有することをルール化（計画書に明記済み）
+- [x] `wp-config.php` は環境ごとに異なるためリポジトリに含めない。手順・注意事項は devnotes/202503021500-wpconfig-and-2machine-notes.md に記載
+- [x] 2台間でコンフリクトしやすいファイルを一覧化し、注意事項を devnotes に残す（上記同一ファイル）
 
 ## 0-6. 開発環境構築の完了確認
 
@@ -242,6 +243,7 @@ yakage-italy-veg-site/
 
 - 各フェーズの TODO のチェックで進捗管理。実装計画書は随時更新。
 - **2025/03/02**: 再構築版作成（開発環境・2台運用をフェーズ0 として追加、yakage_italian 実装計画を統合）
+- **2025/03/02**: フェーズ0 開始。0-1（初回コミット・develop・.gitignore）、0-3（docker-compose・php.ini・.env.example）、0-5（wp-config・2台運用注意）を実施。実施手順書・runbook 追加。
 
 ---
 
