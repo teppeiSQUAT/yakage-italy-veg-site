@@ -17,7 +17,7 @@
 
 | フェーズ | 内容 | 状態 |
 |---------|------|------|
-| **フェーズ0** | 開発環境・2台運用基盤構築 | 未着手 |
+| **フェーズ0** | 開発環境・2台運用基盤構築 | **進行中**（本マシンで .env・Docker・WP 初期設定まで完了） |
 | **フェーズ1** | キックオフ | 未着手 |
 | **フェーズ2** | 構成・ワイヤーフレーム | 未着手 |
 | **フェーズ3** | デザイン初稿 | 未着手 |
@@ -61,7 +61,7 @@
 - [x] リモートリポジトリの確定
   - [x] GitHub / GitLab / Bitbucket 等のホストを決定（GitHub: teppeiSQUAT/yakage-italy-veg-site）
   - [x] リポジトリ作成（未作成の場合）
-  - [ ] 本マシンで `git push origin main` および `git push origin develop` を実行して push 確認（要: 認証設定）
+  - [x] 本マシンで push 確認済み（main / develop）
 - [x] ブランチ戦略の決定
   - [x] main（本番相当）/ develop（開発）等の運用ルールを文書化（devnotes/202503021430-git-workflow-and-branches.md）
   - [x] 作業ブランチの命名ルール（feature/xxx, fix/xxx）を devnotes に記載
@@ -93,14 +93,14 @@
   - [x] `php/php.ini`（upload_max_filesize, memory_limit 等）
 - [x] 環境変数・パスワードの管理方針
   - [x] 本番と同じパスワードをリポジトリに含めない
-  - [x] `.env` は `.env.example` をコピーして作成（手順: devnotes/202503021500-phase0-runbook.md）
+  - [x] `.env` は `.env.example` をコピーして作成（本マシンで作成済み）
 
 ## 0-4. WordPress 開発環境の立ち上げ
 
-- [ ] 本マシンで `docker-compose up -d` 実行・WordPress 初期設定まで実施
+- [x] 本マシンで `docker-compose up -d` 実行・WordPress 初期設定まで実施（サイト情報入力まで完了）
 - [ ] 別マシンでリポジトリ clone 後、同様に `docker-compose up -d` で起動できることを確認
-- [ ] 開発用 URL の統一（例: `http://localhost:8080`）をドキュメントに明記
-- [ ] phpMyAdmin の URL・ログイン情報を devnotes に記載（パスワードは .env 参照とし、リポジトリには書かない）
+- [x] 開発用 URL の統一（例: `http://localhost:8080`）をドキュメントに明記（runbook に記載済み）
+- [x] phpMyAdmin の URL・ログイン情報を devnotes に記載（runbook に URL: localhost:8888、.env 参照と明記済み）
 
 ## 0-5. ファイル管理・システム管理のルール化
 
@@ -244,6 +244,7 @@ yakage-italy-veg-site/
 - 各フェーズの TODO のチェックで進捗管理。実装計画書は随時更新。
 - **2025/03/02**: 再構築版作成（開発環境・2台運用をフェーズ0 として追加、yakage_italian 実装計画を統合）
 - **2025/03/02**: フェーズ0 開始。0-1（初回コミット・develop・.gitignore）、0-3（docker-compose・php.ini・.env.example）、0-5（wp-config・2台運用注意）を実施。実施手順書・runbook 追加。
+- **2025/03/02**: 現状記録作成。本マシンで .env 作成・docker-compose 起動・WordPress 初期設定（サイト情報入力）まで完了。詳細は devnotes/202503021800-current-status.md。
 
 ---
 
