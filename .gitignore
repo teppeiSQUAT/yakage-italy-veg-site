@@ -6,8 +6,13 @@ wordpress/html/wp-config.php
 db/mysql/
 
 # WordPress コア（コンテナで展開されるためリポジトリでは管理しない）
-# カスタムテーマは別ディレクトリで管理し、マウントまたはデプロイで反映
-wordpress/html/
+# 例外: wp-content/themes/yakage-italy-veg のみ Git 管理
+wordpress/html/*
+!wordpress/html/wp-content/
+wordpress/html/wp-content/*
+!wordpress/html/wp-content/themes/
+wordpress/html/wp-content/themes/*
+!wordpress/html/wp-content/themes/yakage-italy-veg/
 
 # 環境変数（機密情報）
 .env
