@@ -77,6 +77,7 @@
 |----------|------|
 | devnotes/202503021430-dev-env-and-implementation-plan.md | 全体実装計画・フェーズ0〜8 の TODO |
 | devnotes/202503032300-top-page-theme-implementation-plan.md | TOPページテーマ実装計画（Phase A〜H、コンテンツブロック単位） |
+| devnotes/202503032300-scss-workflow.md | SCSS 開発環境ワークフロー（コンパイル・watch） |
 | devnotes/202503021500-phase0-runbook.md | フェーズ0 実施手順（本マシン・別マシン） |
 | devnotes/202503021430-git-workflow-and-branches.md | ブランチ戦略・SourceTree 運用ルール。**本機=develop、ノート機=feature/xxx 推奨**の記載あり |
 | devnotes/202503021500-wpconfig-and-2machine-notes.md | wp-config・2台運用の注意事項 |

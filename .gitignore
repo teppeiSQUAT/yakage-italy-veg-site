@@ -17,6 +17,9 @@ wordpress/html/wp-content/themes/*
 # 環境変数（機密情報）
 .env
 
+# Node
+node_modules/
+
 # OS
 .DS_Store
 Thumbs.db

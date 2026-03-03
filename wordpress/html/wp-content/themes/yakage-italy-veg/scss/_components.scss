@@ -1,0 +1,33 @@
+// ========================================
+// ボタンコンポーネント
+// ========================================
+
+.c-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &--red {
+    background-color: var(--color-red);
+    color: var(--color-white);
+  }
+
+  &--green {
+    background-color: var(--color-green);
+    color: var(--color-white);
+  }
+
+  &--white {
+    background-color: var(--color-white);
+    color: var(--color-red);
+  }
+}

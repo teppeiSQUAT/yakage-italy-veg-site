@@ -1,0 +1,14 @@
+// ========================================
+// 共通コンテナ・セクション
+// ========================================
+
+.l-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.l-section {
+  padding: var(--section-padding-y) 0;
+}

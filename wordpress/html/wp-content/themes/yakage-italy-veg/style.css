@@ -1,0 +1,158 @@
+@charset "UTF-8";
+/*!
+Theme Name: Yakage Italy Veg
+Theme URI: https://github.com/teppeiSQUAT/yakage-italy-veg-site
+Author: Yakage Italy Veg Project
+Description: 矢掛町イタリア野菜プロジェクト 公式サイト用テーマ
+Version: 0.1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: yakage-italy-veg
+*/
+:root {
+  --color-green: #2d7a3e;
+  --color-green-light: #4a9d5a;
+  --color-red: #c41e3a;
+  --color-red-dark: #a01830;
+  --color-white: #ffffff;
+  --color-off-white: #f8f8f5;
+  --color-dark-gray: #333333;
+  --color-black: #1a1a1a;
+  --color-text: #333333;
+  --color-text-light: #666666;
+  --font-family-base: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 18px;
+  --line-height-base: 1.6;
+  --container-max-width: 1200px;
+  --section-padding-y: 60px;
+  --section-padding-x: 20px;
+  --gap-base: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  background-color: var(--color-white);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+a {
+  color: var(--color-red);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.l-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.l-section {
+  padding: var(--section-padding-y) 0;
+}
+
+.c-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.c-btn:hover {
+  opacity: 0.9;
+}
+.c-btn--red {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+.c-btn--green {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+.c-btn--white {
+  background-color: var(--color-white);
+  color: var(--color-red);
+}
+
+.l-header {
+  background-color: var(--color-white);
+  border-bottom: 1px solid #eee;
+}
+
+.l-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.l-header__logo a {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  font-weight: bold;
+  text-decoration: none;
+}
+.l-header__logo a:hover {
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.c-nav-list {
+  display: flex;
+  gap: var(--gap-base);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.c-nav-list a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+.c-nav-list a:hover {
+  color: var(--color-red);
+}
+
+.l-footer {
+  background-color: var(--color-dark-gray);
+  color: var(--color-white);
+  padding: 24px 0;
+}
+
+.l-footer__copyright {
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+.l-placeholder {
+  padding: 40px;
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+/*# sourceMappingURL=style.css.map */

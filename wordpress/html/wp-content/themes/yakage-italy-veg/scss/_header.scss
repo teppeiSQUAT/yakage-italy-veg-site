@@ -1,0 +1,46 @@
+// ========================================
+// ヘッダー（Phase B で詳細化）
+// ========================================
+
+.l-header {
+  background-color: var(--color-white);
+  border-bottom: 1px solid #eee;
+}
+
+.l-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.l-header__logo a {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  font-weight: bold;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.9;
+    text-decoration: none;
+  }
+}
+
+.c-nav-list {
+  display: flex;
+  gap: var(--gap-base);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    color: var(--color-text);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-red);
+    }
+  }
+}
