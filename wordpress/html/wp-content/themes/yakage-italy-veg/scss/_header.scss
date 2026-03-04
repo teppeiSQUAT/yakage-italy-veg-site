@@ -1,31 +1,95 @@
 // ========================================
-// ヘッダー（Phase B で詳細化）
+// ヘッダー（TOP 初回 / スクロール時 / 下層）
 // ========================================
 
 .l-header {
-  background-color: var(--color-white);
-  border-bottom: 1px solid #eee;
-}
+  z-index: 100;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 
-.l-header__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-}
-
-.l-header__logo a {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: var(--color-red);
-  color: var(--color-white);
-  font-weight: bold;
-  text-decoration: none;
-
-  &:hover {
-    opacity: 0.9;
-    text-decoration: none;
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
   }
+
+  &__logo a {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--color-red);
+    color: var(--color-white);
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.9;
+      text-decoration: none;
+    }
+  }
+
+  &__nav {
+    display: block;
+  }
+
+  &__hamburger {
+    display: none;
+  }
+
+  // TOP 初回: ヒーロー上にオーバーレイ
+  &--top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    border-bottom: none;
+
+    .l-header__logo a {
+      background-color: var(--color-red);
+    }
+
+    .c-nav-list a {
+      color: var(--color-white);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  // TOP スクロール時: 上からスライドイン固定
+  &--top.is-scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    border-bottom: 1px solid #eee;
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    .c-nav-list a {
+      color: var(--color-text);
+      text-shadow: none;
+    }
+  }
+
+  // TOP 初回でまだスクロールしていない時はヘッダーを画面上部に（スライドイン前は非表示にしない）
+  &--top:not(.is-scrolled) {
+    position: absolute;
+  }
+
+  // 下層ページ: 常に固定表示
+  &--sub {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    border-bottom: 1px solid #eee;
+  }
+}
+
+// 下層ページ用: 固定ヘッダー分の余白
+body:not(.is-front-page) .l-main {
+  padding-top: 60px;
 }
 
 .c-nav-list {
@@ -42,5 +106,96 @@
     &:hover {
       color: var(--color-red);
     }
+  }
+}
+
+// ハンバーガー（スマホ時表示・Phase H でブレークポイント調整）
+.c-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  &__bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+}
+
+// ドロワー（スマホ用）
+.l-drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+
+  .is-drawer-open & {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.l-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  max-width: 85vw;
+  height: 100vh;
+  background: var(--color-white);
+  z-index: 160;
+  padding: 80px 24px 24px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+
+  .is-drawer-open & {
+    transform: translateX(0);
+  }
+}
+
+.c-drawer-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    display: block;
+    padding: 12px 0;
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+
+    &:hover {
+      color: var(--color-red);
+    }
+  }
+}
+
+// スマホ: ハンバーガー・ドロワー表示（Phase H でブレークポイント統一）
+@media (max-width: 767px) {
+  .l-header__nav {
+    display: none;
+  }
+
+  .l-header__hamburger {
+    display: flex;
+  }
+
+  .l-drawer-overlay {
+    display: block;
   }
 }

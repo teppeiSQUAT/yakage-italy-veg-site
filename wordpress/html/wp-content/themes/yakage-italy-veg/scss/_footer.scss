@@ -8,9 +8,25 @@
   padding: 24px 0;
 }
 
+.l-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .l-footer__copyright {
   margin: 0;
   font-size: var(--font-size-sm);
+}
+
+.l-footer__icons {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .l-placeholder {

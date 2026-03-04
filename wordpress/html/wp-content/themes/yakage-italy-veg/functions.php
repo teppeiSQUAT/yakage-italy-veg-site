@@ -30,11 +30,25 @@ add_action( 'after_setup_theme', 'yakage_italy_veg_setup' );
  * スクリプト・スタイルの読み込み
  */
 function yakage_italy_veg_scripts() {
+	// Google Fonts: Zen Maru Gothic
+	wp_enqueue_style(
+		'google-font-zen-maru-gothic',
+		'https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap',
+		array(),
+		null
+	);
 	wp_enqueue_style(
 		'yakage-italy-veg-style',
 		get_stylesheet_uri(),
-		array(),
+		array( 'google-font-zen-maru-gothic' ),
 		'0.1.0'
+	);
+	wp_enqueue_script(
+		'yakage-italy-veg-header',
+		get_theme_file_uri( 'assets/js/header.js' ),
+		array(),
+		'0.1.0',
+		true
 	);
 }
 add_action( 'wp_enqueue_scripts', 'yakage_italy_veg_scripts' );
@@ -54,6 +68,20 @@ add_action( 'init', 'yakage_italy_veg_menus' );
  */
 function yakage_italy_veg_default_menu() {
 	echo '<ul class="c-nav-list">';
+	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">HOME</a></li>';
+	echo '<li><a href="#">野菜紹介</a></li>';
+	echo '<li><a href="#">イベント</a></li>';
+	echo '<li><a href="#">農家紹介</a></li>';
+	echo '<li><a href="#">アクセス</a></li>';
+	echo '<li><a href="#">お問い合わせ</a></li>';
+	echo '</ul>';
+}
+
+/**
+ * ドロワー用メニュー未設定時の表示
+ */
+function yakage_italy_veg_default_drawer_menu() {
+	echo '<ul class="c-drawer-nav">';
 	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">HOME</a></li>';
 	echo '<li><a href="#">野菜紹介</a></li>';
 	echo '<li><a href="#">イベント</a></li>';
