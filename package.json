@@ -1,0 +1,13 @@
+{
+  "name": "yakage-italy-veg-site",
+  "version": "0.1.0",
+  "description": "矢掛町イタリア野菜プロジェクト 公式サイト",
+  "private": true,
+  "scripts": {
+    "sass:build": "sass wordpress/html/wp-content/themes/yakage-italy-veg/scss/style.scss:wordpress/html/wp-content/themes/yakage-italy-veg/style.css --style expanded",
+    "sass:watch": "sass wordpress/html/wp-content/themes/yakage-italy-veg/scss/style.scss:wordpress/html/wp-content/themes/yakage-italy-veg/style.css --style expanded --watch --embed-sources"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}

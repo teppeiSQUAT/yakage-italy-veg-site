@@ -1,6 +1,6 @@
 # 矢掛町イタリア野菜プロジェクト - 開発環境（2台同一構成）
 # 起動: docker-compose up -d
-# WordPress: http://localhost:8080  / phpMyAdmin: http://localhost:8888
+# WordPress: http://localhost:8080  / phpMyAdmin: http://localhost:8890
 version: "3.8"
 services:
   db:
@@ -45,7 +45,7 @@ services:
     depends_on:
       - db
     ports:
-      - "8888:80"
+      - "8890:80"
     environment:
       PMA_HOST: db
       PMA_USER: ${MYSQL_USER:-wp_user}
