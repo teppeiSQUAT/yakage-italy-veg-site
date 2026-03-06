@@ -340,6 +340,324 @@ body:not(.is-front-page) .l-main {
   background-color: var(--color-green);
 }
 
+.p-news {
+  background-color: #1e5631;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cellipse fill='%232a7d3e' fill-opacity='0.08' cx='30' cy='30' rx='20' ry='20'/%3E%3C/svg%3E");
+  color: var(--color-white);
+  padding: var(--section-padding-y) 0;
+}
+
+.p-news__title {
+  margin: 0 0 32px;
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-white);
+}
+
+.p-news__pickup {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.p-news__pickup-label {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 20px;
+  margin-bottom: -4px;
+  margin-left: 24px;
+}
+
+.p-news__pickup-slider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.p-news__pickup-arrow {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(30, 86, 49, 0.9);
+  color: var(--color-white);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  transition: background 0.2s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.p-news__pickup-arrow:hover {
+  background-color: #1e5631;
+  opacity: 0.95;
+}
+.p-news__pickup-arrow--prev::before {
+  content: "‹";
+}
+.p-news__pickup-arrow--next::before {
+  content: "›";
+}
+
+.p-news__pickup-track {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  gap: 0;
+}
+
+.p-news__pickup-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.p-news__pickup-card {
+  display: flex;
+  background: var(--color-white);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  border: 2px solid var(--color-red);
+  min-height: 260px;
+}
+.p-news__pickup-card:hover {
+  opacity: 0.98;
+}
+
+.p-news__pickup-card-image {
+  flex: 0 0 40%;
+  position: relative;
+  background: #eee;
+}
+.p-news__pickup-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.p-news__pickup-card-body {
+  flex: 1;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.p-news__pickup-card-body .p-news__card-title {
+  font-size: 17px;
+}
+.p-news__pickup-card-body .p-news__excerpt {
+  -webkit-line-clamp: 4;
+}
+
+.p-news__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+
+.p-news__meta-sep {
+  color: var(--color-text-light);
+  font-size: 12px;
+  margin: 0 2px;
+}
+
+.p-news__pickup-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.p-news__pickup-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+.p-news__pickup-dot:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+.p-news__pickup-dot--active {
+  background: var(--color-red);
+}
+
+.p-news__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.p-news__grid-item {
+  margin: 0;
+}
+
+.p-news__card {
+  display: block;
+  background: var(--color-white);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--color-green);
+  transition: box-shadow 0.2s;
+}
+.p-news__card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.p-news__card-image {
+  position: relative;
+  aspect-ratio: 16/10;
+  background: #eee;
+}
+.p-news__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.p-news__placeholder-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  color: #999;
+}
+
+.p-news__new-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+.p-news__new-tag--inline {
+  position: static;
+  margin-left: 6px;
+}
+
+.p-news__card-body {
+  padding: 16px;
+}
+
+.p-news__date {
+  font-size: 12px;
+  color: var(--color-text-light);
+}
+
+.p-news__cat {
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: var(--color-white);
+  font-weight: 500;
+}
+.p-news__cat--event {
+  background: var(--color-red);
+}
+.p-news__cat--otoshirase {
+  background: #2563eb;
+}
+.p-news__cat--recipe {
+  background: #16a34a;
+  color: var(--color-white);
+}
+.p-news__cat--pickup {
+  background: var(--color-red);
+}
+
+.p-news__card-title {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.4;
+  color: var(--color-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.p-news__excerpt {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.p-news__empty {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 40px 20px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--font-size-sm);
+}
+
+.p-news__more {
+  text-align: center;
+}
+
+.p-news__more .c-btn--green {
+  background-color: var(--color-green);
+  color: var(--color-white);
+  padding: 14px 48px;
+  border-radius: 999px;
+  border: 2px solid #247232;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+.p-news__more .c-btn--green:hover {
+  opacity: 0.95;
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .p-news__pickup-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .p-news__pickup-card-image {
+    flex: none;
+    aspect-ratio: 16/10;
+  }
+  .p-news__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
 .l-footer {
   background-color: #f2f2f2;
   color: #4a4a4a;
