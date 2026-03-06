@@ -66,4 +66,12 @@
       if (e.target.matches('a')) closeDrawer();
     });
   }
+
+  // フッター: ページトップへスクロール
+  const scrollTopBtn = document.querySelector('.c-scroll-top');
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 })();
