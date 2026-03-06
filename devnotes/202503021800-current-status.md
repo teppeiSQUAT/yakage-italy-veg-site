@@ -1,6 +1,6 @@
 # プロジェクト現状記録
 
-- **記録日**: 2025年3月5日
+- **記録日**: 2025年3月6日
 - **プロジェクト**: 矢掛町イタリア野菜プロジェクト 公式サイト（yakage-italy-veg-site）
 - **スケジュール**: **2025年3月11日（火）本番サーバーへテストアップ予定** → devnotes/202503031000-schedule-to-production-test.md
 
@@ -11,12 +11,14 @@
 |---------|------|------|
 | **フェーズ0** | 開発環境・2台運用基盤構築 | **進行中（本マシンほぼ完了）** |
 | **テーマ Phase A〜B** | テーマ基盤・ヘッダー・ヒーロー・フッター | **完了** |
-| **テーマ Phase C〜K** | お知らせ→Instagram→プロジェクト→イタリア野菜とは→生産者→サポーター→実績→お問い合わせ・レスポンシブ | **3/11 までに実施**（スケジュール参照） |
+| **テーマ Phase C** | お知らせセクション | **完了** |
+| **テーマ Phase D〜K** | Instagram→プロジェクト→イタリア野菜とは→生産者→サポーター→実績→お問い合わせ・レスポンシブ | **3/11 までに実施**（スケジュール参照） |
 | **本番テストアップ** | さくらサーバーへアップロード・確認 | **目標 3/11** |
 | フェーズ1〜8 | キックオフ 〜 リリース | 未着手／随時 |
 
-### 直近の反映（3/5 時点）
+### 直近の反映（3/6 時点）
 
+- **Phase C お知らせセクション**: 仕上がりイメージに合わせてレイアウト・スタイルを調整済み。PICKUP は赤枠・深緑丸の矢印・赤ドット（アクティブ）、ラベルがカード上端に重なる配置。グリッドは明るい緑枠・カテゴリはピル型（イベント=赤・お知らせ=青・レシピ=緑）、NEW はメタ行（日付｜カテゴリの横）のみ表示。「もっと見る」は緑角丸ボタン・枠線・シャドウ。日付とカテゴリの区切り「|」を共通で表示。
 - **フォント**: Google Fonts「Zen Maru Gothic」を全体のフォントとして採用済み。
 - **フッター**: 仕上がりイメージに合わせて実装済み。左（円形シール＋岡山県矢掛町・イタリア野菜プロジェクト）、中央（TOP｜サイトポリシー｜プライバシーポリシー、著作権「YYYY (c) yakage.」）、右（ページトップへスクロール用円形白ボタン）。配色はライトグレー背景・ダークグレー文字。header.js でスクロールトップ動作を実装。
 
@@ -38,7 +40,7 @@
 - **0-4 WordPress 開発環境（本マシン）**
   - `docker-compose up -d` 実行済み
   - http://localhost:8080 で WordPress 初期設定（サイト情報入力まで）完了
-  - 開発用 URL・phpMyAdmin（localhost:8888）は runbook に記載済み
+  - 開発用 URL・phpMyAdmin（localhost:8890）は runbook に記載済み（ポートは docker-compose で 8890 に設定済み）
 - **0-5 ファイル管理ルール**
   - wp-config の扱い・2台運用の注意事項を devnotes に記載済み
   - テーマ・プラグインはリポジトリ内ファイルで Git 共有する方針を明記
@@ -57,7 +59,7 @@
 
 - **ブランチ**: main / develop あり
 - **リモート**: origin（main / develop ともに push 済み）
-- **未コミット変更**: テーマ（フッター・SCSS）、devnotes 各種の更新がある可能性あり。必要に応じて `git status` で確認。
+- **未コミット変更**: テーマ（お知らせセクション・SCSS）、devnotes（現状記録等）の更新がある可能性あり。必要に応じて `git status` で確認。
 - **直近コミット**: （状況に応じて更新）
 
 ※ 現状記録の更新（本ファイル追加・計画書の状態更新）をコミットする場合は、develop で作業し「[フェーズ0] 現状記録・計画書更新」等のメッセージでコミット・push を推奨。
@@ -70,7 +72,7 @@
 |------|------|
 | WordPress | http://localhost:8080（初期設定済み） |
 | 管理画面 | http://localhost:8080/wp-admin |
-| phpMyAdmin | http://localhost:8888（.env の MYSQL_USER / MYSQL_PASSWORD） |
+| phpMyAdmin | http://localhost:8890（.env の MYSQL_USER / MYSQL_PASSWORD） |
 | コンテナ | db, wordpress, phpmyadmin（docker-compose） |
 | 認証 | GitHub は PAT または SSH で push 可能な状態 |
 
@@ -82,7 +84,7 @@
 |----------|------|
 | devnotes/202503021430-dev-env-and-implementation-plan.md | 全体実装計画・フェーズ0〜8 の TODO |
 | devnotes/202503031000-schedule-to-production-test.md | **3/11 本番テストアップ スケジュール・フェーズ別TODO** |
-| devnotes/202503032300-top-page-theme-implementation-plan.md | TOPページテーマ実装計画（Phase A〜H、コンテンツブロック単位） |
+| devnotes/202503032300-top-page-theme-implementation-plan.md | TOPページテーマ実装計画（Phase A〜K、コンテンツブロック単位） |
 | devnotes/202503032300-scss-workflow.md | SCSS 開発環境ワークフロー（コンパイル・watch） |
 | devnotes/202503021500-phase0-runbook.md | フェーズ0 実施手順（本マシン・別マシン） |
 | devnotes/202503021430-git-workflow-and-branches.md | ブランチ戦略・SourceTree 運用ルール。**本機=develop、ノート機=feature/xxx 推奨**の記載あり |
@@ -103,9 +105,9 @@
 4. **フェーズ0 完了後**  
    - フェーズ1（キックオフ）に進行
 5. **TOPページテーマ実装**  
-   - devnotes/202503032300-top-page-theme-implementation-plan.md の Phase A から順に実施
+   - Phase A〜C 完了。次は Phase D（Instagram セクション）から実施。devnotes/202503032300-top-page-theme-implementation-plan.md 参照。
 6. **3/11 本番テストアップ**  
-   - devnotes/202503031000-schedule-to-production-test.md に従い Phase C〜K と本番準備を実施
+   - devnotes/202503031000-schedule-to-production-test.md に従い Phase D〜K と本番準備を実施
 
 ---
 

@@ -181,7 +181,7 @@
 
 - [ ] 開発環境整備（Docker 確認・WordPress 初期設定）
 - [ ] テーマベース設定・テーマファイル作成（style.css, functions.php, header/footer 等）
-- [ ] **TOPページテーマ実装**: 詳細は devnotes/202503032300-top-page-theme-implementation-plan.md を参照（Phase A〜H、コンテンツブロック単位の TODO）
+- [ ] **TOPページテーマ実装**: 詳細は devnotes/202503032300-top-page-theme-implementation-plan.md を参照（Phase A〜K、Phase A〜C 完了・次は Phase D）
 - [ ] プラグイン設定（SEO、セキュリティ、キャッシュ等）
 - [ ] カスタム投稿タイプ・フィールド・タクソノミー（必要に応じて）
 - [ ] メニュー・ウィジェット設定
@@ -244,7 +244,8 @@ yakage-italy-veg-site/
 ## 進捗管理・更新履歴
 
 - 各フェーズの TODO のチェックで進捗管理。実装計画書は随時更新。
-- **2025/03/03**: TOPページテーマ実装計画を追加（devnotes/202503032300-top-page-theme-implementation-plan.md）。Phase A〜H、コンテンツブロック単位の TODO を定義。
+- **2025/03/03**: TOPページテーマ実装計画を追加（devnotes/202503032300-top-page-theme-implementation-plan.md）。Phase A〜K、コンテンツブロック単位の TODO を定義。
+- **2025/03/06**: TOPページテーマ Phase C（お知らせセクション）完了。仕上がりイメージに合わせたレイアウト・スタイル調整済み。次は Phase D（Instagram）。
 - **2025/03/02**: 再構築版作成（開発環境・2台運用をフェーズ0 として追加、yakage_italian 実装計画を統合）
 - **2025/03/02**: フェーズ0 開始。0-1（初回コミット・develop・.gitignore）、0-3（docker-compose・php.ini・.env.example）、0-5（wp-config・2台運用注意）を実施。実施手順書・runbook 追加。
 - **2025/03/02**: 現状記録作成。本マシンで .env 作成・docker-compose 起動・WordPress 初期設定（サイト情報入力）まで完了。詳細は devnotes/202503021800-current-status.md。
