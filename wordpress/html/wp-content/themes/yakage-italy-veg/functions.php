@@ -124,6 +124,53 @@ function yakage_italy_veg_get_news_archive_url() {
 }
 
 /**
+ * カスタマイザー: Instagram セクション用 URL
+ */
+function yakage_italy_veg_customize_register_instagram( $wp_customize ) {
+	$wp_customize->add_section( 'yakage_instagram', array(
+		'title'    => __( 'Instagram セクション', 'yakage-italy-veg' ),
+		'priority' => 120,
+	) );
+	$wp_customize->add_setting( 'yakage_instagram_url', array(
+		'default'           => 'https://www.instagram.com/',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'yakage_instagram_url', array(
+		'label'   => __( '公式 Instagram URL（follow us ボタン先）', 'yakage-italy-veg' ),
+		'section' => 'yakage_instagram',
+		'type'    => 'url',
+	) );
+	$wp_customize->add_setting( 'yakage_instagram_link_left', array(
+		'default'           => '#',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'yakage_instagram_link_left', array(
+		'label'   => __( '左下ブロック URL（岡山県 矢掛町）', 'yakage-italy-veg' ),
+		'section' => 'yakage_instagram',
+		'type'    => 'url',
+	) );
+	$wp_customize->add_setting( 'yakage_instagram_link_center', array(
+		'default'           => '#',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'yakage_instagram_link_center', array(
+		'label'   => __( '中央ブロック URL（矢掛町 × YouTube）', 'yakage-italy-veg' ),
+		'section' => 'yakage_instagram',
+		'type'    => 'url',
+	) );
+	$wp_customize->add_setting( 'yakage_instagram_link_right', array(
+		'default'           => '#',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'yakage_instagram_link_right', array(
+		'label'   => __( '右下ブロック URL（矢掛町地域おこし協力隊）', 'yakage-italy-veg' ),
+		'section' => 'yakage_instagram',
+		'type'    => 'url',
+	) );
+}
+add_action( 'customize_register', 'yakage_italy_veg_customize_register_instagram' );
+
+/**
  * ドロワー用メニュー未設定時の表示
  */
 function yakage_italy_veg_default_drawer_menu() {
