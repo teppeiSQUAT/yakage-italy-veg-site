@@ -1,0 +1,172 @@
+// ========================================
+// イタリア野菜とは（Phase F）
+// 左: タイトル・テキスト・ボタン / 右: 野菜グリッド（ホバー・タップでオーバーレイ）
+// PC: 3行3列 / スマホ: 3行2列
+// ========================================
+
+.p-vegetables {
+  padding: var(--section-padding-y) 0;
+  background-color: var(--color-white);
+}
+
+.p-vegetables__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.p-vegetables__content {
+  position: sticky;
+  top: 100px;
+}
+
+.p-vegetables__title {
+  margin: 0 0 12px;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.p-vegetables__title-line {
+  display: block;
+  width: 120px;
+  height: 0;
+  margin: 0 0 24px;
+  border: none;
+  border-top: 2px dashed transparent;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-green) 0,
+    var(--color-green) 6px,
+    var(--color-red) 6px,
+    var(--color-red) 12px
+  );
+}
+
+.p-vegetables__text {
+  margin: 0 0 24px;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+}
+
+.p-vegetables__cta .c-btn--red {
+  display: inline-block;
+  padding: 14px 32px;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+    color: var(--color-white);
+    text-decoration: none;
+  }
+}
+
+// 野菜グリッド: PC 3x3 / スマホ 2列（余白なし・角丸なし）
+.p-vegetables__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.p-vegetables__card {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.p-vegetables__card-image {
+  position: absolute;
+  inset: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+    color: var(--color-text-light);
+    font-size: 12px;
+  }
+}
+
+// オーバーレイ: 名称・特徴・オススメ時期（PC は hover、スマホは .is-open）
+.p-vegetables__card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  color: var(--color-white);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+
+  .p-vegetables__card:hover &,
+  .p-vegetables__card.is-open & {
+    opacity: 1;
+  }
+
+  @media (max-width: 767px) {
+    pointer-events: auto;
+    opacity: 0;
+    .p-vegetables__card.is-open & {
+      opacity: 1;
+    }
+  }
+}
+
+.p-vegetables__card-name {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--color-red);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.p-vegetables__card-desc {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.p-vegetables__card-season {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 10px;
+  background-color: var(--color-green);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 4px;
+}

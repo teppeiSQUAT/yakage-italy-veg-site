@@ -1,6 +1,6 @@
 # 矢掛町イタリア野菜プロジェクト - 開発環境（2台同一構成）
 # 起動: docker-compose up -d
-# WordPress: http://localhost:8081  / phpMyAdmin: http://localhost:8890
+# WordPress: http://localhost:8082  / phpMyAdmin: http://localhost:8890
 version: "3.8"
 services:
   db:
@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
     ports:
-      - "8081:80"
+      - "8082:80"
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-yakage_italy_veg_db}

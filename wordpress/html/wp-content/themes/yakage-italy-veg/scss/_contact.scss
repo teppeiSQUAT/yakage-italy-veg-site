@@ -1,0 +1,190 @@
+// ========================================
+// お問い合わせ（Phase J）
+// 完成イメージ: オフホワイト角丸コンテナ・ラベル左／入力右・同意チェック・送信ボタン・破線＋注意文
+// ========================================
+
+.p-contact {
+  padding: var(--section-padding-y) 0;
+  background-color: var(--color-white);
+}
+
+.p-contact__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.p-contact__title {
+  margin: 0 0 12px;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.p-contact__title-line {
+  display: block;
+  width: 120px;
+  height: 0;
+  margin: 0 auto;
+  border: none;
+  border-top: 2px dashed transparent;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-red) 0,
+    var(--color-red) 6px,
+    var(--color-green) 6px,
+    var(--color-green) 12px
+  );
+}
+
+// フォームを囲む薄いベージュの角丸ブロック
+.p-contact__form-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  background: var(--color-off-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+.p-contact__form {
+  margin: 0;
+}
+
+// ラベル左・入力右の1行レイアウト
+.p-contact__field {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  label {
+    flex: 0 0 120px;
+    padding-top: 10px;
+    font-size: var(--font-size-sm);
+  font-weight: bold;
+    color: var(--color-text);
+  }
+}
+
+.p-contact__input-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.p-contact__field input,
+.p-contact__field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-white);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: var(--color-text-light);
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 2px rgba(45, 122, 62, 0.2);
+  }
+}
+
+.p-contact__field textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+// 個人情報同意チェック
+.p-contact__consent {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.p-contact__consent-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.p-contact__checkbox-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-green);
+    cursor: pointer;
+  }
+}
+
+.p-contact__checkbox-text {
+  user-select: none;
+}
+
+.p-contact__submit {
+  margin: 28px 0 0;
+  text-align: center;
+}
+
+.p-contact__submit .c-btn--green {
+  padding: 14px 48px;
+  border-radius: 10px;
+  font-size: var(--font-size-base);
+}
+
+// 注意文上の破線
+.p-contact__note-line {
+  display: block;
+  width: 160px;
+  height: 0;
+  margin: 28px auto 16px;
+  border: none;
+  border-top: 1px dashed #bbb;
+}
+
+.p-contact__note {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  text-align: center;
+}
+
+// スマホ: ラベル上・入力下に変更
+@media (max-width: 767px) {
+  .p-contact__form-wrap {
+    padding: 24px 20px;
+  }
+
+  .p-contact__field {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+
+    label {
+      flex: none;
+      padding-top: 0;
+    }
+  }
+
+  .p-contact__consent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

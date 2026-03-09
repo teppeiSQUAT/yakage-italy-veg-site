@@ -60,11 +60,16 @@ function yakage_italy_veg_scripts() {
 		array(),
 		null
 	);
+	$theme_version = '0.1.0';
+	$style_path    = get_stylesheet_directory() . '/style.css';
+	if ( file_exists( $style_path ) ) {
+		$theme_version = (string) filemtime( $style_path );
+	}
 	wp_enqueue_style(
 		'yakage-italy-veg-style',
 		get_stylesheet_uri(),
 		array( 'google-font-zen-maru-gothic' ),
-		'0.1.0'
+		$theme_version
 	);
 	wp_enqueue_script(
 		'yakage-italy-veg-header',
@@ -76,6 +81,20 @@ function yakage_italy_veg_scripts() {
 	wp_enqueue_script(
 		'yakage-italy-veg-news-slider',
 		get_theme_file_uri( 'assets/js/news-slider.js' ),
+		array(),
+		'0.1.0',
+		true
+	);
+	wp_enqueue_script(
+		'yakage-italy-veg-vegetables',
+		get_theme_file_uri( 'assets/js/vegetables.js' ),
+		array(),
+		'0.1.0',
+		true
+	);
+	wp_enqueue_script(
+		'yakage-italy-veg-producers-slider',
+		get_theme_file_uri( 'assets/js/producers-slider.js' ),
 		array(),
 		'0.1.0',
 		true
@@ -169,6 +188,47 @@ function yakage_italy_veg_customize_register_instagram( $wp_customize ) {
 	) );
 }
 add_action( 'customize_register', 'yakage_italy_veg_customize_register_instagram' );
+
+/**
+ * カスタマイザー: イタリア野菜プロジェクトについて（Phase E）YouTube 動画 ID
+ */
+function yakage_italy_veg_customize_register_project( $wp_customize ) {
+	$wp_customize->add_section( 'yakage_project', array(
+		'title'    => __( 'イタリア野菜プロジェクトについて', 'yakage-italy-veg' ),
+		'priority' => 125,
+	) );
+	$wp_customize->add_setting( 'yakage_project_youtube_id', array(
+		'default'           => 'jNQXAC9IVRw',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'yakage_project_youtube_id', array(
+		'label'       => __( 'YouTube 動画 ID（SPECIAL movie 埋め込み）', 'yakage-italy-veg' ),
+		'description' => __( '例: 動画 URL が https://www.youtube.com/watch?v=XXXXXXXX の場合、XXXXXXXX のみ入力', 'yakage-italy-veg' ),
+		'section'     => 'yakage_project',
+		'type'        => 'text',
+	) );
+}
+add_action( 'customize_register', 'yakage_italy_veg_customize_register_project' );
+
+/**
+ * カスタマイザー: イタリア野菜とは（Phase F）
+ */
+function yakage_italy_veg_customize_register_vegetables( $wp_customize ) {
+	$wp_customize->add_section( 'yakage_vegetables', array(
+		'title'    => __( 'イタリア野菜とは', 'yakage-italy-veg' ),
+		'priority' => 127,
+	) );
+	$wp_customize->add_setting( 'yakage_vegetables_order_url', array(
+		'default'           => '#',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'yakage_vegetables_order_url', array(
+		'label'   => __( 'ご注文はこちら ボタン URL', 'yakage-italy-veg' ),
+		'section' => 'yakage_vegetables',
+		'type'    => 'url',
+	) );
+}
+add_action( 'customize_register', 'yakage_italy_veg_customize_register_vegetables' );
 
 /**
  * ドロワー用メニュー未設定時の表示

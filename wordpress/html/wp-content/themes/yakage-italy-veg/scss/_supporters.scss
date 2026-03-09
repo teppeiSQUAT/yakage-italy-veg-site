@@ -1,0 +1,147 @@
+// ========================================
+// サポーター紹介（Phase H）
+// 1ブロック＝顔写真（円形）＋名前・店舗名（赤吹き出し）。3列グリッド。
+// ========================================
+
+.p-supporters {
+  padding: var(--section-padding-y) 0;
+  background-color: #f5d8d8;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle fill='%23ffffff' fill-opacity='0.6' cx='12' cy='12' r='4'/%3E%3C/svg%3E");
+}
+
+.p-supporters__header {
+  margin-bottom: 40px;
+}
+
+.p-supporters__header-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 100%;
+  padding: 20px 28px;
+  background: var(--color-white);
+  border: 2px dashed var(--color-red);
+  border-radius: 12px;
+}
+
+.p-supporters__title {
+  margin: 0;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: bold;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.p-supporters__header-divider {
+  width: 1px;
+  height: 1.2em;
+  background-color: var(--color-dark-gray);
+  flex-shrink: 0;
+}
+
+.p-supporters__catchphrase {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--color-text);
+  flex: 1;
+  min-width: 0;
+}
+
+// ----- グリッド -----
+.p-supporters__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 16px;
+  }
+}
+
+.p-supporters__card {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+}
+
+// 円形顔写真
+.p-supporters__card-photo {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--color-red);
+  background: var(--color-white);
+  overflow: hidden;
+  object-fit: cover;
+
+  &--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0e0e0 0%, #f8f0f0 100%);
+    color: var(--color-text-light);
+    font-size: 12px;
+  }
+}
+
+// 赤吹き出し（右に矢印）
+.p-supporters__card-info {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px 10px 16px;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  border-radius: 0 10px 10px 0;
+  position: relative;
+  margin-left: -4px;
+
+  // 左側の三角（写真側に食い込む）
+  &::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: var(--color-red);
+    border-left-width: 0;
+  }
+
+  // 右側のとがり（矢印）
+  &::after {
+    content: "";
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-left-color: var(--color-red);
+    border-right-width: 0;
+  }
+}
+
+.p-supporters__card-name {
+  margin: 0 0 2px;
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.p-supporters__card-affiliation {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.95;
+}
