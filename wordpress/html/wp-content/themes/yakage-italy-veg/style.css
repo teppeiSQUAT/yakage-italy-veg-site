@@ -12,6 +12,7 @@ Text Domain: yakage-italy-veg
 :root {
   --color-green: #2d7a3e;
   --color-green-light: #4a9d5a;
+  --color-green-lime: #9edb09;
   --color-red: #c41e3a;
   --color-red-dark: #a01830;
   --color-white: #ffffff;
@@ -100,25 +101,45 @@ a:hover {
 
 .l-header {
   z-index: 100;
+  overflow: visible;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
+.l-header__container {
+  position: relative;
+  background-color: var(--color-white);
+}
 .l-header__inner {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 16px 0;
+  padding: 12px 0 14px;
+  min-height: 80px;
+  padding-left: 200px;
+  background-color: #fff;
+}
+.l-header__logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
 }
 .l-header__logo a {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: var(--color-red);
-  color: var(--color-white);
-  font-weight: bold;
+  display: block;
+  line-height: 0;
   text-decoration: none;
 }
 .l-header__logo a:hover {
-  opacity: 0.9;
-  text-decoration: none;
+  opacity: 0.92;
+}
+.l-header__logo-img {
+  display: block;
+  height: 170px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  object-position: left top;
+  vertical-align: top;
 }
 .l-header__nav {
   display: block;
@@ -131,29 +152,20 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  background-color: transparent;
-  border-bottom: none;
-}
-.l-header--top .l-header__logo a {
-  background-color: var(--color-red);
+  background-color: var(--color-white);
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 .l-header--top .c-nav-list a {
-  color: var(--color-white);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  color: var(--color-text);
+  text-shadow: none;
 }
 .l-header--top.is-scrolled {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: var(--color-white);
-  border-bottom: 1px solid #eee;
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-.l-header--top.is-scrolled .c-nav-list a {
-  color: var(--color-text);
-  text-shadow: none;
 }
 .l-header--top:not(.is-scrolled) {
   position: absolute;
@@ -173,17 +185,38 @@ body:not(.is-front-page) .l-main {
 
 .c-nav-list {
   display: flex;
-  gap: var(--gap-base);
+  gap: 32px;
   margin: 0;
   padding: 0;
   list-style: none;
+  letter-spacing: 0.02em;
 }
 .c-nav-list a {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
   color: var(--color-text);
   text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
 }
-.c-nav-list a:hover {
+.c-nav-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  background-color: var(--color-green-lime);
+  transition: height 0.2s ease;
+}
+.c-nav-list a:hover, .c-nav-list a.current-menu-item {
   color: var(--color-red);
+}
+.c-nav-list a:hover::after, .c-nav-list a.current-menu-item::after {
+  height: 3px;
+  left: -4px;
+  right: -4px;
 }
 
 .c-hamburger {
@@ -256,6 +289,14 @@ body:not(.is-front-page) .l-main {
 }
 
 @media (max-width: 767px) {
+  .l-header__inner {
+    padding-left: 0;
+    min-height: 52px;
+  }
+  .l-header__logo-img {
+    height: 72px;
+    max-width: 160px;
+  }
   .l-header__nav {
     display: none;
   }

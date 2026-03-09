@@ -4,27 +4,51 @@
 
 .l-header {
   z-index: 100;
+  overflow: visible;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 
+  &__container {
+    position: relative;
+    background-color: var(--color-white);
+  }
+
   &__inner {
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    padding: 16px 0;
+    padding: 12px 0 14px;
+    min-height: 80px;
+    padding-left: 200px;
+    background-color: #fff;
+  }
+
+  // ロゴ: 絶対配置。白いヘッダーバーの高さに依存せず、左上基準で下方向にはみ出して表示
+  &__logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
   }
 
   &__logo a {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: var(--color-red);
-    color: var(--color-white);
-    font-weight: bold;
+    display: block;
+    line-height: 0;
     text-decoration: none;
 
     &:hover {
-      opacity: 0.9;
-      text-decoration: none;
+      opacity: 0.92;
     }
+  }
+
+  &__logo-img {
+    display: block;
+    height: 170px;
+    width: auto;
+    max-width: 240px;
+    object-fit: contain;
+    object-position: left top;
+    vertical-align: top;
   }
 
   &__nav {
@@ -35,40 +59,29 @@
     display: none;
   }
 
-  // TOP 初回: ヒーロー上にオーバーレイ
+  // TOP: 最初から白背景（スクロール前後で見た目を統一）
   &--top {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    background-color: transparent;
-    border-bottom: none;
-
-    .l-header__logo a {
-      background-color: var(--color-red);
-    }
-
-    .c-nav-list a {
-      color: var(--color-white);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    }
-  }
-
-  // TOP スクロール時: 上からスライドイン固定
-  &--top.is-scrolled {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     background-color: var(--color-white);
     border-bottom: 1px solid #eee;
-    transform: translateY(0);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
     .c-nav-list a {
       color: var(--color-text);
       text-shadow: none;
     }
+  }
+
+  // TOP スクロール時: 固定表示に切り替え（背景は最初から白のまま）
+  &--top.is-scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(0);
   }
 
   // TOP 初回でまだスクロールしていない時はヘッダーを画面上部に（スライドイン前は非表示にしない）
@@ -94,17 +107,41 @@ body:not(.is-front-page) .l-main {
 
 .c-nav-list {
   display: flex;
-  gap: var(--gap-base);
+  gap: 32px;
   margin: 0;
   padding: 0;
   list-style: none;
+  letter-spacing: 0.02em;
 
   a {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 4px;
     color: var(--color-text);
     text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
 
-    &:hover {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 0;
+      background-color: var(--color-green-lime);
+      transition: height 0.2s ease;
+    }
+
+    &:hover,
+    &.current-menu-item {
       color: var(--color-red);
+
+      &::after {
+        height: 3px;
+        left: -4px;
+        right: -4px;
+      }
     }
   }
 }
@@ -185,8 +222,18 @@ body:not(.is-front-page) .l-main {
   }
 }
 
-// スマホ: ハンバーガー・ドロワー表示（Phase H でブレークポイント統一）
+// スマホ: ハンバーガー・ドロワー表示、ロゴはやや小さく
 @media (max-width: 767px) {
+  .l-header__inner {
+    padding-left: 0;
+    min-height: 52px;
+  }
+
+  .l-header__logo-img {
+    height: 72px;
+    max-width: 160px;
+  }
+
   .l-header__nav {
     display: none;
   }

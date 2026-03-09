@@ -63,7 +63,8 @@ function yakage_italy_veg_scripts() {
 	$theme_version = '0.1.0';
 	$style_path    = get_stylesheet_directory() . '/style.css';
 	if ( file_exists( $style_path ) ) {
-		$theme_version = (string) filemtime( $style_path );
+		// 開発時: 毎回別 URL にしてキャッシュを避け、リロードで確実に最新 CSS を読む
+		$theme_version = defined( 'WP_DEBUG' ) && WP_DEBUG ? (string) time() : (string) filemtime( $style_path );
 	}
 	wp_enqueue_style(
 		'yakage-italy-veg-style',

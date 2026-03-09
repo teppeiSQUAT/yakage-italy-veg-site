@@ -24,10 +24,12 @@ if ( $is_front ) {
 <?php wp_body_open(); ?>
 
 <header class="<?php echo esc_attr( $header_class ); ?>" id="site-header">
-	<div class="l-container">
+	<div class="l-container l-header__container">
 		<div class="l-header__inner">
 			<div class="l-header__logo">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">YAKAGE ITALY VEG SITE</a>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="l-header__logo-img" />
+				</a>
 			</div>
 			<nav class="l-header__nav" aria-label="メインメニュー">
 				<?php

@@ -5,9 +5,13 @@
   "private": true,
   "scripts": {
     "sass:build": "sass wordpress/html/wp-content/themes/yakage-italy-veg/scss/style.scss:wordpress/html/wp-content/themes/yakage-italy-veg/style.css --style expanded",
-    "sass:watch": "sass wordpress/html/wp-content/themes/yakage-italy-veg/scss/style.scss:wordpress/html/wp-content/themes/yakage-italy-veg/style.css --style expanded --watch --embed-sources"
+    "sass:watch": "sass wordpress/html/wp-content/themes/yakage-italy-veg/scss/style.scss:wordpress/html/wp-content/themes/yakage-italy-veg/style.css --style expanded --watch --embed-sources",
+    "browser-sync": "browser-sync start --proxy http://localhost:8082 --files \"wordpress/html/wp-content/themes/yakage-italy-veg/style.css\" --no-notify",
+    "dev": "concurrently --names \"sass,bs\" -c \"cyan,green\" \"npm run sass:watch\" \"npm run browser-sync\""
   },
   "devDependencies": {
+    "browser-sync": "^3.0.0",
+    "concurrently": "^9.0.0",
     "sass": "^1.77.0"
   }
 }
