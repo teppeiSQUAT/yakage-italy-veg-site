@@ -1,11 +1,16 @@
 // ========================================
 // 生産者紹介（Phase G）
-// ループスライダー: PC 3〜4名表示 / スマホ 1名、矢印・ドット
+// 背景: 白 / 上部ボーダーは .c-border-line-top で共通化
 // ========================================
 
 .p-producers {
   padding: var(--section-padding-y) 0;
-  background-color: var(--color-off-white);
+  background-color: var(--color-white);
+}
+
+.p-producers .l-container {
+  max-width: none;
+  width: 100%;
 }
 
 .p-producers__header {
@@ -85,16 +90,18 @@
 .p-producers__card {
   flex: 0 0 8.333%; // 12枚中1枚分
   box-sizing: border-box;
-  padding: 0 6px;
+  padding: 0 16px;
   @media (min-width: 768px) {
-    padding: 0 8px;
+    padding: 0 20px;
+  }
+  @media (min-width: 1024px) {
+    padding: 0 24px;
   }
 }
 
 .p-producers__card-inner {
   background: var(--color-white);
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   padding-bottom: 20px;
 }

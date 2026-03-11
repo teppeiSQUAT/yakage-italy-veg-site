@@ -5,7 +5,7 @@
 
 .p-contact {
   padding: var(--section-padding-y) 0;
-  background-color: var(--color-white);
+  background-color: var(--section-contact-bg);
 }
 
 .p-contact__header {
@@ -17,7 +17,15 @@
   margin: 0 0 12px;
   font-size: clamp(18px, 2.2vw, 22px);
   font-weight: bold;
+  letter-spacing: 0.1em;
   color: var(--color-text);
+
+  // 二重線付きのとき: 幅＝文字幅＋左右6em（3em×2）、下余白1em
+  &.c-border-line-bottom {
+    display: inline-block;
+    padding: 0 3em 1em;
+    box-sizing: content-box;
+  }
 }
 
 .p-contact__title-line {
@@ -36,14 +44,13 @@
   );
 }
 
-// フォームを囲む薄いベージュの角丸ブロック
+// フォームを囲む角丸ブロック
 .p-contact__form-wrap {
-  max-width: 640px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 40px 32px;
-  background: var(--color-off-white);
+  background: #f8f3ed;
   border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
 }
 
 .p-contact__form {

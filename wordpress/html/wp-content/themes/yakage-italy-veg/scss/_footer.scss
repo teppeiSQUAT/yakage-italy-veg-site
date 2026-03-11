@@ -3,7 +3,7 @@
 // ========================================
 
 .l-footer {
-  background-color: #f2f2f2;
+  background-color: #e5e5e5;
   color: #4a4a4a;
   padding: 28px 0;
 }
@@ -26,21 +26,18 @@
 .l-footer__seal {
   width: 52px;
   height: 52px;
-  border-radius: 50%;
-  background-color: #d8d8d8;
-  border: 1px solid #c8c8c8;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
-.l-footer__seal-inner {
-  font-size: 9px;
-  font-weight: bold;
-  color: #5a5a5a;
-  text-align: center;
-  line-height: 1.2;
+.l-footer__seal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .l-footer__project-name {
@@ -99,38 +96,51 @@
   color: #6a6a6a;
 }
 
-// 右: ページトップへスクロールボタン（右揃え）
+// 右: ページトップへスクロールボタン（ビューポート最下部に半円で固定）
 .l-footer__right {
   justify-self: end;
 }
 
 .c-scroll-top {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  width: 100px;
+  height: 50px;
   border: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 50px 50px 0 0;
+  background-color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: box-shadow 0.2s;
+  padding: 0;
+  transition: background-color 0.2s;
+  z-index: 100;
+
+  // 上向き矢印を CSS で表示（角を折った四角を回転）
+  &::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    color: #333;
+    line-height: 1;
+    width: 1em;
+    height: 1em;
+    border: 0.1em solid currentColor;
+    border-left: 0;
+    border-bottom: 0;
+    box-sizing: border-box;
+    transform: translateY(25%) rotate(-45deg);
+  }
 
   &:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    background-color: #f5f5f5;
   }
 
   &:focus-visible {
     outline: 2px solid var(--color-red);
     outline-offset: 2px;
-  }
-
-  &__icon {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333333;
-    line-height: 1;
   }
 }
 

@@ -2,6 +2,29 @@
 // ボタンコンポーネント
 // ========================================
 
+// セクション上部の装飾線（赤・白／緑・白リピート、X方向にずらし）
+// 使用: 任意のセクションに class="c-border-line-top" を付与
+.c-border-line-top {
+  background-image:
+    repeating-linear-gradient(90deg, var(--color-red) 0, var(--color-red) 20px, #fff 20px, #fff 40px),
+    repeating-linear-gradient(90deg, var(--color-green-lime) 0, var(--color-green-lime) 20px, #fff 20px, #fff 40px);
+  background-size: 40px 4px, 40px 4px;
+  background-position: 0 0, 20px 4px;
+  background-repeat: repeat-x;
+}
+
+// 同スタイルを下端に表示（ヘッダー下ボーダー等）
+// 上段: 要素下端から 8px〜4px、下段: 要素下端から 4px〜0（.c-border-line-top と同じ二段）
+.c-border-line-bottom {
+  background-image:
+    repeating-linear-gradient(90deg, var(--color-red) 0, var(--color-red) 20px, transparent 20px, transparent 40px),
+    repeating-linear-gradient(90deg, var(--color-green-lime) 0, var(--color-green-lime) 20px, transparent 20px, transparent 40px);
+  background-size: 40px 4px, 40px 4px;
+  background-position: 0 calc(100% - 8px), 20px calc(100% - 4px);
+  background-repeat: repeat-x;
+  padding-bottom: 12px;
+}
+
 .c-btn {
   display: inline-block;
   padding: 12px 32px;

@@ -4,10 +4,10 @@
 
 :root {
   // カラー
-  --color-green: #2d7a3e;
+  --color-green: #009145;
   --color-green-light: #4a9d5a;
   --color-green-lime: #9edb09;
-  --color-red: #c41e3a;
+  --color-red: #f70801;
   --color-red-dark: #a01830;
   --color-white: #ffffff;
   --color-off-white: #f8f8f5;
@@ -16,15 +16,27 @@
   --color-text: #333333;
   --color-text-light: #666666;
 
+  // セクション背景（TOPページ・一括管理）
+  --section-news-bg: #009145;
+  --section-instagram-bg: #ffffff;
+  --section-project-bg: #ffffff;
+  --section-project-bg-gradient-top: #efe3d7;
+  --section-project-bg-gradient-bottom: #edf6fc;
+  --section-vegetables-bg: #ffffff;
+  --section-producers-bg: #f8f8f5;
+  --section-supporters-bg: #f5d8d8;
+  --section-achievements-bg: var(--color-red);
+  --section-contact-bg: #ffffff;
+
   // フォント（Google Fonts: Zen Maru Gothic）
   --font-family-base: "Zen Maru Gothic", "Hiragino Sans", "Meiryo", sans-serif;
   --font-size-base: 16px;
   --font-size-sm: 14px;
   --font-size-lg: 18px;
-  --line-height-base: 1.6;
+  --line-height-base: 1.8;
 
   // スペーシング
-  --container-max-width: 1200px;
+  --container-max-width: 1100px;
   --section-padding-y: 60px;
   --section-padding-x: 20px;
   --gap-base: 24px;

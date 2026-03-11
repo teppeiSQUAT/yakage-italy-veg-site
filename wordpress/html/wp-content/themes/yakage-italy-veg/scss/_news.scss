@@ -1,21 +1,71 @@
 // ========================================
 // お知らせセクション（Phase C）
-// 仕上がりイメージ準拠: 深緑・PICKUP（赤枠・赤ドット）・グリッド（緑枠）・もっと見る
+// 背景: #009145、野菜線画画像を上部・cover 配置（白線画は lighten で表示）
 // ========================================
 
 .p-news {
-  background-color: #1e5631;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cellipse fill='%232a7d3e' fill-opacity='0.08' cx='30' cy='30' rx='20' ry='20'/%3E%3C/svg%3E");
+  position: relative;
+  background-color: var(--section-news-bg);
   color: var(--color-white);
   padding: var(--section-padding-y) 0;
+  overflow: hidden;
+
+  // 野菜線画（黒地・白線）→ lighten で緑の上に白線のみ表示、透過50%
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('assets/images/bg_layveg01.png');
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+    mix-blend-mode: lighten;
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .l-container {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+  }
 }
 
 .p-news__title {
   margin: 0 0 32px;
-  font-size: var(--font-size-lg);
+  font-size: clamp(18px, 2.5vw, 28px);
   font-weight: bold;
   text-align: center;
   color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+
+  // 文字の左右に赤・白の縦二重線（赤3px → 隙間5px → 白3px、幅11px・高さ1.5em）
+  &::before,
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 11px;
+    height: 1.5em;
+    flex-shrink: 0;
+    background: linear-gradient(
+      90deg,
+      var(--color-red) 0,
+      var(--color-red) 3px,
+      transparent 3px,
+      transparent 8px,
+      var(--color-white) 8px,
+      var(--color-white) 11px
+    );
+    background-repeat: no-repeat;
+    vertical-align: middle;
+  }
 }
 
 // ----- PICKUP エリア（ラベルがカードに重なる・赤枠・緑丸矢印・赤ドット） -----
@@ -40,17 +90,28 @@
 .p-news__pickup-slider {
   display: flex;
   align-items: center;
-  gap: 16px;
   position: relative;
 }
 
+// トラック幅をグリッドと同じにし、矢印はその外側に配置
+.p-news__pickup-track {
+  width: 100%;
+  flex: 0 0 100%;
+  overflow: hidden;
+  display: flex;
+  gap: 0;
+}
+
 .p-news__pickup-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   flex-shrink: 0;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: none;
-  background-color: rgba(30, 86, 49, 0.9);
+  border: solid #fff 2px;
+  background-color: transparent;
   color: var(--color-white);
   cursor: pointer;
   font-size: 24px;
@@ -59,22 +120,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
 
   &:hover {
-    background-color: #1e5631;
+    background-color: var(--color-white);
+    color:var(--color-green);
     opacity: 0.95;
+  }
+
+  &--prev {
+    left: -15px;
+    transform: translateY(-50%) translateX(-100%);
+  }
+
+  &--next {
+    right: -15px;
+    transform: translateY(-50%) translateX(100%);
   }
 
   &--prev::before { content: "‹"; }
   &--next::before { content: "›"; }
-}
-
-.p-news__pickup-track {
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-  gap: 0;
 }
 
 .p-news__pickup-slide {
@@ -87,11 +152,11 @@
   background: var(--color-white);
   color: var(--color-text);
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-  border: 2px solid var(--color-red);
+  border: 4px solid var(--color-red);
   min-height: 260px;
+  padding:30px;
 
   &:hover {
     opacity: 0.98;
@@ -119,7 +184,7 @@
   gap: 12px;
 
   .p-news__card-title {
-    font-size: 17px;
+    font-size: 26px;
   }
 
   .p-news__excerpt {
@@ -183,11 +248,10 @@
   background: var(--color-white);
   color: var(--color-text);
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 20px;
+  padding:20px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  border: 2px solid var(--color-green);
-  transition: box-shadow 0.2s;
+
 
   &:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -226,7 +290,7 @@
   color: var(--color-white);
   font-size: 11px;
   font-weight: bold;
-  padding: 4px 10px;
+  padding: 2px 10px;
   border-radius: 2px;
 
   &--inline {
@@ -236,32 +300,33 @@
 }
 
 .p-news__card-body {
-  padding: 16px;
+  padding: 16px 0;
 }
 
 .p-news__date {
   font-size: 12px;
+  letter-spacing: 1px;
   color: var(--color-text-light);
 }
 
 .p-news__cat {
   display: inline-block;
   font-size: 11px;
-  padding: 4px 12px;
+  padding: 2px 12px;
   border-radius: 999px;
   color: var(--color-white);
   font-weight: 500;
 
   &--event {
-    background: var(--color-red);
+    background: #f6921e;
   }
 
   &--otoshirase {
-    background: #2563eb;
+    background: #29aae1;
   }
 
   &--recipe {
-    background: #16a34a;
+    background: #ff7bab;
     color: var(--color-white);
   }
 
@@ -272,7 +337,7 @@
 
 .p-news__card-title {
   margin: 0 0 8px;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 1.4;
   color: var(--color-text);
@@ -284,9 +349,9 @@
 
 .p-news__excerpt {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-light);
-  line-height: 1.5;
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -308,17 +373,18 @@
 .p-news__more .c-btn--green {
   background-color: var(--color-green);
   color: var(--color-white);
-  padding: 14px 48px;
+  padding: 14px 64px;
   border-radius: 999px;
-  border: 2px solid #247232;
+  border: 2px solid #FFF;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   font-weight: bold;
 
   &:hover {
     opacity: 0.95;
     text-decoration: none;
+    background-color: var(--color-white);
+    color: var(--color-green);
   }
 }
 

@@ -1,6 +1,6 @@
 # プロジェクト現状記録
 
-- **記録日**: 2025年3月9日
+- **記録日**: 2026年3月2日
 - **プロジェクト**: 矢掛町イタリア野菜プロジェクト 公式サイト（yakage-italy-veg-site）
 - **スケジュール**: **2025年3月11日（火）本番サーバーへテストアップ予定** → devnotes/202503031000-schedule-to-production-test.md
 
@@ -15,6 +15,33 @@
 | **テーマ Phase K** | レスポンシブ・仕上げ | **3/11 までに実施**（スケジュール参照） |
 | **本番テストアップ** | さくらサーバーへアップロード・確認 | **目標 3/11** |
 | フェーズ1〜8 | キックオフ 〜 リリース | 未着手／随時 |
+
+### 直近の反映（3/2 時点・追記）
+
+- **お問い合わせ**: タイトル（.p-contact__title.c-border-line-bottom）を文字幅＋左右6em・padding-bottom 1em・letter-spacing 0.1em に。c-border-line-bottom の背景 #fff を transparent に変更。
+- **イタリア野菜とは**: タイトルに c-border-line-bottom 時は text-align: center・padding-bottom 1em。「ご注文はこちら」ボタンを中央配置。.p-vegetables__title の font-size を clamp(18px, 2.5vw, 28px) に変更済み。
+- **お知らせ**: タイトル左右に赤・白の縦二重線（::before/::after）。赤3px→隙間5px→白3px、幅11px・高さ1.5em。文字サイズを .p-project__title と同様 clamp(18px, 2.5vw, 22px) に。PICKUP トラック幅をグリッドと揃え、前へ・次へボタンはトラック外側に absolute 配置。.p-news__pickup-card-body .p-news__card-title を font-size: 26px に。
+- **変数**: --color-green を #009145 に変更。
+- **Instagram**: 関連リンクをバナー画像（bnr_yakage.png・bnr_youtube.png・bnr_okoshi.png）に変更。表示順は左から「岡山県 矢掛町」「YouTube」「矢掛町地域おこし協力隊」。gap 24px。タイトル文字サイズを clamp(18px, 2.5vw, 22px) に統一。
+- **イタリア野菜プロジェクト**: 本文3ブロックの画像を img_about-01.jpg（矢掛町の町並み）・img_about-02.jpg（イタリアチーム交流）・img_about-03.jpg（イタリア野菜）に差し替え。.p-project__heading に ::before で赤・緑ライム縦二重線を追加（.p-project__block--video 内は除く）。「コロナ禍の中…」ブロックの .p-project__text に .p-project__text--full を付与し幅100％・grid-column: 1 / -1。YouTube 埋め込みはデフォルト yhibkOmCXow・start=4。SPECIAL movie ブロックは .p-project__block--video に白背景・角丸30px・padding 30px・ドロップシャドウを適用（.p-project__body--video からは削除）。SPECIAL movie 見出しは左擬似要素なし・文字色赤・右側に ::after で赤線を右端まで伸ばす。.p-project__hero-copy は font-size: 2vw・letter-spacing: 1px。
+- **ヘッダー**: .l-header__container に max-width: 90% を設定。
+- **イタリア野菜とは（カード）**: オーバーレイ内に .wrap_card を追加。白背景・角丸15px・margin/padding 15px・テキスト中央寄せ。.wrap_card 内の .p-vegetables__card-desc は var(--color-text) で白背景上で可読に。
+
+### 直近の反映（3/11 時点）
+
+- **セクション背景の変数化**: _variables.scss に `--section-news-bg`〜`--section-contact-bg` を定義し、各セクションで参照。`--color-red` を **#f70801** に変更。
+- **お知らせ**: 背景 #009145、`bg_layveg01.png` を上部・contain・opacity 0.2・mix-blend-mode: lighten。
+- **Instagram**: 背景白、`bg_layveg02.png` を上部・cover・opacity 0.15。
+- **イタリア野菜プロジェクト**: グラデーション（#efe3d7→#edf6fc）と野菜線画を `.gradation_wrap` 内のみに集約（ヒーロー手前で終了）。`bg_layveg01.png` は contain。下部ヒーローは `bg_layveg03.jpg`・cover・上部基準。ロゴは `logo_wht.png`（240px）、hero-copy は font-size: 3vw、hero の margin-top 削除。
+- **イタリア野菜とは**: セクションのパディングを `.p-vegetables__content` に移動。グリッドは l-container 外で右端いっぱい。コンテンツ:グリッド＝4:6。`.wrap_content` で中央配置・max-width 80%。カードは非正方形（grid-auto-rows: minmax(240px,1fr)）。「ご注文はこちら」は border-radius: 999px・background #fa0000。
+- **生産者紹介**: 背景白。`.p-producers .l-container` は max-width: none・width: 100%。カードの box-shadow 削除、カード間 gap を 16/20/24px に拡大。上部ボーダーは CSS の repeating-linear-gradient で赤・白／緑・白（高さ 4px、幅 20px、ズレ 20px）を **.c-border-line-top** として _components.scss に共通化。他セクションでも class 追加で利用可。
+- **サポーター紹介**: 背景をドットパターンに変更（background-color: #ffffff、radial-gradient で #f70801 2px、background-size: 22px 40px、background-position: 0 0, 11px 22px）。
+- **実績紹介**: 背景色はそのまま。`bg_layveg01.png` を透過（mix-blend-mode: lighten・opacity 0.2）で top 基準・contain 配置。従来の SVG パターンは削除。
+
+### 直近の反映（3/10 時点）
+
+- **ヒーローセクション**: テーマ内 `assets/images/hero-1.jpg`～`hero-8.jpg` の8枚をスライダーで表示。表示エリアは 100vw×90vh、min-height: 80vh。画像は object-fit: cover で幅いっぱい。フェードイン・フェードアウトは**クロスフェード**（z-index で表示中を手前、opacity 0.6s で重なりながら切り替え）。表示中は約5秒かけてゆっくり拡大（scale 1→1.08）するアニメーション。5秒ごとに自動送り、ドットクリックで該当スライドへ。ヒーローにマウスを乗せると自動送り一時停止。JS: hero-slider.js、SCSS: _hero.scss。
+- **ヘッダーロゴ**: `.l-header__logo-img` を height: 200px、max-width: 300px に変更（スマホ時は従来どおり 72px / 160px）。
 
 ### 直近の反映（3/9 時点）
 
@@ -62,7 +89,7 @@
 
 - **ブランチ**: main / develop あり
 - **リモート**: origin（main / develop ともに push 済み）
-- **未コミット変更**: テーマ（お知らせ・Instagram セクション・SCSS）、devnotes（現状記録・実装計画等）の更新がある可能性あり。必要に応じて `git status` で確認。
+- **未コミット変更**: テーマ（お知らせ・Instagram・プロジェクト・イタリア野菜・お問い合わせ・ヘッダー等のスタイル・画像差し替え・wrap_card・YouTube デフォルトID・関連リンクバナー）、front-page.php（画像パス・ブロック修飾クラス・wrap_card 等）、_variables.scss（--color-green）、_components.scss（c-border-line-bottom の transparent）、devnotes（本現状記録）の更新がある可能性あり。必要に応じて `git status` で確認。
 - **直近コミット**: （状況に応じて更新）
 
 ※ 現状記録の更新（本ファイル追加・計画書の状態更新）をコミットする場合は、develop で作業し「[フェーズ0] 現状記録・計画書更新」等のメッセージでコミット・push を推奨。

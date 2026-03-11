@@ -1,12 +1,36 @@
 // ========================================
 // Instagram セクション（Phase D）
-// 実装イメージ: 公式 Instagram ヘッダー・破線・4列グリッド・follow us・3ブロックリンク
+// 背景: 白＋野菜線画 bg_layveg02.png を先頭・cover・透過15%
 // ========================================
 
 .p-instagram {
+  position: relative;
   padding: var(--section-padding-y) 0;
-  background-color: var(--color-white);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='%23e8f0e8' fill-opacity='0.4' d='M40 20c-2 0-4 1-5 3l-2 4h14l-2-4c-1-2-3-3-5-3z'/%3E%3C/svg%3E");
+  background-color: var(--section-instagram-bg);
+  overflow: hidden;
+
+  // 野菜線画（黒地・緑の野菜）を先頭に cover、透過15%
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('assets/images/bg_layveg02.png');
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // コンテンツを手前に
+  > .l-container {
+    position: relative;
+    z-index: 1;
+  }
 
   // ----- ヘッダー: 破線（赤・緑）＋ロゴ＋「公式 Instagram」 -----
   &__header {
@@ -66,10 +90,30 @@
 
   &__title {
     margin: 0;
-    font-size: var(--font-size-lg);
+    width: 100%;
+    font-size: clamp(18px, 2.5vw, 22px);
     font-weight: bold;
     color: var(--color-text);
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+
+    // 文字の左右に二重線（header幅いっぱいに伸ばす）
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      min-width: 0;
+      height: 8px;
+      background-image:
+        repeating-linear-gradient(90deg, var(--color-red) 0, var(--color-red) 20px, transparent 20px, transparent 40px),
+        repeating-linear-gradient(90deg, var(--color-green-lime) 0, var(--color-green-lime) 20px, transparent 20px, transparent 40px);
+      background-size: 40px 4px, 40px 4px;
+      background-position: 0 0, 20px 4px;
+      background-repeat: repeat-x;
+    }
   }
 
   // ----- フィード: 4列グリッド（2行×4） -----
@@ -126,45 +170,32 @@
     }
   }
 
-  // ----- フッター: 3ブロック（岡山県矢掛町｜YouTube｜地域おこし協力隊） -----
+  // ----- フッター: 関連リンクバナー3枚（協力隊｜矢掛町｜YouTube） -----
   &__footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
+    gap: 24px;
     max-width: 960px;
     margin: 0 auto;
   }
 
   &__footer-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 80px;
-    padding: 20px 16px;
-    color: var(--color-white);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    text-align: center;
+    display: block;
     text-decoration: none;
     transition: opacity 0.2s;
 
     &:hover {
       opacity: 0.9;
-      color: var(--color-white);
       text-decoration: none;
     }
+  }
 
-    &--town {
-      background-color: #5c2a2a;
-    }
-
-    &--youtube {
-      background-color: var(--color-red);
-    }
-
-    &--team {
-      background-color: #3d2914;
-    }
+  &__footer-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
   }
 }
 

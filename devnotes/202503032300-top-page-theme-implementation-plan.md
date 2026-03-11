@@ -1,6 +1,7 @@
 # TOPページ テーマ実装計画書
 
 - **作成日**: 2025年3月3日
+- **最終更新**: 2026年3月2日
 - **対象**: 矢掛町イタリア野菜プロジェクト 公式サイト TOPページ
 - **目的**: 新規 WordPress テーマを作成し、デザインを再現する
 - **進め方**: フェーズごとに切り、コンテンツブロック単位で実装
@@ -59,7 +60,7 @@
 ## A-2. 共通スタイル・変数定義
 
 - [x] CSS 変数（カラー・フォント・スペーシング）の定義
-  - [x] 緑（#2d7a3e）、赤（#c41e3a）、白、オフホワイト、ダークグレー
+  - [x] 緑（--color-green: #009145）、赤（--color-red: #f70801）、白、オフホワイト、ダークグレー、ライムグリーン（--color-green-lime）
   - [x] フォントファミリー、フォントサイズ
   - [x] セクション余白、コンテナ幅
 - [x] リセット・ベーススタイル（body, a, img 等）
@@ -84,7 +85,8 @@
 
 ### PC 表示
 
-- [x] ロゴ（`assets/images/logo.png` を絶対配置で表示、白背景の高さに依存せず下方向にはみ出し）
+- [x] ロゴ（`assets/images/logo.png` を絶対配置で表示、PC: height 200px / max-width 300px、スマホ: 72px / 160px）
+- [x] ヘッダーコンテナ（.l-header__container）の max-width: 90%
 - [x] ナビゲーションメニュー（横並び・右寄せ、文字間・メニュー間を調整）
 - [x] TOP 時も**最初から白背景**（スクロール前後で統一）。コンテナ・inner に白背景指定
 - [x] TOP スクロール時：固定表示に切り替え（header.js で .is-scrolled 付与）
@@ -98,19 +100,19 @@
 
 ## B-2. ヒーローセクション
 
-- [x] ヒーロー画像（header_image またはプレースホルダー、フル幅）
+- [x] ヒーロー画像スライダー（`assets/images/hero-1.jpg`～`hero-8.jpg` の8枚、100vw×90vh / min-height: 80vh、object-fit: cover）
+- [x] クロスフェード切り替え（opacity 0.6s）、表示中は約5秒でゆっくり拡大（scale 1→1.08）、5秒ごとに自動送り、ドットで選択、ホバーで一時停止（hero-slider.js、_hero.scss）
 - [ ] 画像上オーバーレイ（赤バナー・テキスト、必要に応じて後続で追加）
 - [x] スライダーインジケーター（3ドット、1つ緑でアクティブ）
 - [ ] スライダー機能（複数画像切り替え、必要に応じて JS で後続追加）
 
 ## B-3. フッター（仕上がりイメージ準拠）
 
-- [x] フッター背景（ライトグレー #f2f2f2）
-- [x] 左：円形シール＋プロジェクト名（岡山県矢掛町、イタリア野菜プロジェクト）
+- [x] フッター背景（#e5e5e5）
+- [x] 左：シールに `logo_gry.png` を表示（角丸・枠線なし）
 - [x] 中央：ナビ（TOP｜サイトポリシー｜プライバシーポリシー）、著作権「YYYY (c) yakage.」
-- [x] 右：ページトップへスクロール用円形白ボタン（クリックでスムーズスクロール）
+- [x] 右：ページトップへスクロール用ボタン（半円かまぼこ型・下端固定・CSS 三角矢印、シャドウなし）
 - [x] レイアウト：3カラム grid（左・中央・右）、スマホ時は縦並び
-- [ ] 円形シールは画像差し替え可（現在はプレースホルダー）
 
 ---
 
@@ -120,8 +122,10 @@
 
 ## C-1. お知らせ
 
-- [x] セクション構成・背景（深緑 #1e5631、野菜パターン風）
-- [x] セクションタイトル「| お知らせ |」
+- [x] セクション構成・背景（#009145、bg_layveg01.png 上部 contain・opacity 0.2・mix-blend-mode: lighten）
+- [x] セクションタイトル「お知らせ」＋左右に赤・白縦二重線（::before/::after、幅11px・高さ1.5em）、文字サイズは他セクションタイトルと統一（clamp）
+- [x] PICKUP トラック幅をグリッドと同一にし、前へ・次へボタンはトラック外側に absolute 配置
+- [x] PICKUP カード内タイトル（.p-news__pickup-card-body .p-news__card-title）font-size: 26px
 - [x] カテゴリ 4 種登録（お知らせ・イベント・レシピ・PICKUP）
 - [x] PICKUP: 先頭でスライダー表示（前後矢印・ドット、ループ）、カード内に日付・カテゴリ・タイトル・抜粋・NEW タグ（7日以内）
 - [x] それ以外: お知らせ・イベント・レシピを新着順で 6 件グリッド（3列）、サムネイル・日付・カテゴリタグ・タイトル・抜粋・NEW タグ
@@ -139,7 +143,7 @@
 - [x] セクションタイトル「公式 Instagram」＋Instagram ロゴ（SVG）＋赤・緑の破線装飾
 - [x] プラグインショートコード `[instagram-feed feed=1]` で埋め込み、4 列グリッド（スマホ 2 列）
 - [x] 「follow us」赤ボタン（カスタマイザーで URL 変更可）
-- [x] 下部 3 ブロックリンク（岡山県矢掛町／矢掛町×YouTube／地域おこし協力隊、カスタマイザーで URL 変更可）
+- [x] 下部関連リンク：バナー画像 3 枚（bnr_yakage.png・bnr_youtube.png・bnr_okoshi.png）、表示順は左から「岡山県 矢掛町」「YouTube」「矢掛町地域おこし協力隊」、gap 24px。カスタマイザーで各 URL 変更可
 
 ---
 
@@ -149,10 +153,12 @@
 
 ## E-1. イタリア野菜プロジェクトについて
 
-- [x] セクション構成・背景（白・薄い野菜パターン）
-- [x] セクションタイトル「イタリア野菜プロジェクトについて」＋破線
-- [x] 説明ブロック（赤縦バー見出し・テキスト・プレースホルダー画像）、YouTube 埋め込み（カスタマイザーで ID 変更可）
-- [x] 下部ヒーロー風エリア（背景・円形ロゴオーバーレイ）
+- [x] セクション構成・背景（グラデーション #efe3d7→#edf6fc を .gradation_wrap に、bg_layveg01.png 透過。下部ヒーローは bg_layveg03.jpg・logo_wht.png）
+- [x] セクションタイトル「矢掛町イタリア野菜プロジェクトについて」＋c-border-line-bottom（文字幅＋左右6em・下余白1em）
+- [x] 見出し（.p-project__heading）左に赤・緑ライム縦二重線（::before）。SPECIAL movie 見出しのみ左線なし・文字赤・右に赤線（::after）を右端まで
+- [x] 説明ブロック：画像は img_about-01.jpg（矢掛町の町並み）・img_about-02.jpg（イタリアチーム交流）・img_about-03.jpg（イタリア野菜）。「コロナ禍の中…」ブロックは .p-project__text--full で幅100％（grid-column: 1 / -1）
+- [x] SPECIAL movie ブロック（.p-project__block--video）：白背景・角丸30px・padding 30px・ドロップシャドウ。YouTube 埋め込みはデフォルト yhibkOmCXow・start=4（カスタマイザーで ID 変更可）
+- [x] 下部ヒーロー風エリア（.p-project__hero）：bg_layveg03.jpg・ロゴは logo_wht.png。hero-copy は font-size: 2vw・letter-spacing: 1px
 
 ---
 
@@ -162,10 +168,10 @@
 
 ## F-1. イタリア野菜とは
 
-- [x] セクション構成・背景（白）
-- [x] セクションタイトル「イタリア野菜とは」＋破線
-- [x] 左: 説明テキスト・「ご注文はこちら」ボタン（カスタマイザーで URL 変更可）
-- [x] 右: 野菜画像グリッド（9種・読み込み時ランダム順）、ホバー/タップでオーバーレイ（名称・特徴・オススメ時期）、余白なし・角丸なし
+- [x] セクション構成・背景（白）。コンテンツ:グリッド＝4:6、グリッドは右端いっぱい
+- [x] セクションタイトル「イタリア野菜とは」＋c-border-line-bottom（中央寄せ・padding-bottom 1em）
+- [x] 左: 説明テキスト・「ご注文はこちら」ボタン中央配置（border-radius: 999px・#fa0000、カスタマイザーで URL 変更可）
+- [x] 右: 野菜画像グリッド（9種・読み込み時ランダム順）。オーバーレイ内に .wrap_card（白背景・角丸15px・margin/padding 15px・テキスト中央）。ホバー/タップでオーバーレイ表示（名称・特徴・オススメ時期）
 - [x] PC 3行3列 / スマホ 3行2列、vegetables.js でタップ開閉
 
 ---
@@ -216,9 +222,9 @@
 
 ## J-1. お問い合わせ
 
-- [x] セクション構成・背景（白）、タイトル「お問い合わせ」＋赤・緑破線
-- [x] フォーム（オフホワイト角丸コンテナ）：お名前・所属・メール・TEL・内容、ラベル左・入力右。個人情報同意チェック、「送信」緑ボタン
-- [x] 注意文「※担当者より内容確認次第、返信させていただきます。」（破線の上に配置）
+- [x] セクション構成・背景（白）。タイトル「お問い合わせ」＋c-border-line-bottom（文字幅＋左右6em・padding-bottom 1em・letter-spacing 0.1em）。c-border-line-bottom の線間は transparent
+- [x] フォームコンテナ（.p-contact__form-wrap）：背景 #f8f3ed・max-width 900px・角丸・シャドウなし。お名前・所属・メール・TEL・内容、ラベル左・入力右。個人情報同意チェック、「送信」緑ボタン
+- [x] 注意文「※担当者より内容確認次第、返信させていただきます。」
 - [x] SCSS: _contact.scss。送信処理は Contact Form 7 等で後続対応予定
 
 ---
@@ -280,6 +286,9 @@
 - **2025/03/07**: Phase D 完了。Instagram セクションを実装イメージに合わせて実装。Smash Balloon プラグイン（ショートコード feed=1）、公式 Instagram ヘッダー・破線・4 列グリッド・follow us ボタン・3 ブロックリンク。カスタマイザーで Instagram URL と 3 ブロックの URL を設定可能。SCSS: _instagram.scss。プラグイン用 DB テーブル（wp_sbi_feeds 等）は db/sbi_tables_create.sql で作成。
 - **2025/03/02**: Phase G 完了。生産者紹介をループスライダーで実装。6名ダミー（画像・キャッチコピー・名前・補足）、PC 4枚/タブレット 3枚/スマホ 1枚表示、赤丸矢印・ドット、SCSS: _producers.scss、JS: producers-slider.js。
 - **2025/03/09**: Phase H・I・J 完了。サポーター紹介（9名グリッド・円形写真＋赤吹き出し）、実績紹介（3ブロック・白エリア max-width:900px）、お問い合わせ（完成イメージに合わせたフォーム・同意チェック・送信ボタン）。ヘッダー：ロゴを logo.png に差し替え・絶対配置・最初から白背景、ナビの文字間・ホバー時赤文字＋ライムグリーン下線（--color-green-lime を変数化）。開発環境：Browsersync＋concurrently で npm run dev、WP_DEBUG 時はスタイルバージョンに time() でリロード時確実に最新 CSS。テーマ画像用 assets/images/ 作成。
+- **2025/03/10**: ヒーローを8枚スライダーに変更（hero-1～8.jpg、クロスフェード・約5秒で拡大アニメ・自動送り・ドット・ホバーで一時停止）。ヘッダーロゴ画像サイズを PC で height: 200px / max-width: 300px に変更。
+- **2025/03/11**: セクション背景を変数化（--section-*）、--color-red を #f70801 に変更。お知らせ: 背景 #009145＋bg_layveg01.png contain・opacity 0.2。Instagram: 白＋bg_layveg02.png cover・0.15。プロジェクト: グラデーション＋線画を gradation_wrap に集約、ヒーローに bg_layveg03.jpg・logo_wht.png、hero-copy 3vw。イタリア野菜とは: パディングを content に、グリッド右端いっぱい・4:6・wrap_content・カード非正方形・ご注文ボタン 999px/#fa0000。生産者: 白背景・l-container 幅いっぱい・カードシャドウ削除・gap 広め・上部ボーダーを .c-border-line-top で共通化（CSS のみ）。サポーター: ドットパターン（#f70801、22px 40px）。実績: bg_layveg01.png 透過・top・contain。
+- **2026/03/02**: お問い合わせタイトルを文字幅＋左右6em・padding-bottom 1em・letter-spacing 0.1em に。c-border-line-bottom の #fff を transparent に。イタリア野菜とはタイトルは c-border-line-bottom で中央寄せ・下余白1em、ご注文ボタン中央配置。お知らせ: タイトル左右に赤・白縦二重線（::before/::after）、PICKUP トラック幅＝グリッド・矢印は外側 absolute、カードタイトル 26px。--color-green を #009145 に。Instagram: 関連リンクをバナー画像3枚（bnr_yakage・bnr_youtube・bnr_okoshi）に変更、表示順・gap 24px、タイトル文字サイズ統一。プロジェクト: 本文画像を img_about-01/02/03 に差し替え、見出しに赤・緑ライム縦二重線（::before）、コロナ禍ブロックは .p-project__text--full で幅100%、YouTube デフォルト yhibkOmCXow・start=4、SPECIAL movie を .p-project__block--video で白背景・角丸30px・padding 30px・シャドウ、見出しは左線なし・文字赤・右に赤線（::after）、hero-copy を 2vw・letter-spacing 1px。ヘッダー: .l-header__container に max-width 90%。フッター: 背景 #e5e5e5、シールを logo_gry.png、スクロールトップを半円・CSS 三角。イタリア野菜カード: .wrap_card を追加（白背景・角丸15px・margin/padding 15px・テキスト中央）。
 
 ---
 

@@ -9,23 +9,24 @@ get_header();
 ?>
 
 <main class="l-main">
-	<!-- ヒーローセクション -->
-	<section class="p-hero">
+	<!-- ヒーローセクション（8枚をフェードイン・アウトで切り替え） -->
+	<?php
+	$hero_images = array( 'hero-1.jpg', 'hero-2.jpg', 'hero-3.jpg', 'hero-4.jpg', 'hero-5.jpg', 'hero-6.jpg', 'hero-7.jpg', 'hero-8.jpg' );
+	?>
+	<section class="p-hero" id="hero-slider">
 		<div class="p-hero__slider">
-			<div class="p-hero__slide p-hero__slide--active">
-				<div class="p-hero__image">
-					<?php if ( get_header_image() ) : ?>
-						<img src="<?php echo esc_url( get_header_image() ); ?>" alt="">
-					<?php else : ?>
-						<div class="p-hero__placeholder">ヒーロー画像（外観 → カスタマイズで設定可）</div>
-					<?php endif; ?>
+			<?php foreach ( $hero_images as $i => $filename ) : ?>
+				<div class="p-hero__slide<?php echo $i === 0 ? ' p-hero__slide--active' : ''; ?>" data-hero-index="<?php echo (int) $i; ?>">
+					<div class="p-hero__image">
+						<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/' . $filename ) ); ?>" alt="">
+					</div>
 				</div>
-			</div>
+			<?php endforeach; ?>
 		</div>
-		<div class="p-hero__indicators" aria-hidden="true">
-			<button type="button" class="p-hero__dot p-hero__dot--active" aria-current="true"></button>
-			<button type="button" class="p-hero__dot"></button>
-			<button type="button" class="p-hero__dot"></button>
+		<div class="p-hero__indicators" data-hero-dots aria-hidden="true">
+			<?php for ( $i = 0; $i < count( $hero_images ); $i++ ) : ?>
+				<button type="button" class="p-hero__dot<?php echo $i === 0 ? ' p-hero__dot--active' : ''; ?>" data-hero-dot-index="<?php echo (int) $i; ?>" aria-label="スライド<?php echo (int) $i + 1; ?>"></button>
+			<?php endfor; ?>
 		</div>
 	</section>
 
@@ -65,7 +66,7 @@ get_header();
 	?>
 	<section class="p-news" id="news">
 		<div class="l-container">
-			<h2 class="p-news__title">| お知らせ |</h2>
+			<h2 class="p-news__title">お知らせ</h2>
 
 			<?php if ( $pickup_query && $pickup_query->have_posts() ) : ?>
 			<div class="p-news__pickup">
@@ -177,29 +178,30 @@ get_header();
 			'label' => '岡山県 矢掛町',
 			'url'   => get_theme_mod( 'yakage_instagram_link_left', '#' ),
 			'class'  => 'p-instagram__footer-block--town',
+			'image'  => 'bnr_yakage.png',
 		),
 		array(
 			'label' => '矢掛町 × YouTube',
 			'url'   => get_theme_mod( 'yakage_instagram_link_center', '#' ),
 			'class'  => 'p-instagram__footer-block--youtube',
+			'image'  => 'bnr_youtube.png',
 		),
 		array(
 			'label' => '矢掛町地域おこし協力隊',
 			'url'   => get_theme_mod( 'yakage_instagram_link_right', '#' ),
 			'class'  => 'p-instagram__footer-block--team',
+			'image'  => 'bnr_okoshi.png',
 		),
 	);
 	?>
 	<section class="p-instagram" id="instagram">
 		<div class="l-container">
 			<header class="p-instagram__header">
-				<span class="p-instagram__header-line p-instagram__header-line--left" aria-hidden="true"></span>
-				<span class="p-instagram__logo" aria-hidden="true">
+				
+				<h2 class="p-instagram__title"><span class="p-instagram__logo" aria-hidden="true">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" role="img" aria-label="Instagram"><defs><linearGradient id="ig-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f58529"/><stop offset="50%" style="stop-color:#dd2a7b"/><stop offset="100%" style="stop-color:#8134af"/></linearGradient></defs><path fill="url(#ig-gradient)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-				</span>
-				<h2 class="p-instagram__title">公式 Instagram</h2>
-				<span class="p-instagram__header-line p-instagram__header-line--right" aria-hidden="true"></span>
-			</header>
+				</span>公式 Instagram</h2>
+				</header>
 			<div class="p-instagram__feed">
 				<?php echo do_shortcode( '[instagram-feed feed=1]' ); ?>
 			</div>
@@ -208,7 +210,9 @@ get_header();
 			</div>
 			<nav class="p-instagram__footer" aria-label="関連リンク">
 				<?php foreach ( $instagram_footer_links as $link ) : ?>
-					<a href="<?php echo esc_url( $link['url'] ); ?>" class="p-instagram__footer-block <?php echo esc_attr( $link['class'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $link['label'] ); ?></a>
+					<a href="<?php echo esc_url( $link['url'] ); ?>" class="p-instagram__footer-block <?php echo esc_attr( $link['class'] ); ?>" target="_blank" rel="noopener noreferrer">
+						<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/' . $link['image'] ) ); ?>" alt="<?php echo esc_attr( $link['label'] ); ?>" class="p-instagram__footer-img" width="320" height="80" loading="lazy">
+					</a>
 				<?php endforeach; ?>
 			</nav>
 		</div>
@@ -216,9 +220,10 @@ get_header();
 
 	<!-- イタリア野菜プロジェクトについて（Phase E）ダミーデータ -->
 	<section class="p-project" id="project">
+	<div class="gradation_wrap">
 		<div class="l-container">
 			<header class="p-project__header">
-				<h2 class="p-project__title">矢掛町イタリア野菜プロジェクトについて</h2>
+				<h2 class="p-project__title c-border-line-bottom">矢掛町イタリア野菜プロジェクトについて</h2>
 				<span class="p-project__title-line" aria-hidden="true"></span>
 			</header>
 
@@ -226,23 +231,23 @@ get_header();
 				<h3 class="p-project__heading">矢掛町って?</h3>
 				<div class="p-project__body">
 					<div class="p-project__text">
-						<p>矢掛町は岡山県の南西部に位置し、人口約〇〇〇〇人のまちです。江戸時代には山陽道の宿場町として栄え、今も町並みが残っています。温暖な気候と豊かな土壌に恵まれ、米や野菜、果物など多様な農産物が生産されています。（ダミーテキスト）</p>
+						<p>岡山県南西部に位置する人口約1万3千人の小さな町、矢掛町。太陽と清流に恵まれ、野菜や果物が豊かに育つ里山です。江戸時代には旧山陽道の宿場町として栄え、大名行列を迎えてきました。全国でも珍しく本陣と脇本陣がともに現存し、篤姫がお輿入れの際に宿泊した記録も残されています。戦後は空き家となった古民家を一軒ずつ再生し、店舗や宿泊施設として活用。江戸の町並みをよみがえらせ、地域再生の成功例として注目され、重要伝統的建造物群保存地区にも選定されています。</p>
 					</div>
-					<div class="p-project__image p-project__image--placeholder">
-						<span>画像（矢掛町の町並み）</span>
+					<div class="p-project__image">
+						<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_about-01.jpg' ) ); ?>" alt="矢掛町の町並み" width="800" height="450" loading="lazy">
 					</div>
 				</div>
 			</div>
 
-			<div class="p-project__block">
+			<div class="p-project__block p-project__block--video">
 				<h3 class="p-project__heading">SPECIAL movie</h3>
 				<div class="p-project__body p-project__body--video">
 					<div class="p-project__video-wrap">
 						<?php
-						$youtube_id = get_theme_mod( 'yakage_project_youtube_id', 'jNQXAC9IVRw' );
+						$youtube_id = get_theme_mod( 'yakage_project_youtube_id', 'yhibkOmCXow' );
 						if ( $youtube_id ) :
 							?>
-							<iframe src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>?rel=0" title="YouTube 動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<iframe src="https://www.youtube.com/embed/<?php echo esc_attr( $youtube_id ); ?>?rel=0&start=0" title="YouTube 動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						<?php else : ?>
 							<span class="p-project__video-placeholder">YouTube 動画 ID を設定してください</span>
 						<?php endif; ?>
@@ -254,10 +259,10 @@ get_header();
 				<h3 class="p-project__heading">イタリアチームのホストタウン</h3>
 				<div class="p-project__body">
 					<div class="p-project__text">
-						<p>矢掛町は〇〇〇〇年、東京オリンピック・パラリンピックにおけるイタリアチームのホストタウンに選ばれました。大会延期やコロナ禍のなか、交流の形を模索しながら、地元の野菜や食文化でイタリアを応援してきました。（ダミーテキスト）</p>
+						<p>2018年、矢掛町は分散型宿泊の取り組みが評価され、イタリアのアルベルゴ・ディフーゾ協会から日本初の「アルベルゴ・ディフーゾ・タウン」に認定されました。これを機にイタリアとの交流が深まり、東京2020大会ではイタリア代表のホストタウンにも選定されました。しかし新型コロナウイルスの影響で交流事業は中止に。それでも遠くから応援したいとの思いから、町自慢の野菜でアスリートを支える取り組みが始まりました。</p>
 					</div>
-					<div class="p-project__image p-project__image--placeholder">
-						<span>画像（イタリアチーム交流）</span>
+					<div class="p-project__image">
+						<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_about-02.jpg' ) ); ?>" alt="イタリアチーム交流" width="800" height="450" loading="lazy">
 					</div>
 				</div>
 			</div>
@@ -265,8 +270,8 @@ get_header();
 			<div class="p-project__block">
 				<h3 class="p-project__heading">コロナ禍の中、自慢の野菜でイタリアを応援</h3>
 				<div class="p-project__body">
-					<div class="p-project__text">
-						<p>渡航が難しい時期、矢掛町からは地元で育てた野菜や、それを使ったオリジナル料理のレシピをイタリアに届けました。現地でも「おいしい」「心が温まった」と好評をいただき、野菜を通じたつながりを実感しています。（ダミーテキスト）</p>
+					<div class="p-project__text p-project__text--full">
+						<p>矢掛町は「がんばれイタリア！」の思いをトマトやアスパラガス、玉ねぎなど自慢の野菜に託し、所沢で合宿中のイタリア選手団へ届けました。さらに、野菜本来の味わいを生かしたリゾットやスープなどのオリジナルメニューを提供。「実家のマンマの味がする」「野菜の味が濃い」と選手たちからも高い評価をいただき、多くのメダリストも誕生しました。宿場町に息づくおもてなしの心が選手たちを食で支え、生産者にとっても大きな励みとなりました。</p>
 					</div>
 				</div>
 			</div>
@@ -275,22 +280,20 @@ get_header();
 				<h3 class="p-project__heading">そうじゃ! イタリア野菜、植えてみよーや</h3>
 				<div class="p-project__body">
 					<div class="p-project__text">
-						<p>そんな経験を経て、〇〇〇〇年に「矢掛町イタリア野菜プロジェクト」がスタート。地元の農家さんとともに、イタリア野菜の栽培や普及に取り組んでいます。太陽の光をたっぷり浴びた、おいしいイタリア野菜をぜひ味わってください。（ダミーテキスト）</p>
+						<p>この経験を町の一次産業の活性化につなげようと、JA矢掛アグリセンターや生産者、町役場が連携し、2022年に「矢掛町イタリア野菜プロジェクト」を立ち上げました。初挑戦となるイタリア野菜でしたが、温暖な気候や高い晴天率、寒暖差のある中山間地の環境、清流に恵まれ、初年度から順調に生育し出荷が始まっています。</p>
 					</div>
-					<div class="p-project__image p-project__image--placeholder">
-						<span>画像（イタリア野菜）</span>
+					<div class="p-project__image">
+						<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_about-03.jpg' ) ); ?>" alt="イタリア野菜" width="800" height="450" loading="lazy">
 					</div>
 				</div>
 			</div>
 		</div>
-
+</div>
 		<div class="p-project__hero">
-			<div class="p-project__hero-bg p-project__hero-bg--placeholder">
-				<span>背景画像（矢掛町の景観）</span>
-			</div>
+			<div class="p-project__hero-bg" aria-hidden="true"></div>
 			<div class="p-project__hero-overlay">
 				<div class="p-project__hero-logo">
-					<span class="p-project__hero-logo-inner">矢掛町<br>おもてなしの町</span>
+					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo_wht.png' ) ); ?>" alt="矢掛町 おもてなしの町" class="p-project__hero-logo-img" width="160" height="160">
 				</div>
 				<p class="p-project__hero-copy">人をつなぐ、イタリア野菜でありたい。</p>
 			</div>
@@ -315,14 +318,15 @@ get_header();
 	$order_link = get_theme_mod( 'yakage_vegetables_order_url', '#' );
 	?>
 	<section class="p-vegetables" id="vegetables">
-		<div class="l-container">
 			<div class="p-vegetables__inner">
 				<div class="p-vegetables__content">
-					<h2 class="p-vegetables__title">イタリア野菜とは</h2>
+					<div class="wrap_content">
+					<h2 class="p-vegetables__title c-border-line-bottom">イタリア野菜とは</h2>
 					<span class="p-vegetables__title-line" aria-hidden="true"></span>
 					<p class="p-vegetables__text">イタリア野菜は、イタリア料理に欠かせない品種で、味わいの濃さや程よい苦味、はっきりとした甘味が特徴です。紫や黄色、縞模様など彩りが豊かで、形も個性的なものが多く、料理に華やかさを添えます。リゾットやパスタ、スープなど素材を生かす調理法と相性が良く、加熱することで旨味が一層引き立ちます。矢掛町では、温暖な気候と高い晴天率、寒暖差のある中山間地の環境、清らかな水に恵まれ、野菜本来の味がより濃く育つのが特徴です。（ダミーテキスト）</p>
 					<div class="p-vegetables__cta">
 						<a href="<?php echo esc_url( $order_link ); ?>" class="c-btn c-btn--red">ご注文はこちら</a>
+					</div>
 					</div>
 				</div>
 				<div class="p-vegetables__grid" role="list">
@@ -332,15 +336,16 @@ get_header();
 								<span>画像</span>
 							</div>
 							<div class="p-vegetables__card-overlay">
+								<div class="wrap_card">
 								<p class="p-vegetables__card-name"><?php echo esc_html( $veg['name'] ); ?></p>
 								<p class="p-vegetables__card-desc"><?php echo esc_html( $veg['desc'] ); ?></p>
 								<span class="p-vegetables__card-season"><?php echo esc_html( $veg['season'] ); ?></span>
+								</div>
 							</div>
 						</div>
 					<?php endforeach; ?>
 				</div>
 			</div>
-		</div>
 	</section>
 
 	<!-- 生産者紹介（Phase G）ループスライダー -->
@@ -354,7 +359,7 @@ get_header();
 		array( 'catchphrase' => 'おいしいは、笑顔の先にある。', 'name' => '田村誠', 'supplement' => '直売所担当 生産者' ),
 	);
 	?>
-	<section class="p-producers" id="producers">
+	<section class="p-producers c-border-line-top" id="producers">
 		<div class="l-container">
 			<header class="p-producers__header">
 				<span class="p-producers__header-line p-producers__header-line--left" aria-hidden="true"></span>
@@ -430,7 +435,7 @@ get_header();
 
 	<!-- 実績紹介（Phase I） -->
 	<section class="p-achievements" id="achievements">
-		<p class="p-achievements__tagline">おもてなしの町、矢掛町のイタリア野菜から、今日もご縁が生まれています。</p>
+		<p class="p-achievements__tagline">おもてなしの町、矢掛町のイタリア野菜から、<br>今日もご縁が生まれています。</p>
 		<div class="p-achievements__inner">
 			<div class="l-container">
 				<!-- ブロック1: 大阪・関西万博に出展 -->
@@ -470,8 +475,8 @@ get_header();
 	<section class="p-contact" id="contact">
 		<div class="l-container">
 			<header class="p-contact__header">
-				<h2 class="p-contact__title">お問い合わせ</h2>
-				<span class="p-contact__title-line" aria-hidden="true"></span>
+				<h2 class="p-contact__title c-border-line-bottom">お問い合わせ</h2>
+				
 			</header>
 			<div class="p-contact__form-wrap">
 				<form class="p-contact__form" action="" method="post" novalidate>

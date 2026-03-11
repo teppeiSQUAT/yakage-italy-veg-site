@@ -9,6 +9,7 @@
 
   &__container {
     position: relative;
+    max-width: 90%;
     background-color: var(--color-white);
   }
 
@@ -43,9 +44,9 @@
 
   &__logo-img {
     display: block;
-    height: 170px;
+    height: 200px;
     width: auto;
-    max-width: 240px;
+    max-width: 300px;
     object-fit: contain;
     object-position: left top;
     vertical-align: top;

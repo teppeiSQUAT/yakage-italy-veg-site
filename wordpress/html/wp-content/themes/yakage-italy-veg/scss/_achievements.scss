@@ -1,13 +1,38 @@
 // ========================================
 // 実績紹介（Phase I）
-// 赤背景＋野菜ラインアート、白エリア内に3ブロック（タイトル・文・写真コラージュ）
+// 赤背景＋野菜線画 bg_layveg01.png を透過・top・contain
 // ========================================
 
 .p-achievements {
+  position: relative;
   padding: var(--section-padding-y) 0 0;
-  background-color: var(--color-red);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='0.8' d='M40 15c-2 0-4 1-5 3l-2 4h14l-2-4c-1-2-3-3-5-3z'/%3E%3Cellipse fill='none' stroke='%23ffffff' stroke-opacity='0.1' cx='50' cy='35' rx='8' ry='10'/%3E%3Cpath fill='none' stroke='%23ffffff' stroke-opacity='0.1' d='M25 50l5-12 4 8 6-10'/%3E%3C/svg%3E");
+  background-color: var(--section-achievements-bg);
+  overflow: hidden;
   color: var(--color-white);
+
+  // 野菜線画（黒地・白線）→ lighten で赤の上に白線のみ表示
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('assets/images/bg_layveg01.png');
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+    mix-blend-mode: lighten;
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .p-achievements__tagline,
+  .p-achievements__inner {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .p-achievements__tagline {

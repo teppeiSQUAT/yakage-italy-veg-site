@@ -80,6 +80,13 @@ function yakage_italy_veg_scripts() {
 		true
 	);
 	wp_enqueue_script(
+		'yakage-italy-veg-hero-slider',
+		get_theme_file_uri( 'assets/js/hero-slider.js' ),
+		array(),
+		'0.1.0',
+		true
+	);
+	wp_enqueue_script(
 		'yakage-italy-veg-news-slider',
 		get_theme_file_uri( 'assets/js/news-slider.js' ),
 		array(),
