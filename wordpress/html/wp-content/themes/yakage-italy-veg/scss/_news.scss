@@ -93,13 +93,18 @@
   position: relative;
 }
 
+// 1枚分の表示領域（overflow でトラックをクリップ）
+.p-news__pickup-viewport {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
 // トラック幅をグリッドと同じにし、矢印はその外側に配置
 .p-news__pickup-track {
-  width: 100%;
-  flex: 0 0 100%;
-  overflow: hidden;
   display: flex;
   gap: 0;
+  transition: transform 0.3s ease;
 }
 
 .p-news__pickup-arrow {
@@ -167,6 +172,7 @@
   flex: 0 0 40%;
   position: relative;
   background: #eee;
+  aspect-ratio: 4 / 3;
 
   img {
     width: 100%;

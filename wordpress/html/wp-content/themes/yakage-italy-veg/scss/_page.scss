@@ -1,0 +1,260 @@
+// ========================================
+// 下層ページ・アーカイブ・単一投稿
+// ========================================
+
+// 固定ページ
+.p-page {
+  padding: var(--section-padding-y) 0;
+}
+
+.p-page__header {
+  margin-bottom: 32px;
+}
+
+.p-page__title {
+  margin: 0;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: bold;
+  color: var(--color-text);
+
+  &.c-border-line-bottom {
+    display: inline-block;
+    padding-bottom: 0.5em;
+    border-bottom: 3px solid var(--color-red);
+  }
+}
+
+.p-page__body {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+
+  p {
+    margin: 0 0 1em;
+  }
+
+  a {
+    color: var(--color-red);
+    text-decoration: underline;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// アーカイブ（お知らせ一覧）
+.p-archive {
+  padding: var(--section-padding-y) 0;
+  background-color: var(--color-white);
+}
+
+.p-archive__header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.p-archive__title {
+  margin: 0 0 8px;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.p-archive__description {
+  margin-top: 12px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.p-archive__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: var(--color-text-light);
+}
+
+// アーカイブのカードは白背景のため、グリッド内のカードにボーダーを追加
+.p-archive--news .p-news__card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.p-archive--news .p-news__grid {
+  margin-bottom: 40px;
+}
+
+// お知らせカテゴリアーカイブ: main に p-news が付与された場合（緑背景・野菜線画）
+.p-news .p-archive {
+  background-color: transparent;
+}
+
+.p-news .p-archive__title {
+  color: var(--color-white);
+}
+
+.p-news .p-archive__description {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.p-news .p-archive__empty {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.p-news .nav-links .page-numbers {
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-white);
+  }
+
+  &.current {
+    background: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--section-news-bg);
+  }
+}
+
+// ページネーション
+.pagination,
+.p-archive .nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+  padding: 20px 0;
+
+  .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    background: var(--color-white);
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s, border-color 0.2s;
+
+    &:hover {
+      background: var(--color-off-white);
+      border-color: var(--color-green);
+    }
+
+    &.current {
+      background: var(--color-green);
+      border-color: var(--color-green);
+      color: var(--color-white);
+    }
+
+    &.dots {
+      border: none;
+      background: transparent;
+    }
+  }
+}
+
+// 単一投稿
+.p-single {
+  padding: var(--section-padding-y) 0;
+}
+
+.p-single__header {
+  margin-bottom: 24px;
+}
+
+.p-single__meta {
+  margin-bottom: 12px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.p-single__meta-sep {
+  margin: 0 8px;
+}
+
+.p-single__title {
+  margin: 0;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: bold;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+.p-single__thumbnail {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.p-single__body {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+
+  p {
+    margin: 0 0 1em;
+  }
+
+  a {
+    color: var(--color-red);
+    text-decoration: underline;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.p-single__nav {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .nav-previous,
+  .nav-next {
+    max-width: 48%;
+  }
+
+  .nav-next {
+    text-align: right;
+    margin-left: auto;
+  }
+
+  a {
+    color: var(--color-red);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.p-single__nav-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin-bottom: 4px;
+}

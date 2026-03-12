@@ -50,6 +50,27 @@ function yakage_italy_veg_register_news_categories() {
 add_action( 'init', 'yakage_italy_veg_register_news_categories' );
 
 /**
+ * アーカイブタイトルのプレフィックスを削除（「カテゴリー:」等）
+ */
+function yakage_italy_veg_archive_title( $title ) {
+	if ( is_category() ) {
+		$title = single_cat_title( '', false );
+	} elseif ( is_tag() ) {
+		$title = single_tag_title( '', false );
+	} elseif ( is_author() ) {
+		$title = get_the_author();
+	} elseif ( is_year() ) {
+		$title = get_the_date( 'Y年' );
+	} elseif ( is_month() ) {
+		$title = get_the_date( 'Y年n月' );
+	} elseif ( is_day() ) {
+		$title = get_the_date( 'Y年n月j日' );
+	}
+	return $title;
+}
+add_filter( 'get_the_archive_title', 'yakage_italy_veg_archive_title' );
+
+/**
  * スクリプト・スタイルの読み込み
  */
 function yakage_italy_veg_scripts() {
@@ -135,19 +156,15 @@ function yakage_italy_veg_default_menu() {
 }
 
 /**
- * お知らせアーカイブページ URL（もっと見る用）
- * 投稿ページが設定されていればその URL、なければお知らせカテゴリのアーカイブ
+ * すべての投稿記事一覧 URL（もっと見る用）
+ * 固定ページ「NEWS」（スラッグ: news）の URL を返す
  */
 function yakage_italy_veg_get_news_archive_url() {
-	$posts_page_id = get_option( 'page_for_posts' );
-	if ( $posts_page_id ) {
-		return get_permalink( $posts_page_id );
+	$news_page = get_page_by_path( 'news' );
+	if ( $news_page ) {
+		return get_permalink( $news_page );
 	}
-	$cat = get_category_by_slug( 'news' );
-	if ( $cat ) {
-		return get_category_link( $cat->term_id );
-	}
-	return home_url( '/' );
+	return home_url( '/news/' );
 }
 
 /**
@@ -227,7 +244,7 @@ function yakage_italy_veg_customize_register_vegetables( $wp_customize ) {
 		'priority' => 127,
 	) );
 	$wp_customize->add_setting( 'yakage_vegetables_order_url', array(
-		'default'           => '#',
+		'default'           => 'https://forms.gle/1hs63P1vK5d8qavN8',
 		'sanitize_callback' => 'esc_url_raw',
 	) );
 	$wp_customize->add_control( 'yakage_vegetables_order_url', array(

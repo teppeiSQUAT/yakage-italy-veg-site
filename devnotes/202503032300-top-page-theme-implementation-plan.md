@@ -1,7 +1,7 @@
 # TOPページ テーマ実装計画書
 
 - **作成日**: 2025年3月3日
-- **最終更新**: 2026年3月12日（ヘッダー・メニュー・スムーズスクロール・ロゴ切り替えを反映）
+- **最終更新**: 2026年3月12日（PICKUP スライダー 1枚表示・自動再生・ループ・右→左を反映）
 - **対象**: 矢掛町イタリア野菜プロジェクト 公式サイト TOPページ
 - **目的**: 新規 WordPress テーマを作成し、デザインを再現する
 - **進め方**: フェーズごとに切り、コンテンツブロック単位で実装
@@ -36,6 +36,7 @@
 | **Phase I** | 実績紹介 | **完了** |
 | **Phase J** | お問い合わせ | **完了** |
 | **Phase K** | レスポンシブ・仕上げ | 未着手 |
+| **Phase L** | 下層ページ・アーカイブ（page/home/archive/single） | **完了** → devnotes/202603121148-sub-page-archive-implementation-plan.md |
 
 ---
 
@@ -129,9 +130,9 @@
 - [x] PICKUP トラック幅をグリッドと同一にし、前へ・次へボタンはトラック外側に absolute 配置
 - [x] PICKUP カード内タイトル（.p-news__pickup-card-body .p-news__card-title）font-size: 26px
 - [x] カテゴリ 4 種登録（お知らせ slug: news・イベント・レシピ・PICKUP）
-- [x] PICKUP: 先頭でスライダー表示（前後矢印・ドット、ループ）、カード内に日付・カテゴリ・タイトル・抜粋・NEW タグ（7日以内）
+- [x] PICKUP: 先頭でスライダー表示（前後矢印・ドット）。**1枚ずつ表示**（p-news__pickup-viewport でクリップ）。**自動再生**（5秒間隔）・**ループ**・ホバー時一時停止。**常に右→左スライド**（先頭スライドを末尾にクローン、transitionend でリセット）。カード画像 aspect-ratio: 4/3。カード内に日付・カテゴリ・タイトル・抜粋・NEW タグ（7日以内）
 - [x] それ以外: お知らせ・イベント・レシピを新着順で 6 件グリッド（3列）、サムネイル・日付・カテゴリタグ・タイトル・抜粋・NEW タグ
-- [x] 「もっと見る」ボタンでアーカイブ（投稿ページ or お知らせカテゴリ）へ
+- [x] 「もっと見る」ボタンで固定ページ「NEWS」（スラッグ: news）へ。`yakage_italy_veg_get_news_archive_url()` で URL 取得
 
 ---
 
@@ -172,7 +173,7 @@
 
 - [x] セクション構成・背景（白）。コンテンツ:グリッド＝4:6、グリッドは右端いっぱい
 - [x] セクションタイトル「イタリア野菜とは」＋c-border-line-bottom（中央寄せ・padding-bottom 1em）
-- [x] 左: 説明テキスト・「ご注文はこちら」ボタン中央配置（border-radius: 999px・#fa0000、カスタマイザーで URL 変更可）
+- [x] 左: 説明テキスト・「ご注文はこちら」ボタン中央配置（border-radius: 999px・#fa0000、デフォルトは Google Forms https://forms.gle/1hs63P1vK5d8qavN8、カスタマイザーで URL 変更可）
 - [x] 右: 野菜画像グリッド（9種・読み込み時ランダム順）。`$vegetables_data` に `image` キーで assets/images の画像を紐づけ。画像ありなら `<img>`、なしならプレースホルダー表示。オーバーレイ内に .wrap_card（白背景・角丸15px・margin/padding 15px・テキスト中央）。ホバー/タップでオーバーレイ表示（名称・特徴・オススメ時期）
 - [x] PC 3行3列 / スマホ 3行2列、vegetables.js でタップ開閉
 
@@ -298,6 +299,9 @@
 - **2026/03（イタリア野菜とは）**: `$vegetables_data` に `image` キーを追加。各野菜（9種）に `'image' => ''` を追加。画像ファイル名を指定すると assets/images の画像を表示、空ならプレースホルダー。テンプレートで `!empty($veg['image'])` により img/placeholder を出し分け。
 - **2026/03（サポーター紹介）**: ヘッダーバナーをリボン型に変更。clip-path 削除、左右に span で横V（c-scroll-top::before と同様の border+transform）。カードを完成イメージ準拠に変更（円形写真が赤バナー左端に重なる、右端に clip-path で横Vカット、左三角・右矢印を削除）。`$supporters_data` に `image` キーを追加し画像紐づけ。
 - **2026/03/12（ヘッダー・メニュー・ナビ等）**: お知らせスラッグ otoshirase→news。メニューを TOP・プロジェクトについて・イタリア野菜とは・生産者紹介・サポーター紹介・お問い合わせに変更（アンカーリンク＋スムーズスクロール）。scroll-padding-top でオフセット。ヘッダー max-width 96%、ナビ gap 15px・letter-spacing 0.01em。スライドイン着火 800px、スライドイン/アウトアニメーション（0.8s）。ロゴ切り替え（logo_sub.png をスライドイン時・下層ページで使用）。ページトップボタン 700px でフェードイン。
+- **2026/03/12（下層ページ・アーカイブ）**: page.php・home.php・archive.php・single.php を作成。_page.scss でスタイル定義。get_the_archive_title フィルターでアーカイブタイトルプレフィックス削除。.l-header__logo-img から vertical-align を削除（display: block では無効のため）。
+- **2026/03/12（固定ページ・フッター）**: c-border-line-left を _components.scss に追加（p-project__heading::before と同様の赤・ライムグリーン縦二重線）。page.php のタイトルに適用。フッターのサイトポリシー・プライバシーポリシーを /site-policy/・/privacy-policy/ にリンク更新。
+- **2026/03/12（PICKUP スライダー）**: 1枚表示（p-news__pickup-viewport 追加）、aspect-ratio 4/3、自動再生（5秒）・ループ・ホバー時一時停止、常に右→左スライド（先頭クローンを末尾に追加、transitionend でリセット）。news-slider.js・front-page.php・_news.scss を更新。
 
 ---
 
@@ -306,3 +310,4 @@
 - devnotes/202503031000-schedule-to-production-test.md（**3/11 本番テストアップ スケジュール・TODO**）
 - devnotes/202503021430-dev-env-and-implementation-plan.md（全体実装計画）
 - devnotes/202503021800-current-status.md（現状記録）
+- devnotes/202603121148-sub-page-archive-implementation-plan.md（下層ページ・アーカイブページ実装計画）

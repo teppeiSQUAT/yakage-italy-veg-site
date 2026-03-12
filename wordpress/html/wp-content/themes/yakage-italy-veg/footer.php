@@ -22,9 +22,9 @@
 				<nav class="l-footer__nav" aria-label="フッターナビゲーション">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">TOP</a>
 					<span class="l-footer__separator" aria-hidden="true">|</span>
-					<a href="#">サイトポリシー</a>
+					<a href="<?php echo esc_url( home_url( '/site-policy/' ) ); ?>">サイトポリシー</a>
 					<span class="l-footer__separator" aria-hidden="true">|</span>
-					<a href="#">プライバシーポリシー</a>
+					<a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">プライバシーポリシー</a>
 				</nav>
 				<p class="l-footer__copyright"><?php echo esc_html( date( 'Y' ) ); ?> (c) yakage.</p>
 			</div>

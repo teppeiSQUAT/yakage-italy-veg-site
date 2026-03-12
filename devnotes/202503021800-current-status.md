@@ -1,6 +1,6 @@
 # プロジェクト現状記録
 
-- **記録日**: 2026年3月12日（最終追記: ヘッダー・メニュー・ナビ・スムーズスクロール・ロゴ切り替え）
+- **記録日**: 2026年3月12日（最終追記: PICKUP スライダー）
 - **プロジェクト**: 矢掛町イタリア野菜プロジェクト 公式サイト（yakage-italy-veg-site）
 - **スケジュール**: **2025年3月11日（火）本番サーバーへテストアップ予定** → devnotes/202503031000-schedule-to-production-test.md
 
@@ -13,8 +13,22 @@
 | **テーマ Phase A〜B** | テーマ基盤・ヘッダー・ヒーロー・フッター | **完了** |
 | **テーマ Phase C〜J** | お知らせ→Instagram→プロジェクト→イタリア野菜とは→生産者→サポーター→実績→お問い合わせ | **完了** |
 | **テーマ Phase K** | レスポンシブ・仕上げ | **3/11 までに実施**（スケジュール参照） |
+| **テーマ Phase L** | 下層ページ・アーカイブ（page/home/archive/single） | **完了** |
 | **本番テストアップ** | さくらサーバーへアップロード・確認 | **目標 3/11** |
 | フェーズ1〜8 | キックオフ 〜 リリース | 未着手／随時 |
+
+### 直近の反映（2026/03/12 PICKUP スライダー）
+
+- **1枚表示**: `.p-news__pickup-viewport` を追加し、表示を1枚に制限。front-page.php にビューポートラッパーを追加、_news.scss で flex: 1 1 0・min-width: 0・overflow: hidden を指定。
+- **aspect-ratio**: `.p-news__pickup-card-image` に `aspect-ratio: 4 / 3` を追加（_news.scss）。スマホ時は 16/10 のまま。
+- **自動再生・ループ**: news-slider.js で 5秒間隔の自動再生、ホバー時一時停止、手動操作でタイマーリセットを実装。
+- **常に右→左スライド**: 先頭スライドのクローンを末尾に追加。最後→最初のループ時も右から左へスライド。transitionend で位置をリセットし、クローン表示後に即座に先頭へ戻す（見た目は途切れない）。
+
+### 直近の反映（2026/03/12 news.php・もっと見る・ご注文はこちら）
+
+- **news.php**: 固定ページテンプレート「NEWS（投稿一覧）」を作成。固定ページ「NEWS」にこのテンプレートを適用すると、投稿一覧を表示。ページネーション対応。固定ページはダッシュボードから手動で作成し、テンプレートを選択する。
+- **もっと見るリンク**: `yakage_italy_veg_get_news_archive_url()` を変更。スラッグ `news` の固定ページを検索し、その URL（例: http://localhost:8082/news）を返す。ページ未作成時は `home_url('/news/')` をフォールバック。
+- **ご注文はこちら**: リンク先を Google Forms（https://forms.gle/1hs63P1vK5d8qavN8）に設定。functions.php のカスタマイザー設定デフォルトと front-page.php のフォールバックを更新。
 
 ### 直近の反映（2026/03/12 ヘッダー・メニュー・ナビ等）
 
@@ -26,6 +40,17 @@
 - **ヘッダースライドイン**: 着火閾値を 80px → 800px に変更。スライドイン速度を 0.6s、スライドアウトを 0.8s で上から下／下から上へアニメーション（headerSlideIn / headerSlideOut）。800px 未満で上へスライドアウト。
 - **ロゴ切り替え**: スライドイン時・下層ページで `logo_sub.png` を使用。TOP 初回は `logo.png` のまま。header.php で両 img を配置、CSS で表示切り替え。
 - **ページトップボタン**: 700px スクロールでフェードイン表示（opacity・visibility・pointer-events）。_footer.scss・header.js を更新。
+
+### 直近の反映（2026/03/12 下層ページ・アーカイブ・CSS 修正）
+
+- **下層ページ・アーカイブページ実装**: page.php（固定ページ）、home.php（投稿一覧）、archive.php（カテゴリ等アーカイブ）、single.php（単一投稿）を作成。scss/_page.scss でスタイル定義。実装計画は devnotes/202603121148-sub-page-archive-implementation-plan.md に記載。
+- **アーカイブタイトル**: functions.php で get_the_archive_title フィルターを追加し、「カテゴリー:」等のプレフィックスを削除。
+- **CSS 修正**: .l-header__logo-img から vertical-align: top を削除。display: block の要素では vertical-align が無効のため、lint エラー解消。
+
+### 直近の反映（2026/03/12 固定ページ・フッター）
+
+- **c-border-line-left**: _components.scss に追加。p-project__heading::before と同じスタイル（赤・ライムグリーン縦二重線）を ::before で実装。固定ページタイトル（page.php）に適用。
+- **フッターリンク**: サイトポリシー → `/site-policy/`、プライバシーポリシー → `/privacy-policy/` に更新。固定ページのスラッグを site-policy / privacy-policy に設定するとリンク先となる。
 
 ### 直近の反映（サポーター紹介 追記）
 
@@ -119,7 +144,7 @@
 
 - **ブランチ**: main / develop あり
 - **リモート**: origin（main / develop ともに push 済み）
-- **未コミット変更**: テーマ（functions.php・header.php・front-page.php、header.js、_header.scss・_footer.scss・_reset.scss・_news.scss 等）、お知らせスラッグ・メニューリンク・スムーズスクロール・ヘッダーアニメーション・ロゴ切り替え・ページトップボタン等の更新。生産者・サポーター・野菜の画像（img_frmr_*.jpg、img_spt_*.jpg、img_veg_*.jpg）が未追跡。必要に応じて `git status` で確認。
+- **未コミット変更**: テーマ（functions.php・header.php・front-page.php・footer.php、header.js、news-slider.js、_header.scss・_footer.scss・_reset.scss・_news.scss・_page.scss・_components.scss 等）、page.php・home.php・archive.php・single.php・news.php、お知らせスラッグ・メニューリンク・スムーズスクロール・ヘッダーアニメーション・ロゴ切り替え・ページトップボタン・下層ページ・アーカイブページ・c-border-line-left・フッターリンク（site-policy/privacy-policy）・vertical-align 修正・もっと見るリンク（/news/）・ご注文はこちら（Google Forms）・PICKUP スライダー（1枚表示・自動再生・ループ・右→左）等の更新。生産者・サポーター・野菜の画像（img_frmr_*.jpg、img_spt_*.jpg、img_veg_*.jpg）が未追跡。必要に応じて `git status` で確認。
 - **直近コミット**: （状況に応じて更新）
 
 ※ 現状記録の更新（本ファイル追加・計画書の状態更新）をコミットする場合は、develop で作業し「[フェーズ0] 現状記録・計画書更新」等のメッセージでコミット・push を推奨。
@@ -145,6 +170,7 @@
 | devnotes/202503021430-dev-env-and-implementation-plan.md | 全体実装計画・フェーズ0〜8 の TODO |
 | devnotes/202503031000-schedule-to-production-test.md | **3/11 本番テストアップ スケジュール・フェーズ別TODO** |
 | devnotes/202503032300-top-page-theme-implementation-plan.md | TOPページテーマ実装計画（Phase A〜K、コンテンツブロック単位） |
+| devnotes/202603121148-sub-page-archive-implementation-plan.md | 下層ページ・アーカイブページ実装計画（Phase L） |
 | devnotes/202503032300-scss-workflow.md | SCSS 開発環境ワークフロー（コンパイル・watch） |
 | devnotes/202503091000-theme-dev-watch-and-reload.md | テーマ開発: SCSS 自動ビルド・Browsersync によるブラウザ自動リロード |
 | devnotes/202503021500-phase0-runbook.md | フェーズ0 実施手順（本マシン・別マシン） |

@@ -73,7 +73,8 @@ get_header();
 				<div class="p-news__pickup-label">PICKUP</div>
 				<div class="p-news__pickup-slider">
 					<button type="button" class="p-news__pickup-arrow p-news__pickup-arrow--prev" aria-label="前へ"></button>
-					<div class="p-news__pickup-track">
+					<div class="p-news__pickup-viewport">
+						<div class="p-news__pickup-track">
 						<?php
 						while ( $pickup_query->have_posts() ) :
 							$pickup_query->the_post();
@@ -110,6 +111,7 @@ get_header();
 						endwhile;
 						wp_reset_postdata();
 						?>
+						</div>
 					</div>
 					<button type="button" class="p-news__pickup-arrow p-news__pickup-arrow--next" aria-label="次へ"></button>
 				</div>
@@ -315,7 +317,7 @@ get_header();
 	);
 	// 読み込み時にランダム配置
 	shuffle( $vegetables_data );
-	$order_link = get_theme_mod( 'yakage_vegetables_order_url', '#' );
+	$order_link = get_theme_mod( 'yakage_vegetables_order_url', 'https://forms.gle/1hs63P1vK5d8qavN8' );
 	?>
 	<section class="p-vegetables" id="vegetables">
 			<div class="p-vegetables__inner">

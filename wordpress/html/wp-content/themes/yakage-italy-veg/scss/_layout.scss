@@ -2,6 +2,17 @@
 // 共通コンテナ・セクション
 // ========================================
 
+// 下層ページ: スティッキーフッター（コンテンツが少ないときはブラウザ下端、多いときはコンテンツ下部に配置）
+body:not(.is-front-page) {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body:not(.is-front-page) .l-main {
+  flex: 1;
+}
+
 .l-container {
   width: 100%;
   max-width: var(--container-max-width);

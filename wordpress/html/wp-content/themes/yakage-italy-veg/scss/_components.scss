@@ -13,6 +13,26 @@
   background-repeat: repeat-x;
 }
 
+// 左端に赤・ライムグリーンの縦二重線（::before 擬似要素）
+// p-project__heading::before と同じスタイル
+// 使用: タイトル等に class="c-border-line-left" を付与
+.c-border-line-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 11px;
+    height: 1.5em;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, var(--color-red) 0, var(--color-red) 3px, transparent 3px, transparent 8px, var(--color-green-lime) 8px, var(--color-green-lime) 11px);
+    background-repeat: no-repeat;
+    vertical-align: middle;
+  }
+}
+
 // 同スタイルを下端に表示（ヘッダー下ボーダー等）
 // 上段: 要素下端から 8px〜4px、下段: 要素下端から 4px〜0（.c-border-line-top と同じ二段）
 .c-border-line-bottom {
