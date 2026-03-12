@@ -5,11 +5,11 @@
 .l-header {
   z-index: 100;
   overflow: visible;
-  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.6s ease, background-color 0.6s ease, box-shadow 0.6s ease;
 
   &__container {
     position: relative;
-    max-width: 90%;
+    max-width: 96%;
     background-color: var(--color-white);
   }
 
@@ -29,6 +29,8 @@
     position: absolute;
     left: 0;
     top: 0;
+    width: 25%;
+    height: auto;
     z-index: 2;
   }
 
@@ -44,12 +46,46 @@
 
   &__logo-img {
     display: block;
-    height: 200px;
-    width: auto;
+    height: auto;
+    width: 100%;
     max-width: 300px;
     object-fit: contain;
     object-position: left top;
     vertical-align: top;
+
+    // スライドイン時: logo_sub.png を表示（TOP ページのみ）
+    &--sub {
+      display: none;
+    }
+  }
+
+  // TOP スクロール時: logo_sub に切り替え
+  &--top.is-scrolled &__logo-img--main {
+    display: none;
+  }
+
+  &--top.is-scrolled &__logo-img--sub {
+    display: block;
+    height: 80px;
+    padding-top: 10px;
+    max-width: 220px;
+  }
+
+  // TOP 初回: メインロゴのみ表示
+  &--top:not(.is-scrolled) &__logo-img--sub {
+    display: none;
+  }
+
+  // 下層ページ: logo_sub を使用
+  &--sub &__logo-img--main {
+    display: none;
+  }
+
+  &--sub &__logo-img--sub {
+    display: block;
+    height: 80px;
+    padding-top: 10px;
+    max-width: 220px;
   }
 
   &__nav {
@@ -76,13 +112,20 @@
     }
   }
 
-  // TOP スクロール時: 固定表示に切り替え（背景は最初から白のまま）
+  // TOP スクロール時: 上から下へスライドインして固定表示
   &--top.is-scrolled {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    transform: translateY(0);
+
+    &:not(.is-sliding-out) {
+      animation: headerSlideIn 0.8s ease forwards;
+    }
+
+    &.is-sliding-out {
+      animation: headerSlideOut 0.8s ease forwards;
+    }
   }
 
   // TOP 初回でまだスクロールしていない時はヘッダーを画面上部に（スライドイン前は非表示にしない）
@@ -101,6 +144,26 @@
   }
 }
 
+// ヘッダー スライドインアニメーション（上から下へ）
+@keyframes headerSlideIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+// ヘッダー スライドアウトアニメーション（下から上へ）
+@keyframes headerSlideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
 // 下層ページ用: 固定ヘッダー分の余白
 body:not(.is-front-page) .l-main {
   padding-top: 60px;
@@ -108,7 +171,7 @@ body:not(.is-front-page) .l-main {
 
 .c-nav-list {
   display: flex;
-  gap: 32px;
+  gap: 18px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -116,11 +179,12 @@ body:not(.is-front-page) .l-main {
 
   a {
     position: relative;
+    font-size: var(--font-size-sm);
     display: inline-block;
     padding-bottom: 4px;
     color: var(--color-text);
     text-decoration: none;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     transition: color 0.2s ease;
 
     &::after {
@@ -233,6 +297,11 @@ body:not(.is-front-page) .l-main {
   .l-header__logo-img {
     height: 72px;
     max-width: 160px;
+
+    &--sub {
+      height: 52px;
+      max-width: 180px;
+    }
   }
 
   .l-header__nav {

@@ -115,8 +115,17 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, opacity 0.3s ease, visibility 0.3s ease;
   z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
 
   // 上向き矢印を CSS で表示（角を折った四角を回転）
   &::before {

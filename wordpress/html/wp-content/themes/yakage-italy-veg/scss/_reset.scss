@@ -2,6 +2,17 @@
 // リセット・ベーススタイル
 // ========================================
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* 固定ヘッダー高さ分のオフセット（スムーズスクロール時） */
+}
+
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 60px; /* スマホ: ヘッダー高さに合わせて調整 */
+  }
+}
+
 *,
 *::before,
 *::after {

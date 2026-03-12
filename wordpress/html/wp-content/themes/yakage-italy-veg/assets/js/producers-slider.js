@@ -6,7 +6,6 @@
   'use strict';
 
   var AUTO_INTERVAL_MS = 5000;
-  var LOGICAL_COUNT = 6; // 本来の枚数（ドット数）
 
   var section = document.querySelector('.p-producers');
   var track = document.querySelector('[data-producers-track]');
@@ -17,7 +16,8 @@
   if (!track || !dotsContainer) return;
 
   var cards = track.querySelectorAll('.p-producers__card');
-  if (cards.length !== LOGICAL_COUNT) return;
+  var LOGICAL_COUNT = cards.length; // 本来の枚数（ドット数）
+  if (LOGICAL_COUNT === 0) return;
 
   // 先頭6枚をクローンして末尾に追加 → 12枚で「最後の次に先頭」が続く
   for (var i = 0; i < LOGICAL_COUNT; i++) {
@@ -29,7 +29,7 @@
   var isTransitioning = false;
 
   function updateDots() {
-    var logical = position === 6 ? 0 : position;
+    var logical = position === LOGICAL_COUNT ? 0 : position;
     dotsContainer.querySelectorAll('.p-producers__dot').forEach(function (dot, i) {
       dot.classList.toggle('p-producers__dot--active', i === logical);
     });
@@ -48,7 +48,7 @@
   }
 
   function onTransitionEnd() {
-    if (position === 6) {
+    if (position === LOGICAL_COUNT) {
       position = 0;
       applyPosition(true);
     }
@@ -69,12 +69,12 @@
   function goPrev() {
     if (isTransitioning) return;
     if (position === 0) {
-      // 先頭のひとつ前＝論理の最後。位置6（クローン先頭）に飛んでから 5 へアニメ
-      position = 6;
+      // 先頭のひとつ前＝論理の最後。クローン先頭に飛んでから 最後-1 へアニメ
+      position = LOGICAL_COUNT;
       applyPosition(true);
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
-          position = 5;
+          position = LOGICAL_COUNT - 1;
           applyPosition(false);
         });
       });

@@ -35,7 +35,7 @@ function yakage_italy_veg_register_news_categories() {
 		return;
 	}
 	$categories = array(
-		array( 'name' => 'お知らせ', 'slug' => 'otoshirase' ),
+		array( 'name' => 'お知らせ', 'slug' => 'news' ),
 		array( 'name' => 'イベント', 'slug' => 'event' ),
 		array( 'name' => 'レシピ', 'slug' => 'recipe' ),
 		array( 'name' => 'PICKUP', 'slug' => 'pickup' ),
@@ -125,12 +125,12 @@ add_action( 'init', 'yakage_italy_veg_menus' );
  */
 function yakage_italy_veg_default_menu() {
 	echo '<ul class="c-nav-list">';
-	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">HOME</a></li>';
-	echo '<li><a href="#">野菜紹介</a></li>';
-	echo '<li><a href="#">イベント</a></li>';
-	echo '<li><a href="#">農家紹介</a></li>';
-	echo '<li><a href="#">アクセス</a></li>';
-	echo '<li><a href="#">お問い合わせ</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">TOP</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#project' ) . '">プロジェクトについて</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#vegetables' ) . '">イタリア野菜とは</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#producers' ) . '">生産者紹介</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#supporters' ) . '">サポーター紹介</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#contact' ) . '">お問い合わせ</a></li>';
 	echo '</ul>';
 }
 
@@ -143,7 +143,7 @@ function yakage_italy_veg_get_news_archive_url() {
 	if ( $posts_page_id ) {
 		return get_permalink( $posts_page_id );
 	}
-	$cat = get_category_by_slug( 'otoshirase' );
+	$cat = get_category_by_slug( 'news' );
 	if ( $cat ) {
 		return get_category_link( $cat->term_id );
 	}
@@ -243,11 +243,11 @@ add_action( 'customize_register', 'yakage_italy_veg_customize_register_vegetable
  */
 function yakage_italy_veg_default_drawer_menu() {
 	echo '<ul class="c-drawer-nav">';
-	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">HOME</a></li>';
-	echo '<li><a href="#">野菜紹介</a></li>';
-	echo '<li><a href="#">イベント</a></li>';
-	echo '<li><a href="#">農家紹介</a></li>';
-	echo '<li><a href="#">アクセス</a></li>';
-	echo '<li><a href="#">お問い合わせ</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">TOP</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#project' ) . '">プロジェクトについて</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#vegetables' ) . '">イタリア野菜とは</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#producers' ) . '">生産者紹介</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#supporters' ) . '">サポーター紹介</a></li>';
+	echo '<li><a href="' . esc_url( home_url( '/' ) . '#contact' ) . '">お問い合わせ</a></li>';
 	echo '</ul>';
 }

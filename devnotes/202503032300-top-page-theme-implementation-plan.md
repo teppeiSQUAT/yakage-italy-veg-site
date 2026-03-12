@@ -1,7 +1,7 @@
 # TOPページ テーマ実装計画書
 
 - **作成日**: 2025年3月3日
-- **最終更新**: 2026年3月2日
+- **最終更新**: 2026年3月12日（ヘッダー・メニュー・スムーズスクロール・ロゴ切り替えを反映）
 - **対象**: 矢掛町イタリア野菜プロジェクト 公式サイト TOPページ
 - **目的**: 新規 WordPress テーマを作成し、デザインを再現する
 - **進め方**: フェーズごとに切り、コンテンツブロック単位で実装
@@ -86,12 +86,14 @@
 ### PC 表示
 
 - [x] ロゴ（`assets/images/logo.png` を絶対配置で表示、PC: height 200px / max-width 300px、スマホ: 72px / 160px）
-- [x] ヘッダーコンテナ（.l-header__container）の max-width: 90%
-- [x] ナビゲーションメニュー（横並び・右寄せ、文字間・メニュー間を調整）
+- [x] ロゴ切り替え：TOP 初回は logo.png、800px スクロール後・下層ページは logo_sub.png（header.php で両 img を配置、CSS で表示切り替え）
+- [x] ヘッダーコンテナ（.l-header__container）の max-width: 96%
+- [x] ナビゲーションメニュー（横並び・右寄せ、gap: 15px、letter-spacing: 0.01em）
+- [x] メニューリンク：TOP・プロジェクトについて（#project）・イタリア野菜とは（#vegetables）・生産者紹介（#producers）・サポーター紹介（#supporters）・お問い合わせ（#contact）。スムーズスクロール＋scroll-padding-top でオフセット調整
 - [x] TOP 時も**最初から白背景**（スクロール前後で統一）。コンテナ・inner に白背景指定
-- [x] TOP スクロール時：固定表示に切り替え（header.js で .is-scrolled 付与）
+- [x] TOP スクロール時：800px で固定表示に切り替え（header.js で .is-scrolled 付与）。上から下へスライドイン（headerSlideIn 0.8s）、800px 未満で上へスライドアウト（headerSlideOut 0.8s、is-sliding-out 経由）
 - [x] ナビホバー・現在ページ：赤文字＋ライムグリーン下線（`--color-green-lime`）。.current-menu-item にも同スタイル
-- [x] 下層ページ：固定ヘッダー（.l-header--sub）
+- [x] 下層ページ：固定ヘッダー（.l-header--sub）、logo_sub.png を使用
 
 ### スマホ表示（Phase H で詳細）
 
@@ -111,7 +113,7 @@
 - [x] フッター背景（#e5e5e5）
 - [x] 左：シールに `logo_gry.png` を表示（角丸・枠線なし）
 - [x] 中央：ナビ（TOP｜サイトポリシー｜プライバシーポリシー）、著作権「YYYY (c) yakage.」
-- [x] 右：ページトップへスクロール用ボタン（半円かまぼこ型・下端固定・CSS 三角矢印、シャドウなし）
+- [x] 右：ページトップへスクロール用ボタン（半円かまぼこ型・下端固定・CSS 三角矢印、シャドウなし）。700px スクロールでフェードイン表示（.is-visible）
 - [x] レイアウト：3カラム grid（左・中央・右）、スマホ時は縦並び
 
 ---
@@ -126,7 +128,7 @@
 - [x] セクションタイトル「お知らせ」＋左右に赤・白縦二重線（::before/::after、幅11px・高さ1.5em）、文字サイズは他セクションタイトルと統一（clamp）
 - [x] PICKUP トラック幅をグリッドと同一にし、前へ・次へボタンはトラック外側に absolute 配置
 - [x] PICKUP カード内タイトル（.p-news__pickup-card-body .p-news__card-title）font-size: 26px
-- [x] カテゴリ 4 種登録（お知らせ・イベント・レシピ・PICKUP）
+- [x] カテゴリ 4 種登録（お知らせ slug: news・イベント・レシピ・PICKUP）
 - [x] PICKUP: 先頭でスライダー表示（前後矢印・ドット、ループ）、カード内に日付・カテゴリ・タイトル・抜粋・NEW タグ（7日以内）
 - [x] それ以外: お知らせ・イベント・レシピを新着順で 6 件グリッド（3列）、サムネイル・日付・カテゴリタグ・タイトル・抜粋・NEW タグ
 - [x] 「もっと見る」ボタンでアーカイブ（投稿ページ or お知らせカテゴリ）へ
@@ -171,7 +173,7 @@
 - [x] セクション構成・背景（白）。コンテンツ:グリッド＝4:6、グリッドは右端いっぱい
 - [x] セクションタイトル「イタリア野菜とは」＋c-border-line-bottom（中央寄せ・padding-bottom 1em）
 - [x] 左: 説明テキスト・「ご注文はこちら」ボタン中央配置（border-radius: 999px・#fa0000、カスタマイザーで URL 変更可）
-- [x] 右: 野菜画像グリッド（9種・読み込み時ランダム順）。オーバーレイ内に .wrap_card（白背景・角丸15px・margin/padding 15px・テキスト中央）。ホバー/タップでオーバーレイ表示（名称・特徴・オススメ時期）
+- [x] 右: 野菜画像グリッド（9種・読み込み時ランダム順）。`$vegetables_data` に `image` キーで assets/images の画像を紐づけ。画像ありなら `<img>`、なしならプレースホルダー表示。オーバーレイ内に .wrap_card（白背景・角丸15px・margin/padding 15px・テキスト中央）。ホバー/タップでオーバーレイ表示（名称・特徴・オススメ時期）
 - [x] PC 3行3列 / スマホ 3行2列、vegetables.js でタップ開閉
 
 ---
@@ -182,11 +184,12 @@
 
 ## G-1. 生産者紹介
 
-- [x] セクション構成・背景（オフホワイト）
+- [x] セクション構成・背景（白・c-border-line-top）
 - [x] セクションタイトル「生産者紹介」＋赤・緑破線
-- [x] 1ブロック＝画像（角丸）・キャッチコピー（赤・太字）・名前（〇〇さん）・補足情報
-- [x] 6名のダミーデータでループスライダー（矢印・ドット）、PC で 3〜4名表示・スマホで 1名表示
-- [x] SCSS: _producers.scss、JS: producers-slider.js（--producers-current で位置制御）
+- [x] 1ブロック＝画像（角丸）・キャッチコピー（赤・太字・改行は white-space: pre-line）・名前（〇〇さん）・補足情報
+- [x] `$producers_data` に `image` キーで assets/images の画像を紐づけ。画像ありなら `<img>`、なしならプレースホルダー表示
+- [x] ループスライダー（矢印・ドット）、枚数は JS で動的（cards.length）。PC で **3枚** 表示・タブレット 3枚・スマホ 1枚
+- [x] SCSS: _producers.scss、JS: producers-slider.js（--producers-current で位置制御、LOGICAL_COUNT 動的）
 
 ---
 
@@ -196,9 +199,10 @@
 
 ## H-1. サポーター紹介
 
-- [x] セクション構成・背景（オフホワイト＋白ドットパターン）
-- [x] ヘッダーバナー（白・赤破線枠）、タイトル「サポーター紹介」＋縦線＋キャッチコピー
-- [x] 9名グリッド（3列、スマホ2列）。1ブロック＝円形顔写真（赤枠）＋赤吹き出し（名前・所属）
+- [x] セクション構成・背景（白＋赤ドットパターン）
+- [x] ヘッダーバナー：リボン型、左右に横V（span + c-scroll-top::before の border+transform 方式）、タイトル赤・縦線赤・キャッチコピー
+- [x] 9名グリッド（3列、スマホ2列）。1ブロック＝円形顔写真（赤枠・左半分がバナー外にはみ出し）＋赤バナー（右端に横Vカット、円形写真と重なる）
+- [x] `$supporters_data` に `image` キーで assets/images の画像を紐づけ。画像ありなら `<img>`、なしならプレースホルダー表示
 - [x] SCSS: _supporters.scss
 
 ---
@@ -211,7 +215,7 @@
 
 - [x] セクション構成（赤背景＋野菜ラインアート）、キャッチコピー
 - [x] 白エリア（p-achievements__inner: max-width: 900px 中央配置）内に3ブロック
-- [x] 各ブロック：白背景・角丸・シャドウ、タイトル・説明文・写真コラージュ（6枚／3枚）。ブロック間 margin-bottom: 48px
+- [x] 各ブロック：白背景・角丸・シャドウ、タイトル・説明文・写真（1枚ずつ img_archive_01/02/03.jpg）。ブロック間 margin-bottom: 48px
 - [x] SCSS: _achievements.scss
 
 ---
@@ -256,9 +260,9 @@
 | お知らせ | 投稿 or カスタム投稿「お知らせ」 |
 | Instagram | 埋め込み or 外部リンク or プラグイン |
 | イタリア野菜プロジェクトについて | 固定ページ or カスタムフィールド |
-| イタリア野菜とは | 固定ページ or カスタム投稿 |
-| 生産者紹介 | カスタム投稿「生産者」 |
-| サポーター紹介 | カスタム投稿 or 固定データ |
+| イタリア野菜とは | front-page.php の $vegetables_data（image キーで assets/images 紐づけ） or カスタム投稿 |
+| 生産者紹介 | front-page.php の $producers_data（image キーで assets/images 紐づけ） or カスタム投稿「生産者」 |
+| サポーター紹介 | front-page.php の $supporters_data（image キーで assets/images 紐づけ） or カスタム投稿 |
 | 実績紹介 | カスタム投稿「実績」 or 固定ページ |
 | お問い合わせ | Contact Form 7 等プラグイン or カスタム |
 
@@ -269,8 +273,9 @@
 ## ヘッダー実装メモ（技術）
 
 - **ページ判定**: `is_front_page()` で TOP / 下層を判定。body に `home` や `page-template-front-page` 等のクラスを活用
-- **スクロール検知**: JS で scroll イベントを監視し、閾値超過で固定ヘッダーにクラス付与（例: `.is-scrolled`）
-- **スライドイン**: CSS `transform: translateY()` または `top` でアニメーション。`position: fixed` で画面上部に固定
+- **スクロール検知**: JS で scroll イベントを監視し、閾値 800px 超過で固定ヘッダーに `.is-scrolled` 付与。800px 未満で `.is-sliding-out` を付与しスライドアウト、animationend でクラス削除
+- **スライドイン/アウト**: キーフレーム headerSlideIn（-100%→0）、headerSlideOut（0→-100%）。0.8s ease。`position: fixed` で画面上部に固定
+- **スムーズスクロール**: html に `scroll-behavior: smooth`、`scroll-padding-top: 80px`（PC）/ 60px（スマホ）でアンカーリンク時のオフセット
 
 ---
 
@@ -288,7 +293,11 @@
 - **2025/03/09**: Phase H・I・J 完了。サポーター紹介（9名グリッド・円形写真＋赤吹き出し）、実績紹介（3ブロック・白エリア max-width:900px）、お問い合わせ（完成イメージに合わせたフォーム・同意チェック・送信ボタン）。ヘッダー：ロゴを logo.png に差し替え・絶対配置・最初から白背景、ナビの文字間・ホバー時赤文字＋ライムグリーン下線（--color-green-lime を変数化）。開発環境：Browsersync＋concurrently で npm run dev、WP_DEBUG 時はスタイルバージョンに time() でリロード時確実に最新 CSS。テーマ画像用 assets/images/ 作成。
 - **2025/03/10**: ヒーローを8枚スライダーに変更（hero-1～8.jpg、クロスフェード・約5秒で拡大アニメ・自動送り・ドット・ホバーで一時停止）。ヘッダーロゴ画像サイズを PC で height: 200px / max-width: 300px に変更。
 - **2025/03/11**: セクション背景を変数化（--section-*）、--color-red を #f70801 に変更。お知らせ: 背景 #009145＋bg_layveg01.png contain・opacity 0.2。Instagram: 白＋bg_layveg02.png cover・0.15。プロジェクト: グラデーション＋線画を gradation_wrap に集約、ヒーローに bg_layveg03.jpg・logo_wht.png、hero-copy 3vw。イタリア野菜とは: パディングを content に、グリッド右端いっぱい・4:6・wrap_content・カード非正方形・ご注文ボタン 999px/#fa0000。生産者: 白背景・l-container 幅いっぱい・カードシャドウ削除・gap 広め・上部ボーダーを .c-border-line-top で共通化（CSS のみ）。サポーター: ドットパターン（#f70801、22px 40px）。実績: bg_layveg01.png 透過・top・contain。
-- **2026/03/02**: お問い合わせタイトルを文字幅＋左右6em・padding-bottom 1em・letter-spacing 0.1em に。c-border-line-bottom の #fff を transparent に。イタリア野菜とはタイトルは c-border-line-bottom で中央寄せ・下余白1em、ご注文ボタン中央配置。お知らせ: タイトル左右に赤・白縦二重線（::before/::after）、PICKUP トラック幅＝グリッド・矢印は外側 absolute、カードタイトル 26px。--color-green を #009145 に。Instagram: 関連リンクをバナー画像3枚（bnr_yakage・bnr_youtube・bnr_okoshi）に変更、表示順・gap 24px、タイトル文字サイズ統一。プロジェクト: 本文画像を img_about-01/02/03 に差し替え、見出しに赤・緑ライム縦二重線（::before）、コロナ禍ブロックは .p-project__text--full で幅100%、YouTube デフォルト yhibkOmCXow・start=4、SPECIAL movie を .p-project__block--video で白背景・角丸30px・padding 30px・シャドウ、見出しは左線なし・文字赤・右に赤線（::after）、hero-copy を 2vw・letter-spacing 1px。ヘッダー: .l-header__container に max-width 90%。フッター: 背景 #e5e5e5、シールを logo_gry.png、スクロールトップを半円・CSS 三角。イタリア野菜カード: .wrap_card を追加（白背景・角丸15px・margin/padding 15px・テキスト中央）。
+- **2026/03/02**: お問い合わせタイトルを文字幅＋左右6em・padding-bottom 1em・letter-spacing 0.1em に。c-border-line-bottom の #fff を transparent に。イタリア野菜とはタイトルは c-border-line-bottom で中央寄せ・下余白1em、ご注文ボタン中央配置。お知らせ: タイトル左右に赤・白縦二重線（::before/::after）、PICKUP トラック幅＝グリッド・矢印は外側 absolute、カードタイトル 26px。--color-green を #009145 に。Instagram: 関連リンクをバナー画像3枚（bnr_yakage・bnr_youtube・bnr_okoshi）に変更、表示順・gap 24px、タイトル文字サイズ統一。プロジェクト: 本文画像を img_about-01/02/03 に差し替え、見出しに赤・緑ライム縦二重線（::before）、コロナ禍ブロックは .p-project__text--full で幅100%、YouTube デフォルト yhibkOmCXow・start=4、SPECIAL movie を .p-project__block--video で白背景・角丸30px・padding 30px
+- **2026/03（生産者紹介）**: 生産者データに `image` キーを追加し画像紐づけ（img_frmr_01〜05.jpg）。キャッチコピー改行は white-space: pre-line。PC 表示枚数を 4→3 に変更（トラック幅 400%）。producers-slider.js の LOGICAL_COUNT を動的（cards.length）にし、5件でもスライダー動作。変数 --font-size-xl / --font-size-2xl を追加。
+- **2026/03（イタリア野菜とは）**: `$vegetables_data` に `image` キーを追加。各野菜（9種）に `'image' => ''` を追加。画像ファイル名を指定すると assets/images の画像を表示、空ならプレースホルダー。テンプレートで `!empty($veg['image'])` により img/placeholder を出し分け。
+- **2026/03（サポーター紹介）**: ヘッダーバナーをリボン型に変更。clip-path 削除、左右に span で横V（c-scroll-top::before と同様の border+transform）。カードを完成イメージ準拠に変更（円形写真が赤バナー左端に重なる、右端に clip-path で横Vカット、左三角・右矢印を削除）。`$supporters_data` に `image` キーを追加し画像紐づけ。
+- **2026/03/12（ヘッダー・メニュー・ナビ等）**: お知らせスラッグ otoshirase→news。メニューを TOP・プロジェクトについて・イタリア野菜とは・生産者紹介・サポーター紹介・お問い合わせに変更（アンカーリンク＋スムーズスクロール）。scroll-padding-top でオフセット。ヘッダー max-width 96%、ナビ gap 15px・letter-spacing 0.01em。スライドイン着火 800px、スライドイン/アウトアニメーション（0.8s）。ロゴ切り替え（logo_sub.png をスライドイン時・下層ページで使用）。ページトップボタン 700px でフェードイン。
 
 ---
 

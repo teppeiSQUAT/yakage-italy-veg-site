@@ -28,7 +28,8 @@ if ( $is_front ) {
 		<div class="l-header__inner">
 			<div class="l-header__logo">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="l-header__logo-img" />
+					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="l-header__logo-img l-header__logo-img--main" />
+					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo_sub.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="l-header__logo-img l-header__logo-img--sub" />
 				</a>
 			</div>
 			<nav class="l-header__nav" aria-label="メインメニュー">

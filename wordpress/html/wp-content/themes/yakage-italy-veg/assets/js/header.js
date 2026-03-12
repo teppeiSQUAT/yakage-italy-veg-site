@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  const SCROLL_THRESHOLD = 80;
+  const SCROLL_THRESHOLD = 800;
   const header = document.getElementById('site-header');
   const hamburger = document.querySelector('.c-hamburger');
   const drawer = document.getElementById('drawer-nav');
@@ -12,15 +12,29 @@
 
   if (!header) return;
 
-  // TOP ページ: スクロールで固定ヘッダーにクラス付与
+  // TOP ページ: スクロールで固定ヘッダーにクラス付与（スライドイン/スライドアウト）
   if (header.classList.contains('l-header--top')) {
     function onScroll() {
       if (window.scrollY > SCROLL_THRESHOLD) {
+        header.classList.remove('is-sliding-out');
         header.classList.add('is-scrolled');
       } else {
-        header.classList.remove('is-scrolled');
+        if (header.classList.contains('is-scrolled')) {
+          header.classList.add('is-sliding-out');
+        } else {
+          header.classList.remove('is-scrolled');
+          header.classList.remove('is-sliding-out');
+        }
       }
     }
+
+    header.addEventListener('animationend', function (e) {
+      if (e.animationName === 'headerSlideOut' && header.classList.contains('is-sliding-out')) {
+        header.classList.remove('is-scrolled');
+        header.classList.remove('is-sliding-out');
+      }
+    });
+
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll(); // 初回
   }
@@ -67,9 +81,20 @@
     });
   }
 
-  // フッター: ページトップへスクロール
+  // フッター: ページトップへスクロール（700px スクロールでフェードイン）
+  const SCROLL_TOP_THRESHOLD = 700;
   const scrollTopBtn = document.querySelector('.c-scroll-top');
   if (scrollTopBtn) {
+    function updateScrollTopVisibility() {
+      if (window.scrollY > SCROLL_TOP_THRESHOLD) {
+        scrollTopBtn.classList.add('is-visible');
+      } else {
+        scrollTopBtn.classList.remove('is-visible');
+      }
+    }
+    window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
+    updateScrollTopVisibility(); // 初回
+
     scrollTopBtn.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });

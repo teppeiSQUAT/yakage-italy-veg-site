@@ -44,7 +44,7 @@ get_header();
 		) );
 	}
 	$grid_cat_ids = array();
-	foreach ( array( 'otoshirase', 'event', 'recipe' ) as $slug ) {
+	foreach ( array( 'news', 'event', 'recipe' ) as $slug ) {
 		$c = get_category_by_slug( $slug );
 		if ( $c ) {
 			$grid_cat_ids[] = $c->term_id;
@@ -303,15 +303,15 @@ get_header();
 	<!-- イタリア野菜とは（Phase F） -->
 	<?php
 	$vegetables_data = array(
-		array( 'name' => 'ズッキーニ', 'desc' => '色よし、艶よし。種も少なく、身がずっしり詰まっています', 'season' => '5月中旬〜7月中旬' ),
-		array( 'name' => 'カーボロネーロ', 'desc' => 'トスカーナの黒キャベツ。加熱で甘みとコクが増します', 'season' => '12月〜3月' ),
-		array( 'name' => 'サボイキャベツ', 'desc' => 'ちりめん状の葉が特徴。甘みがあり煮崩れしにくい', 'season' => '11月〜2月' ),
-		array( 'name' => 'リーキ', 'desc' => '西洋ネギ。やわらかく甘みがあり、スープやグラタンに', 'season' => '11月〜2月' ),
-		array( 'name' => 'チコリ', 'desc' => 'ほろ苦さが特徴。サラダやグリルで', 'season' => '4月〜6月' ),
-		array( 'name' => 'プチヴェール', 'desc' => '芽キャベツとケールの交配。小さな緑の蕾がかわいい', 'season' => '12月〜2月' ),
-		array( 'name' => 'ルッコラ', 'desc' => 'ゴマのような風味とピリッとした辛み。サラダやパスタに', 'season' => '4月〜6月・10月〜11月' ),
-		array( 'name' => 'プラムトマト', 'desc' => '煮込みやソースに最適。甘みと酸味のバランスが良い', 'season' => '6月〜9月' ),
-		array( 'name' => 'ナス', 'desc' => '紫の実は加熱でとろり。イタリアでは焼く・揚げるが定番', 'season' => '6月〜9月' ),
+		array( 'name' => 'ズッキーニ', 'desc' => '色よし、艶よし。種も少なく、身がずっしり詰まっています', 'season' => '5月中旬〜7月中旬', 'image' => 'img_veg_01.jpg' ),
+		array( 'name' => 'カーヴォロ・ネーロ', 'desc' => '凹凸のしっかりついた肉厚の葉が、料理人の期待に応えます。', 'season' => '12月上旬～3月中旬', 'image' => 'img_veg_02.jpg' ),
+		array( 'name' => 'サヴォイキャベツ', 'desc' => '煮込むほどに甘くなる。煮込んでも煮崩れない。', 'season' => '12月中旬～1月上旬', 'image' => 'img_veg_03.jpg' ),
+		array( 'name' => '満点リーキ', 'desc' => '太さ、巻き、そして甘み。すべてにこだわった自信作。', 'season' => '1月上旬～3月中旬', 'image' => 'img_veg_04.jpg' ),
+		array( 'name' => 'フェンネル', 'desc' => '全国のシェフ待望の肉厚フェンネルができました。', 'season' => '6月中旬～7月中旬,11月下旬～3月下旬', 'image' => 'img_veg_05.jpg' ),
+		array( 'name' => 'プンタレッラ', 'desc' => '鮮度が命の野菜だから、みんな待ってた国産もの。', 'season' => '12月中旬～2月上旬', 'image' => 'img_veg_06.jpg' ),
+		array( 'name' => 'カリーノ・ケール', 'desc' => '苦味が少なく、食べやすいケール', 'season' => '11月中旬～3月下旬', 'image' => 'img_veg_07.jpg' ),
+		array( 'name' => 'チーマ・ディ・ラーパ', 'desc' => '煮日本の菜花とは似て非なるこのコシ、味の濃さ。', 'season' => '11月中旬～3月上旬', 'image' => 'img_veg_08.jpg' ),
+		array( 'name' => 'ボンジョールノトマト', 'desc' => '加熱すると甘み倍増。型崩れしにくくグリルに最適', 'season' => '7月中旬～9月上旬', 'image' => 'img_veg_09.jpg' ),
 	);
 	// 読み込み時にランダム配置
 	shuffle( $vegetables_data );
@@ -332,9 +332,15 @@ get_header();
 				<div class="p-vegetables__grid" role="list">
 					<?php foreach ( $vegetables_data as $veg ) : ?>
 						<div class="p-vegetables__card" role="listitem">
-							<div class="p-vegetables__card-image p-vegetables__card-image--placeholder">
-								<span>画像</span>
-							</div>
+							<?php if ( ! empty( $veg['image'] ) ) : ?>
+								<div class="p-vegetables__card-image">
+									<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/' . $veg['image'] ) ); ?>" alt="<?php echo esc_attr( $veg['name'] ); ?>" width="400" height="400" loading="lazy">
+								</div>
+							<?php else : ?>
+								<div class="p-vegetables__card-image p-vegetables__card-image--placeholder">
+									<span>画像</span>
+								</div>
+							<?php endif; ?>
 							<div class="p-vegetables__card-overlay">
 								<div class="wrap_card">
 								<p class="p-vegetables__card-name"><?php echo esc_html( $veg['name'] ); ?></p>
@@ -351,12 +357,17 @@ get_header();
 	<!-- 生産者紹介（Phase G）ループスライダー -->
 	<?php
 	$producers_data = array(
-		array( 'catchphrase' => 'チャレンジを楽しむ、レチプレイヤー。', 'name' => '月周次郎', 'supplement' => 'ノア野菜部会長 矢神毎戸営農組合代表理事' ),
-		array( 'catchphrase' => 'へこたれない生き方が、へこたれない野菜を生み出す。', 'name' => '江尻健二', 'supplement' => 'チーマ・ディ・ラーパ生産者' ),
-		array( 'catchphrase' => '矢掛のブランド野菜「満点リーキ」のマエストロ', 'name' => '中本静満', 'supplement' => 'リーキ生産者' ),
-		array( 'catchphrase' => '天空のアスペで、空に届く野菜を。', 'name' => '山田一郎', 'supplement' => '中山間地栽培' ),
-		array( 'catchphrase' => '土と向き合い、ひとつひとつ手をかける。', 'name' => '佐藤花子', 'supplement' => 'イタリア野菜生産者' ),
-		array( 'catchphrase' => 'おいしいは、笑顔の先にある。', 'name' => '田村誠', 'supplement' => '直売所担当 生産者' ),
+		array( 'catchphrase' => '日々のチャレンジを
+楽しみ続ける、
+マルチプレイヤー', 'name' => '高月 周次郎', 'supplement' => 'イタリア野菜部会長
+矢神毎戸営農組合代表理事', 'image' => 'img_frmr_01.jpg' ),
+		array( 'catchphrase' => 'へこたれない生き方が、
+		へこたれない野菜を生み出す。', 'name' => '江尻健二', 'supplement' => 'チーマ・ディ・ラーパ生産者', 'image' => 'img_frmr_02.jpg' ),
+		array( 'catchphrase' => '矢掛のブランド野菜
+		「満点リーキ」のマエストロ', 'name' => '三宅幸雄', 'supplement' => 'リーキ生産者', 'image' => 'img_frmr_03.jpg' ),
+		array( 'catchphrase' => '“天空のアスパラ畑”の主', 'name' => '中本静満', 'supplement' => 'アスパラ生産者', 'image' => 'img_frmr_04.jpg' ),
+		array( 'catchphrase' => '遺伝子工学専攻の
+		研究肌トマト職人', 'name' => '出原健吾', 'supplement' => 'トマト生産者', 'image' => 'img_frmr_05.jpg' ),
 	);
 	?>
 	<section class="p-producers c-border-line-top" id="producers">
@@ -373,9 +384,15 @@ get_header();
 						<?php foreach ( $producers_data as $p ) : ?>
 							<div class="p-producers__card">
 								<div class="p-producers__card-inner">
-									<div class="p-producers__card-image p-producers__card-image--placeholder">
-										<span>画像</span>
-									</div>
+									<?php if ( ! empty( $p['image'] ) ) : ?>
+										<div class="p-producers__card-image">
+											<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/' . $p['image'] ) ); ?>" alt="<?php echo esc_attr( $p['name'] ); ?>" width="400" height="400" loading="lazy">
+										</div>
+									<?php else : ?>
+										<div class="p-producers__card-image p-producers__card-image--placeholder">
+											<span>画像</span>
+										</div>
+									<?php endif; ?>
 									<p class="p-producers__card-catch"><?php echo esc_html( $p['catchphrase'] ); ?></p>
 									<p class="p-producers__card-name"><?php echo esc_html( $p['name'] ); ?>さん</p>
 									<p class="p-producers__card-supplement"><?php echo esc_html( $p['supplement'] ); ?></p>
@@ -397,32 +414,41 @@ get_header();
 	<!-- サポーター紹介（Phase H） -->
 	<?php
 	$supporters_data = array(
-		array( 'name' => '毛利亮シェフ', 'affiliation' => 'リストランテ美郷' ),
-		array( 'name' => '西山亮介オーナー兼マネージャー', 'affiliation' => 'ソロノイ' ),
-		array( 'name' => 'ジョヴァンニカパンネリ代表取締役', 'affiliation' => 'ディ・マルコ・ジャパン' ),
-		array( 'name' => 'ビアージョインコーニト シェフ', 'affiliation' => 'はるぴい農園' ),
-		array( 'name' => '清水美絵シェフ', 'affiliation' => 'カンティーナ・アルコ' ),
-		array( 'name' => '北村英紀シェフ', 'affiliation' => 'イタリア料理ラ・セッテ' ),
-		array( 'name' => '岡田幸司さん', 'affiliation' => 'イタリア食材 PIATTI' ),
-		array( 'name' => '陣内秀信名誉教授', 'affiliation' => '法政大学' ),
-		array( 'name' => '三浦慶文シェフ', 'affiliation' => 'トラットリア・デッラ・ラソテルナ・マジカ' ),
+		array( 'name' => '毛利亮シェフ', 'affiliation' => 'リストランテ美郷', 'image' => 'img_spt_01.jpg' ),
+		array( 'name' => '三浦慶文シェフ', 'affiliation' => 'トラットリア・デッラ・ラソテルナ・マジカ', 'image' => 'img_spt_02.jpg' ),
+		array( 'name' => '陣内秀信名誉教授', 'affiliation' => '法政大学', 'image' => 'img_spt_03.jpg' ),
+		array( 'name' => '西山亮介 シェフ', 'affiliation' => 'ソロノイ', 'image' => 'img_spt_04.jpg' ),
+		array( 'name' => '清水美絵 シェフ', 'affiliation' => 'カンティーナ・アルコ', 'image' => 'img_spt_05.jpg' ),
+		array( 'name' => 'ジョヴァンニカパソネ シェフ', 'affiliation' => 'ディ・マルコ・ジャパソ', 'image' => 'img_spt_06.jpg' ),
+		array( 'name' => '岡田幸司 シェフ', 'affiliation' => 'イクリア食材 PIATT', 'image' => 'img_spt_07.jpg' ),
+		array( 'name' => 'ビアージョイソコーニト', 'affiliation' => 'はるびぃ農園', 'image' => 'img_spt_08.jpg' ),
+		array( 'name' => '北村英紀 シェフ', 'affiliation' => 'イクリア料理ラ・セッテ', 'image' => 'img_spt_09.jpg' ),
+		array( 'name' => '片岡幸治 シェフ', 'affiliation' => '岡山プラザホテル', 'image' => 'img_spt_10.jpg' ),
 	);
 	?>
 	<section class="p-supporters" id="supporters">
 		<div class="l-container">
 			<header class="p-supporters__header">
 				<div class="p-supporters__header-banner">
+					<span class="p-supporters__header-v p-supporters__header-v--left" aria-hidden="true"></span>
 					<h2 class="p-supporters__title">サポーター紹介</h2>
 					<span class="p-supporters__header-divider" aria-hidden="true"></span>
 					<p class="p-supporters__catchphrase">いつも矢掛町イタリア野菜を応援してくださり、ありがとうございます</p>
+					<span class="p-supporters__header-v p-supporters__header-v--right" aria-hidden="true"></span>
 				</div>
 			</header>
 			<div class="p-supporters__grid" role="list">
 				<?php foreach ( $supporters_data as $s ) : ?>
 					<div class="p-supporters__card" role="listitem">
-						<div class="p-supporters__card-photo p-supporters__card-photo--placeholder">
-							<span>写真</span>
-						</div>
+						<?php if ( ! empty( $s['image'] ) ) : ?>
+							<div class="p-supporters__card-photo">
+								<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/' . $s['image'] ) ); ?>" alt="<?php echo esc_attr( $s['name'] ); ?>" width="100" height="100" loading="lazy">
+							</div>
+						<?php else : ?>
+							<div class="p-supporters__card-photo p-supporters__card-photo--placeholder">
+								<span>写真</span>
+							</div>
+						<?php endif; ?>
 						<div class="p-supporters__card-info">
 							<p class="p-supporters__card-name"><?php echo esc_html( $s['name'] ); ?></p>
 							<p class="p-supporters__card-affiliation"><?php echo esc_html( $s['affiliation'] ); ?></p>
@@ -442,29 +468,29 @@ get_header();
 				<div class="p-achievements__block">
 					<h2 class="p-achievements__title">大阪・関西万博に出展</h2>
 					<p class="p-achievements__text">矢掛町のイタリア野菜約20種類を、大阪・関西万博のイタリア館で出展しました。町・JA・生産者が一体となった産地づくりとブランド化の取り組みが評価され、「食と暮らしの未来」をテーマにした週間ではイタリア政府との連携のもと、多くの来場者・メディア・SNSの注目を集めました。</p>
-					<div class="p-achievements__gallery p-achievements__gallery--6">
-						<?php for ( $i = 0; $i < 6; $i++ ) : ?>
-							<div class="p-achievements__img p-achievements__img--placeholder"><span>画像</span></div>
-						<?php endfor; ?>
+					<div class="p-achievements__gallery p-achievements__gallery--1">
+						<div class="p-achievements__img">
+							<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_archive_03.jpg' ) ); ?>" alt="大阪・関西万博出展" width="800" height="600" loading="lazy">
+						</div>
 					</div>
 				</div>
 				<!-- ブロック2: 矢掛町テーブル CROSS -->
 				<div class="p-achievements__block">
 					<h2 class="p-achievements__title">矢掛町テーブル CROSS</h2>
 					<p class="p-achievements__text">県内外の方がイタリア料理を通じて「食卓」でつながる体験型イベントです。「育てる」「つくる」（シェフとともに）、「味わう」の3つのステージで、矢掛町のイタリア野菜と人とのご縁を紡いでいます。</p>
-					<div class="p-achievements__gallery p-achievements__gallery--6">
-						<?php for ( $i = 0; $i < 6; $i++ ) : ?>
-							<div class="p-achievements__img p-achievements__img--placeholder"><span>画像</span></div>
-						<?php endfor; ?>
+					<div class="p-achievements__gallery p-achievements__gallery--1">
+						<div class="p-achievements__img">
+							<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_archive_02.jpg' ) ); ?>" alt="矢掛町テーブル CROSS" width="800" height="600" loading="lazy">
+						</div>
 					</div>
 				</div>
 				<!-- ブロック3: イタリア大使館建国記念パーティ -->
 				<div class="p-achievements__block">
 					<h2 class="p-achievements__title">イタリア大使館建国記念パーティにて旬のイタリア野菜を提供</h2>
-					<div class="p-achievements__gallery p-achievements__gallery--3">
-						<?php for ( $i = 0; $i < 3; $i++ ) : ?>
-							<div class="p-achievements__img p-achievements__img--placeholder"><span>画像</span></div>
-						<?php endfor; ?>
+					<div class="p-achievements__gallery p-achievements__gallery--1">
+						<div class="p-achievements__img">
+							<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_archive_01.jpg' ) ); ?>" alt="イタリア大使館建国記念パーティ" width="800" height="600" loading="lazy">
+						</div>
 					</div>
 				</div>
 			</div>

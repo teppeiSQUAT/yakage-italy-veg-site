@@ -1,6 +1,6 @@
 # プロジェクト現状記録
 
-- **記録日**: 2026年3月2日
+- **記録日**: 2026年3月12日（最終追記: ヘッダー・メニュー・ナビ・スムーズスクロール・ロゴ切り替え）
 - **プロジェクト**: 矢掛町イタリア野菜プロジェクト 公式サイト（yakage-italy-veg-site）
 - **スケジュール**: **2025年3月11日（火）本番サーバーへテストアップ予定** → devnotes/202503031000-schedule-to-production-test.md
 
@@ -15,6 +15,36 @@
 | **テーマ Phase K** | レスポンシブ・仕上げ | **3/11 までに実施**（スケジュール参照） |
 | **本番テストアップ** | さくらサーバーへアップロード・確認 | **目標 3/11** |
 | フェーズ1〜8 | キックオフ 〜 リリース | 未着手／随時 |
+
+### 直近の反映（2026/03/12 ヘッダー・メニュー・ナビ等）
+
+- **お知らせカテゴリ**: スラッグを `otoshirase` → `news` に変更。functions.php・front-page.php・_news.scss・style.css を更新。管理画面でのカテゴリ編集も必要。
+- **メインメニュー（デフォルト）**: リンクを TOP・プロジェクトについて（#project）・イタリア野菜とは（#vegetables）・生産者紹介（#producers）・サポーター紹介（#supporters）・お問い合わせ（#contact）に変更。スムーズスクロール対応。
+- **スムーズスクロール**: html に `scroll-behavior: smooth`、`scroll-padding-top: 80px`（PC）/ `60px`（スマホ）を追加。アンカーリンクでコンテンツがヘッダーに重ならないようオフセット。
+- **ヘッダー**: `.l-header__container` の max-width を 90% → 96% に変更。
+- **ナビスタイル**: `.c-nav-list a` の letter-spacing を 0.02em → 0.01em、`.c-nav-list` の gap を 32px → 15px に変更。
+- **ヘッダースライドイン**: 着火閾値を 80px → 800px に変更。スライドイン速度を 0.6s、スライドアウトを 0.8s で上から下／下から上へアニメーション（headerSlideIn / headerSlideOut）。800px 未満で上へスライドアウト。
+- **ロゴ切り替え**: スライドイン時・下層ページで `logo_sub.png` を使用。TOP 初回は `logo.png` のまま。header.php で両 img を配置、CSS で表示切り替え。
+- **ページトップボタン**: 700px スクロールでフェードイン表示（opacity・visibility・pointer-events）。_footer.scss・header.js を更新。
+
+### 直近の反映（サポーター紹介 追記）
+
+- **サポーター紹介セクション**
+  - **ヘッダーバナー**: リボン型。clip-path を削除し、左右に `<span class="p-supporters__header-v">` を配置。c-scroll-top::before と同様の border＋transform で横Vを表現（--left: border-right/bottom 0, rotate 45deg / --right: border-top/left 0, rotate -45deg）。
+  - **カード**: 完成イメージ準拠。円形写真（80→100px、赤枠3→4px）が赤バナーの左端に重なる（margin-left: -40px）。赤バナー右端に clip-path で横Vカット。左三角・右矢印（::before/::after）を削除。
+  - **カード画像紐づけ**: `$supporters_data` に `image` キーを追加。`!empty($s['image'])` で img/プレースホルダーを出し分け。9名それぞれに `'image' => ''` を追加済み。
+
+- **イタリア野菜とは（カード画像紐づけ）**
+  - **データ**: `$vegetables_data` に `image` キーを追加。`image` にファイル名を指定すると `assets/images/` の画像を表示、空ならプレースホルダー表示。9種の野菜それぞれに `'image' => ''` を追加済み。画像ファイルを配置後、ファイル名を指定すれば表示される。
+  - **テンプレート**: カード画像部分を `!empty($veg['image'])` で分岐。画像ありなら `<img>`、なしなら従来のプレースホルダー（緑グラデーション＋「画像」）。_vegetables.scss の `.p-vegetables__card-image img` で object-fit: cover 等は既存のため変更なし。
+
+- **生産者紹介セクション**
+  - **データ**: `$producers_data` に `image` キーを追加。`image` にファイル名（例: `img_frmr_01.jpg`）を指定すると `assets/images/` の画像を表示、空なら従来のプレースホルダー表示。現在5名・各画像紐づけ済み。
+  - **キャッチコピー改行**: `.p-producers__card-catch` に `white-space: pre-line` を追加し、テキスト内の改行を表示。
+  - **スライダー表示枚数**: PC（1024px以上）で一度に表示する枚数を 4枚 → **3枚** に変更（`.p-producers__track` の width を 300% → 400%）。
+  - **スライダー JS**: `producers-slider.js` で枚数を固定 6 から **動的**（`LOGICAL_COUNT = cards.length`）に変更。5件・6件どちらでも動作。`position === 6` 等のハードコードを `LOGICAL_COUNT` / `LOGICAL_COUNT - 1` に置き換え。
+  - **カード画像**: `.p-producers__card-image` 内の `img` に width/height/object-fit を指定（_producers.scss）。
+- **変数**: `_variables.scss` に `--font-size-xl: 20px`、`--font-size-2xl: 24px` を追加。`.p-producers__card-catch` で `--font-size-2xl` を利用。
 
 ### 直近の反映（3/2 時点・追記）
 
@@ -89,7 +119,7 @@
 
 - **ブランチ**: main / develop あり
 - **リモート**: origin（main / develop ともに push 済み）
-- **未コミット変更**: テーマ（お知らせ・Instagram・プロジェクト・イタリア野菜・お問い合わせ・ヘッダー等のスタイル・画像差し替え・wrap_card・YouTube デフォルトID・関連リンクバナー）、front-page.php（画像パス・ブロック修飾クラス・wrap_card 等）、_variables.scss（--color-green）、_components.scss（c-border-line-bottom の transparent）、devnotes（本現状記録）の更新がある可能性あり。必要に応じて `git status` で確認。
+- **未コミット変更**: テーマ（functions.php・header.php・front-page.php、header.js、_header.scss・_footer.scss・_reset.scss・_news.scss 等）、お知らせスラッグ・メニューリンク・スムーズスクロール・ヘッダーアニメーション・ロゴ切り替え・ページトップボタン等の更新。生産者・サポーター・野菜の画像（img_frmr_*.jpg、img_spt_*.jpg、img_veg_*.jpg）が未追跡。必要に応じて `git status` で確認。
 - **直近コミット**: （状況に応じて更新）
 
 ※ 現状記録の更新（本ファイル追加・計画書の状態更新）をコミットする場合は、develop で作業し「[フェーズ0] 現状記録・計画書更新」等のメッセージでコミット・push を推奨。
