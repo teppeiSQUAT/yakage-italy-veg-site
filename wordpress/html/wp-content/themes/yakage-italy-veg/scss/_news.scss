@@ -77,14 +77,21 @@
 .p-news__pickup-label {
   position: relative;
   z-index: 2;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--color-red);
   color: var(--color-white);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
-  padding: 8px 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  // 上部中央を三角形状に欠く（添付デザイン）。欠け深さはラベル高さの約22%
+  padding: 14px 20px 8px;
   margin-bottom: -4px;
   margin-left: 24px;
+  clip-path: polygon(0 0, 50% 22%, 100% 0, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 0, 50% 22%, 100% 0, 100% 100%, 0 100%);
 }
 
 .p-news__pickup-slider {

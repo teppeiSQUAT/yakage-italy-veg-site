@@ -19,7 +19,7 @@
   var LOGICAL_COUNT = cards.length; // 本来の枚数（ドット数）
   if (LOGICAL_COUNT === 0) return;
 
-  // 先頭6枚をクローンして末尾に追加 → 12枚で「最後の次に先頭」が続く
+  // 先頭から論理枚数ぶんクローンして末尾に追加（無限ループ用）。表示枚数は CSS（767px未満1枚・768–1023px2枚・1024px以上3枚）
   for (var i = 0; i < LOGICAL_COUNT; i++) {
     track.appendChild(cards[i].cloneNode(true));
   }

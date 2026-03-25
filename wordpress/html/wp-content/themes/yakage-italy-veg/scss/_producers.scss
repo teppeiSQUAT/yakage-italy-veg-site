@@ -53,7 +53,7 @@
 
 .p-producers__title {
   margin: 0;
-  font-size: clamp(18px, 2.5vw, 22px);
+  font-size: clamp(18px, 2.5vw, 28px);
   font-weight: bold;
   color: var(--color-text);
   flex-shrink: 0;
@@ -76,19 +76,22 @@
 .p-producers__track {
   display: flex;
   transition: transform 0.35s ease-out;
-  // 12枚（本編6＋クローン6）。1枚あたり 100/12 ≈ 8.333%。位置 0〜6 で先頭→末尾→リセット
-  transform: translateX(calc(-1 * var(--producers-current, 0) * 8.333%));
-  width: 1200%; // スマホ 1枚×12
+  // 12枚（本編＋クローン）。各カードはトラック幅の 1/12。トラック幅 = (12÷表示枚数)×100%（親＝ビューポート幅）
+  // スマホ1枚: 1200% / タブレット2枚: 600% / PC3枚: 400%
+  transform: translateX(calc(-1 * var(--producers-current, 0) * (100% / 12)));
+  width: 1200%;
+
   @media (min-width: 768px) {
-    width: 400%; // タブレット 3枚×12
+    width: 600%;
   }
+
   @media (min-width: 1024px) {
-    width: 400%; // PC 3枚×12
+    width: 400%;
   }
 }
 
 .p-producers__card {
-  flex: 0 0 8.333%; // 12枚中1枚分
+  flex: 0 0 calc(100% / 12);
   box-sizing: border-box;
   padding: 0 16px;
   @media (min-width: 768px) {
@@ -107,7 +110,6 @@
 }
 
 .p-producers__card-image {
-  aspect-ratio: 1;
   width: 100%;
   display: block;
   border-radius: 10px;
@@ -133,11 +135,16 @@
 
 .p-producers__card-catch {
   margin: 16px 16px 0;
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-xl);
   font-weight: bold;
   line-height: 1.5;
   color: var(--color-red);
-  white-space: pre-line; /* テキスト内の改行を表示 */
+  white-space: pre-line; /* PC: データ内の改行をそのまま表示 */
+
+  // スマホ: 改行を無視し通常の折り返しのみ（改行は空白として連結される）
+  @media (max-width: 767px) {
+    white-space: normal;
+  }
 }
 
 .p-producers__card-name {

@@ -215,9 +215,9 @@ body:not(.is-front-page) .l-main {
   display: none;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
-  width: 44px;
-  height: 44px;
+  gap: 7px;
+  width: 48px;
+  height: 48px;
   padding: 0;
   border: none;
   background: transparent;
@@ -225,9 +225,9 @@ body:not(.is-front-page) .l-main {
 
   &__bar {
     display: block;
-    width: 24px;
-    height: 2px;
-    background-color: var(--color-text);
+    width: 30px;
+    height: 3px;
+    background-color: var(--color-red);
     transition: transform 0.3s, opacity 0.3s;
   }
 }
@@ -266,6 +266,41 @@ body:not(.is-front-page) .l-main {
   .is-drawer-open & {
     transform: translateX(0);
   }
+
+  &__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+}
+
+// 閉じるボタン（×）
+.c-close-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  &__bar {
+    position: absolute;
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--color-red);
+
+    &:first-child {
+      transform: rotate(45deg);
+    }
+
+    &:last-child {
+      transform: rotate(-45deg);
+    }
+  }
 }
 
 .c-drawer-nav {
@@ -286,21 +321,31 @@ body:not(.is-front-page) .l-main {
   }
 }
 
-// スマホ: ハンバーガー・ドロワー表示、ロゴはやや小さく
+// スマホ: ハンバーガー・ドロワー表示、ロゴはサブに切り替え
 @media (max-width: 767px) {
   .l-header__inner {
     padding-left: 0;
     min-height: 52px;
   }
 
-  .l-header__logo-img {
-    height: 72px;
-    max-width: 160px;
+  // スマホ: ロゴエリアの幅と位置調整
+  .l-header__logo {
+    width: 50%;
+    top: 4px;
+  }
 
-    &--sub {
-      height: 52px;
-      max-width: 180px;
-    }
+  // スマホ: メインロゴを非表示、サブロゴを表示（TOP・下層共通）
+  .l-header--top .l-header__logo-img--main,
+  .l-header--top:not(.is-scrolled) .l-header__logo-img--main {
+    display: none;
+  }
+
+  .l-header--top .l-header__logo-img--sub,
+  .l-header--top:not(.is-scrolled) .l-header__logo-img--sub {
+    display: block;
+    height: auto;
+    padding-top: 8px;
+    max-width: 180px;
   }
 
   .l-header__nav {

@@ -177,6 +177,11 @@
 @media (max-width: 767px) {
   .p-contact__form-wrap {
     padding: 24px 20px;
+
+    .p-contact__field label {
+      flex: 0 0 0;
+      padding-top: 0;
+    }
   }
 
   .p-contact__field {
@@ -193,5 +198,199 @@
   .p-contact__consent {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+// ========================================
+// Contact Form 7 対応
+// ========================================
+
+.p-contact__form-wrap {
+  // CF7のformタグ
+  .wpcf7-form {
+    margin: 0;
+  }
+
+  // CF7が自動挿入する<p>タグをリセット
+  .wpcf7-form p {
+    margin: 0;
+    padding: 0;
+  }
+
+  // CF7の入力ラッパー
+  .wpcf7-form-control-wrap {
+    display: block;
+    width: 100%;
+  }
+
+  // .p-contact__field 内のlabelを含むpタグ（CF7の自動挿入対策）
+  .p-contact__field > p {
+    display: contents; // pタグの影響を無効化し、子要素を直接親に配置
+  }
+
+  // labelの幅を固定
+  .p-contact__field label {
+    flex: 0 0 120px;
+    padding-top: 10px;
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+    color: var(--color-text);
+  }
+
+  // CF7のinput/textarea（.p-contact__field内）
+  .p-contact__field .wpcf7-form-control {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: var(--font-size-base);
+    font-family: inherit;
+    line-height: 1.5;
+    color: var(--color-text);
+    background: var(--color-white);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: var(--color-text-light);
+      opacity: 0.8;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-green);
+      box-shadow: 0 0 0 2px rgba(45, 122, 62, 0.2);
+    }
+  }
+
+  // CF7のtextarea
+  .p-contact__field textarea.wpcf7-form-control {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  // CF7の同意チェックボックス
+  .p-contact__consent {
+    .wpcf7-form-control-wrap {
+      display: inline;
+      width: auto;
+    }
+
+    .wpcf7-acceptance {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wpcf7-list-item {
+      margin: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wpcf7-list-item-label {
+      display: none; // CF7のラベルは非表示、独自のspan使用
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-green);
+      cursor: pointer;
+    }
+  }
+
+  // CF7の送信ボタン
+  .p-contact__submit {
+    .wpcf7-submit {
+      display: inline-block;
+      padding: 14px 48px;
+      font-size: var(--font-size-base);
+      font-family: inherit;
+      font-weight: bold;
+      color: var(--color-white);
+      background: var(--color-green);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.85;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // CF7のバリデーションエラー
+  .wpcf7-not-valid-tip {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--color-red);
+  }
+
+  // CF7の送信結果メッセージ
+  .wpcf7-response-output {
+    margin: 20px 0 0;
+    padding: 12px 16px;
+    font-size: var(--font-size-sm);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .wpcf7-mail-sent-ok {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+  }
+
+  .wpcf7-validation-errors,
+  .wpcf7-spam-blocked {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    color: #856404;
+  }
+
+  .wpcf7-mail-sent-ng,
+  .wpcf7-aborted {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+  }
+
+  // CF7のスピナー
+  // 待機中は非表示（inline-block のままだと送信ボタン横に空きができ、text-align: center でも視覚的にズレる）
+  // 送信中は form に .submitting が付くのでそのときだけ表示
+  .wpcf7-spinner {
+    display: none;
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  .wpcf7-form.submitting .wpcf7-spinner {
+    display: inline-block;
+    margin-left: 12px;
+  }
+}
+
+// スマホ: CF7対応
+@media (max-width: 767px) {
+  .p-contact__form-wrap {
+    .p-contact__field label {
+      flex: 0 0 0;
+      padding-top: 0;
+    }
+
+    .p-contact__consent {
+      .wpcf7-acceptance,
+      .wpcf7-list-item {
+        width: 100%;
+      }
+    }
   }
 }

@@ -52,6 +52,10 @@ if ( $is_front ) {
 
 <div class="l-drawer-overlay" id="drawer-overlay" aria-hidden="true"></div>
 <nav class="l-drawer" id="drawer-nav" aria-label="ドロワーメニュー">
+	<button type="button" class="l-drawer__close c-close-btn" aria-label="メニューを閉じる">
+		<span class="c-close-btn__bar"></span>
+		<span class="c-close-btn__bar"></span>
+	</button>
 	<?php
 	wp_nav_menu( array(
 		'theme_location' => 'primary',

@@ -116,34 +116,72 @@
     }
   }
 
-  // ----- フィード: 4列グリッド（2行×4） -----
+  // ----- フィード: 4列グリッド（Smash Balloon Instagram Feed / #sb_instagram） -----
   &__feed {
     max-width: 960px;
     margin: 0 auto 32px;
   }
 
-  // Smash Balloon 出力を 4 列に（ラッパーはバージョンで異なる場合あり）
-  .p-instagram__feed > div,
-  .sbi_feed_wrap,
-  #sbi_images,
-  .sbi_feed {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+  // ルート: 縦積み（ヘッダー非表示・グリッドは #sbi_images のみ）
+  &__feed #sb_instagram.sbi,
+  &__feed #sb_instagram {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 0 !important;
+    box-sizing: border-box;
   }
 
-  .sbi_item,
-  .sbi_photo_wrap {
-    aspect-ratio: 1;
+  // テーマ側で「公式 Instagram」見出しがあるため、プラグインのプロフィールヘッダーを非表示
+  &__feed .sb_instagram_header {
+    display: none !important;
+  }
+
+  // 投稿グリッドのみ 4 列（全体を grid にしない）
+  &__feed #sbi_images {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  &__feed .sbi_item {
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  // プラグイン JS のインライン height を打ち消し、正方形タイルに統一
+  // フィード設定の画像アスペクト（Smash Balloon の 4:5 に合わせる）
+  &__feed .sbi_photo_wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
   }
 
-  .sbi_item img,
-  .sbi_photo_wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  &__feed a.sbi_photo {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+
+  &__feed .sbi_photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  // テーマの follow us と重複するため、プラグイン下部のフォローボタンを非表示
+  &__feed #sbi_load {
+    display: none !important;
   }
 
   // ----- follow us ボタン -----
@@ -227,9 +265,8 @@
       order: 0;
     }
 
-    .sbi_feed_wrap,
-    #sbi_images {
-      grid-template-columns: repeat(2, 1fr);
+    &__feed #sbi_images {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 
     &__footer {

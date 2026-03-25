@@ -100,3 +100,50 @@
     background-color: var(--color-green);
   }
 }
+
+// ========================================
+// スマホ用ロゴセクション（ヒーロー下）
+// PC では非表示、スマホのみ表示
+// ========================================
+
+.p-hero-logo {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  // ヒーローの高さを60vhに
+  .p-hero {
+    height: 60vh;
+    min-height: 50vh;
+  }
+
+  .p-hero__indicators {
+    bottom: 16px;
+    gap: 8px;
+  }
+
+  .p-hero__dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  // スマホ用ロゴセクションを表示
+  .p-hero-logo {
+    display: block;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .p-hero-logo__top {
+    background-color: #e60013;
+    padding: 24px 16px;
+    text-align: center;
+  }
+
+  .p-hero-logo__image {
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin: 0 auto;
+  }
+}

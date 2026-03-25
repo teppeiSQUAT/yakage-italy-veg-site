@@ -1,7 +1,7 @@
 # TOPページ テーマ実装計画書
 
 - **作成日**: 2025年3月3日
-- **最終更新**: 2026年3月12日（PICKUP スライダー 1枚表示・自動再生・ループ・右→左を反映）
+- **最終更新**: 2026年3月25日（Phase F レイアウト・レスポンシブの現状反映、Instagram 実装位置の明記、K-1 整合）
 - **対象**: 矢掛町イタリア野菜プロジェクト 公式サイト TOPページ
 - **目的**: 新規 WordPress テーマを作成し、デザインを再現する
 - **進め方**: フェーズごとに切り、コンテンツブロック単位で実装
@@ -28,14 +28,14 @@
 | **Phase A** | テーマ基盤・共通レイアウト | **完了** |
 | **Phase B** | ヘッダー・ヒーロー・フッター | **完了** |
 | **Phase C** | お知らせセクション | **完了** |
-| **Phase D** | Instagramセクション | **完了** |
+| **Phase D** | Instagramセクション | **完了**（`front-page.php` で `do_shortcode( '[instagram-feed feed=1]' )` を出力。Smash Balloon 出力は `_instagram.scss` でグリッド・アスペクト・重複 UI 非表示を調整。詳細: devnotes/202603221851-instagram-smash-balloon-feed-style-record.md） |
 | **Phase E** | イタリア野菜プロジェクトについて | **完了** |
-| **Phase F** | イタリア野菜とは | **完了** |
+| **Phase F** | イタリア野菜とは | **完了**（2026/03/25 時点: 20 件 shuffle・3 段階ブレークのグリッド・左列 sticky は `.wrap_content` のみ。詳細: devnotes/202603251500-current-status-record.md） |
 | **Phase G** | 生産者紹介 | **完了** |
 | **Phase H** | サポーター紹介 | **完了** |
 | **Phase I** | 実績紹介 | **完了** |
 | **Phase J** | お問い合わせ | **完了** |
-| **Phase K** | レスポンシブ・仕上げ | 未着手 |
+| **Phase K** | レスポンシブ・仕上げ | **進行中**（主要ブレークポイントはコードに反映済み。残: 全体微調整・A11y・性能・本番確認／納品マニュアル初稿・PDF 済） |
 | **Phase L** | 下層ページ・アーカイブ（page/home/archive/single） | **完了** → devnotes/202603121148-sub-page-archive-implementation-plan.md |
 
 ---
@@ -131,6 +131,7 @@
 - [x] PICKUP カード内タイトル（.p-news__pickup-card-body .p-news__card-title）font-size: 26px
 - [x] カテゴリ 4 種登録（お知らせ slug: news・イベント・レシピ・PICKUP）
 - [x] PICKUP: 先頭でスライダー表示（前後矢印・ドット）。**1枚ずつ表示**（p-news__pickup-viewport でクリップ）。**自動再生**（5秒間隔）・**ループ**・ホバー時一時停止。**常に右→左スライド**（先頭スライドを末尾にクローン、transitionend でリセット）。カード画像 aspect-ratio: 4/3。カード内に日付・カテゴリ・タイトル・抜粋・NEW タグ（7日以内）
+- [x] PICKUP ラベル「PICKUP」テキスト: 上部を V 字に欠く装飾（`clip-path`、_news.scss）
 - [x] それ以外: お知らせ・イベント・レシピを新着順で 6 件グリッド（3列）、サムネイル・日付・カテゴリタグ・タイトル・抜粋・NEW タグ
 - [x] 「もっと見る」ボタンで固定ページ「NEWS」（スラッグ: news）へ。`yakage_italy_veg_get_news_archive_url()` で URL 取得
 
@@ -144,7 +145,7 @@
 
 - [x] セクション構成・背景（白＋薄い野菜パターン）
 - [x] セクションタイトル「公式 Instagram」＋Instagram ロゴ（SVG）＋赤・緑の破線装飾
-- [x] プラグインショートコード `[instagram-feed feed=1]` で埋め込み、4 列グリッド（スマホ 2 列）
+- [x] プラグインショートコード `[instagram-feed feed=1]` で埋め込み（**`front-page.php` の Instagram セクション内**で `do_shortcode()` 呼び出し）。4 列グリッド（スマホ 2 列、テーマ `_instagram.scss` で上書き）
 - [x] 「follow us」赤ボタン（カスタマイザーで URL 変更可）
 - [x] 下部関連リンク：バナー画像 3 枚（bnr_yakage.png・bnr_youtube.png・bnr_okoshi.png）、表示順は左から「岡山県 矢掛町」「YouTube」「矢掛町地域おこし協力隊」、gap 24px。カスタマイザーで各 URL 変更可
 
@@ -171,11 +172,11 @@
 
 ## F-1. イタリア野菜とは
 
-- [x] セクション構成・背景（白）。コンテンツ:グリッド＝4:6、グリッドは右端いっぱい
-- [x] セクションタイトル「イタリア野菜とは」＋c-border-line-bottom（中央寄せ・padding-bottom 1em）
-- [x] 左: 説明テキスト・「ご注文はこちら」ボタン中央配置（border-radius: 999px・#fa0000、デフォルトは Google Forms https://forms.gle/1hs63P1vK5d8qavN8、カスタマイザーで URL 変更可）
-- [x] 右: 野菜画像グリッド（9種・読み込み時ランダム順）。`$vegetables_data` に `image` キーで assets/images の画像を紐づけ。画像ありなら `<img>`、なしならプレースホルダー表示。オーバーレイ内に .wrap_card（白背景・角丸15px・margin/padding 15px・テキスト中央）。ホバー/タップでオーバーレイ表示（名称・特徴・オススメ時期）
-- [x] PC 3行3列 / スマホ 3行2列、vegetables.js でタップ開閉
+- [x] セクション構成・背景（白）。**`.p-vegetables__inner`**: **≥1024px** `grid-template-columns: 3.5fr 6.5fr`、**768–1023px** `4fr 6fr`（タブレット）、**≤767px** 1 列（上: テキスト → 下: グリッド）。グリッド列は右端いっぱい
+- [x] 見出し（H2）「**イタリア野菜の魅力**」＋c-border-line-bottom（中央寄せ・padding-bottom 1em）。セクション ID は `#vegetables`（ナビ表記は「イタリア野菜とは」）
+- [x] 左列 **`.p-vegetables__content`**: `display: flex`、`align-items: start`、`justify-content: center`。内側 **`.wrap_content`** のみ **≥768px** で `position: sticky; top: 100px`（ヘッダー下）。`box-shadow` なし。説明テキスト・「ご注文はこちら」ボタン（border-radius: 999px・#fa0000、デフォルト Google Forms、カスタマイザーで URL 変更可）
+- [x] 右列: 野菜画像グリッド。**`$vegetables_data` は制作資料準拠 20 件**（`img_veg_01.png`〜`img_veg_20.png`）。**ページ読み込みごとに `shuffle` し 20 件すべて出力**。`image` キーで紐づけ、画像ありは `<img>`、なしはプレースホルダー。オーバーレイ `.p-vegetables__card-overlay` の **padding: 8px**。内側 .wrap_card（白背景・角丸15px・margin/padding 15px・テキスト中央）。PC は hover、**≤767px** は vegetables.js でタップ開閉
+- [x] **グリッド列数（`_vegetables.scss`）**: **≥1024px** 4 列（5 行×4 列で 20 枚）／**768–1023px** 3 列（`grid-auto-rows: minmax(220px, 1fr)`）／**≤767px** 2 列／**≤480px** 1 列かつ **11 枚目以降 `display: none`**（先頭 10 枚のみ表示）
 
 ---
 
@@ -189,7 +190,7 @@
 - [x] セクションタイトル「生産者紹介」＋赤・緑破線
 - [x] 1ブロック＝画像（角丸）・キャッチコピー（赤・太字・改行は white-space: pre-line）・名前（〇〇さん）・補足情報
 - [x] `$producers_data` に `image` キーで assets/images の画像を紐づけ。画像ありなら `<img>`、なしならプレースホルダー表示
-- [x] ループスライダー（矢印・ドット）、枚数は JS で動的（cards.length）。PC で **3枚** 表示・タブレット 3枚・スマホ 1枚
+- [x] ループスライダー（矢印・ドット）、枚数は JS で動的（cards.length）。**PC（1024px以上）3枚・タブレット（768–1023px）2枚・スマホ（767px以下）1枚**（`_producers.scss` のトラック幅 400% / 600% / 1200%）
 - [x] SCSS: _producers.scss、JS: producers-slider.js（--producers-current で位置制御、LOGICAL_COUNT 動的）
 
 ---
@@ -231,6 +232,8 @@
 - [x] フォームコンテナ（.p-contact__form-wrap）：背景 #f8f3ed・max-width 900px・角丸・シャドウなし。お名前・所属・メール・TEL・内容、ラベル左・入力右。個人情報同意チェック、「送信」緑ボタン
 - [x] 注意文「※担当者より内容確認次第、返信させていただきます。」
 - [x] SCSS: _contact.scss。送信処理は Contact Form 7 等で後続対応予定
+- [x] **Contact Form 7 対応**: front-page.php をショートコード呼び出しに変更。functions.php に `wpcf7_autop_or_not` フィルター追加。_contact.scss に CF7 用スタイル追加。devnotes/contact-form-7-template.md にフォームテンプレート・メール設定を作成
+- [x] **CF7 スピナー（送信ボタン中央寄せ）**: 待機中は `.wpcf7-spinner` を `display: none`（レイアウトから除外）。送信中のみ `form.wpcf7-form.submitting .wpcf7-spinner` で `inline-block` 表示（_contact.scss）。画面確認済み
 
 ---
 
@@ -240,8 +243,16 @@
 
 ## K-1. レスポンシブ対応
 
-- [ ] ブレークポイント定義（PC / タブレット / スマホ）
-- [ ] 各セクションのグリッド・レイアウト調整
+- [x] **ブレークポイント（実装ベースの整理）**: テーマ SCSS で **767px 以下＝スマホ**、**768px 以上＝タブレット帯（sticky 等）**、**1024px 以上＝PC（例: 生産者3列・野菜グリッド4列）**、**480px 以下＝野菜グリッド1列＋10枚表示** 等を使用。**Phase F（野菜）** は **768–1023px で 3 列**の中間帯あり（`_vegetables.scss` 先頭コメント参照）。一覧表のドキュメント化は任意
+- [x] **ヘッダー（スマホ）**: ハンバーガーメニューの色を赤に変更、間隔・幅を調整（gap: 7px, width: 30px, height: 3px）。ドロワーに閉じるボタン（×）を追加。スマホ表示時（767px以下）に TOP ページでもサブロゴ（logo_sub.png）を表示。ロゴエリア幅 50%・top: 4px
+- [x] **ヒーロー（スマホ）**: 高さを 60vh に変更。ヒーロー下にスマホ用ロゴセクション（.p-hero-logo）を追加（赤背景 #e60013 + logo.png センター配置）。PC では非表示
+- [x] **プロジェクト（スマホ）**: .p-project__block--video を padding: 15px, border-radius: 20px に。.p-project__hero-copy を font-size: 4vw に
+- [x] **イタリア野菜とは（Phase F）**: `$vegetables_data` **20 件**、`shuffle` 後に **全件出力**。グリッド: **≥1024px** 4 列／**768–1023px** 3 列／**≤767px** 2 列／**≤480px** 1 列で先頭 10 枚のみ。`.p-vegetables__inner` の列比（3.5/6.5・タブレット 4/6）、`.wrap_content` のみ sticky、`.p-vegetables__content` は `align-items: start`、オーバーレイ padding 8px（_vegetables.scss・`front-page.php`）
+- [x] **お問い合わせ（スマホ）**: .p-contact__field label を flex: 0 0 0 に調整（CF7 対応含む）
+- [x] **お問い合わせ（CF7 スピナー）**: 送信ボタンエリアの中央寄せと両立（待機中はスピナー非表示、送信中のみ表示）
+- [x] **お知らせ PICKUP ラベル**: `.p-news__pickup-label` に上部 V 字欠け（`clip-path`、_news.scss）
+- [x] **生産者スライダー**: 表示枚数 **PC 3 / タブレット 2 / スマホ 1**（_producers.scss）。キャッチコピーはスマホで `white-space: normal`（改行畳み）
+- [ ] 各セクションのグリッド・レイアウト調整（残り）
 - [ ] 画像・フォントサイズの最適化
 - [ ] タッチ操作対応（スライダー等）
 
@@ -251,6 +262,30 @@
 - [ ] アクセシビリティ（フォーカス、aria 属性）
 - [ ] パフォーマンス（画像最適化、遅延読み込み）
 - [ ] クロスブラウザ確認
+
+## K-3. 納品・クライアント向けドキュメント
+
+- [x] **WordPress 簡易操作マニュアル（初稿）**: `devnotes/202603221932-client-wordpress-manual-draft-v1.md`、ダミーキャプチャ SVG、`npm run manual:pdf`（Pandoc + Chrome）で PDF 生成。詳細: `devnotes/202603221956-current-status-record.md`
+- [ ] **納品時**: 実スクリーンショット差し替え・URL・連絡先の追記、クライアントレビュー
+
+---
+
+## 次のフェーズ（いま着手する単位）
+
+テーマの **Phase A〜L（ブロック実装・下層）は完了**しています。**いまの「次」は Phase K の未チェックを潰して仕上げる段階**です。並行して **本番テストアップ**（`devnotes/202503031000-schedule-to-production-test.md`）に向けた確認がゴールです。
+
+| 順序 | 内容 | メモ |
+|------|------|------|
+| **1（Phase K 残り）** | 各セクションのグリッド・レイアウトの最終調整 | 実機・複数幅で見た目確認 |
+| **2（Phase K 残り）** | 画像・フォントサイズの最適化 | 重量・可読性 |
+| **3（Phase K 残り）** | タッチ操作（スライダー等） | 必要なら JS 調整 |
+| **4（Phase K-2）** | アクセシビリティ（フォーカス、`aria`） | フォーム・スライダー・ナビ |
+| **5（Phase K-2）** | パフォーマンス（遅延読み込み・画像圧縮） | Core Web Vitals 目安 |
+| **6（Phase K-2）** | クロスブラウザ確認 | Safari / Chrome / Edge 等 |
+| **7（納品）** | マニュアルの実キャプチャ差し替え・PDF 再出力 | K-3 |
+| **8（本番）** | サーバーアップロード・動作確認 | スケジュールドキュメント参照 |
+
+**Phase K 完了後**に新しい「Phase M」を切るより、**本番リリースチェックリスト**として上記 1〜8 を進める想定で問題ありません。
 
 ---
 
@@ -302,6 +337,28 @@
 - **2026/03/12（下層ページ・アーカイブ）**: page.php・home.php・archive.php・single.php を作成。_page.scss でスタイル定義。get_the_archive_title フィルターでアーカイブタイトルプレフィックス削除。.l-header__logo-img から vertical-align を削除（display: block では無効のため）。
 - **2026/03/12（固定ページ・フッター）**: c-border-line-left を _components.scss に追加（p-project__heading::before と同様の赤・ライムグリーン縦二重線）。page.php のタイトルに適用。フッターのサイトポリシー・プライバシーポリシーを /site-policy/・/privacy-policy/ にリンク更新。
 - **2026/03/12（PICKUP スライダー）**: 1枚表示（p-news__pickup-viewport 追加）、aspect-ratio 4/3、自動再生（5秒）・ループ・ホバー時一時停止、常に右→左スライド（先頭クローンを末尾に追加、transitionend でリセット）。news-slider.js・front-page.php・_news.scss を更新。
+- **2026/03/18（Contact Form 7 対応）**: お問い合わせフォームを Contact Form 7 のショートコード呼び出しに変更。functions.php に `wpcf7_autop_or_not` フィルター追加（自動 `<p>` タグ無効化）。_contact.scss に CF7 用スタイル追加（.wpcf7-form-control, .wpcf7-submit, バリデーションエラー, 送信結果メッセージ等）。devnotes/contact-form-7-template.md を作成（管理画面貼り付け用フォームテンプレート・メール設定）。
+- **2026/03/18（レスポンシブ・ヘッダー）**: ハンバーガーメニューの色を赤（var(--color-red)）に変更、間隔・幅を調整（gap: 7px, width: 30px, height: 3px, ボタン 48px）。ドロワーに閉じるボタン（×）を追加（.c-close-btn、2本のバーを 45°/-45° で交差）。スマホ表示時（767px 以下）に TOP ページでもサブロゴ（logo_sub.png）を表示。スマホ時のロゴエリア（.l-header__logo）幅 50%・top: 4px、サブロゴ height: auto。
+- **2026/03/18（レスポンシブ・各セクション）**: ヒーロー高さを 60vh に変更、ヒーロー下にスマホ用ロゴセクション追加（.p-hero-logo、赤背景 #e60013 + logo.png センター配置、PC 非表示）。プロジェクト: .p-project__block--video のスマホ時 padding: 15px / border-radius: 20px、.p-project__hero-copy のスマホ時 font-size: 4vw。イタリア野菜とは: 野菜データを 19 種に拡張し、shuffle + array_slice で 12 枚をランダム表示。お問い合わせ: スマホ時 .p-contact__field label を flex: 0 0 0 に調整（CF7 対応含む）。
+- **2026/03/22（Phase K・次フェーズの整理）**: K-1 にブレークポイント整理・PICKUP ラベル・生産者スライダー/キャッチ折り返しを完了チェック。K-3「納品・クライアント向けドキュメント」を追加（マニュアル初稿・PDF 済）。**「次のフェーズ」** 節を追加（Phase K 残タスク → 本番テストアップの順序表）。
+- **2026/03/22（クライアントマニュアル・納品ドキュメント）**: WordPress 簡易操作マニュアル初稿（`202603221932-client-wordpress-manual-draft-v1.md`）、SVG ダミーキャプチャ10点、**Pandoc + Chrome headless** で PDF 生成（`npm run manual:pdf`）。詳細: devnotes/202603221956-current-status-record.md
+- **2026/03/22（お知らせ・生産者 UI）**: PICKUP ラベル（`.p-news__pickup-label`）に上部 V 字欠け（clip-path）。生産者スライダー表示枚数を PC3・タブレット2・スマホ1 に変更。キャッチコピーはスマホで改行畳み（`white-space: normal`）。
+- **2026/03/22（ドキュメント・実装計画の反映）**: 現状記録（202503021800-current-status.md）と本計画書に、Instagram フィード（Smash Balloon）テーマ CSS・CF7 スピナー表示制御を追記。集約メモ: devnotes/202603221856-implementation-plan-and-status-update.md
+- **2026/03/22（現状スナップショット・手動調整反映）**:
+  - **野菜**: `front-page.php` の `$vegetables_data` を **野菜リスト.xlsx**（`Documents/2026_矢掛町イタリア野菜プロジェクト/配置画像/野菜リスト.xlsx`）から反映した **20 件**。画像はテーマ内 `assets/images/img_veg_01.png`〜`img_veg_20.png`（全ファイル配置済み）。芽キャベツ・コーララビの紹介文は Excel 上プレースホルダ（＊）のまま。
+  - **イタリア野菜の魅力**: 見出し・本文コピーを手動更新済み。
+  - **プロジェクト**: 本文ブロック・SPECIAL movie・ヒーロー下部のキャッチ「人をつなぐ、イタリア野菜でありたい。」、ロゴ alt「矢掛町 おもてなしの町」等を手動調整。`gradation_wrap` / `l-container` / `p-project__hero` の閉じタグ整合を確認・インデント修正。
+  - **生産者**: 6 名（`img_frmr_01.jpg`〜`06.jpg`）。6 人目「佐野禎夫」氏（ズッキーニ生産者）を追加。`producers-slider.js` は枚数動的のまま。
+  - **サポーター**: 10 名分の氏名・所属・`img_spt_01.jpg`〜`10.jpg` を手動更新。
+  - **実績**: 各ブロックの見出し・本文を手動更新（万博・テーブル CROSS・大使館パーティ）。画像は `img_archive_01〜03.jpg`。
+  - **お問い合わせ**: Contact Form 7 ショートコード例 `id="18b5500"`（環境ごとに要差し替え）。
+  - **お問い合わせ（スピナー）**: `.wpcf7-spinner` は待機中 `display: none`、`.wpcf7-form.submitting` 時のみ表示（_contact.scss）。送信ボタンの中央寄せずれを解消。**確認済み**。
+  - **Instagram フィード**: Smash Balloon ショートコード出力をテーマ `_instagram.scss` で調整（`#sbi_images` グリッド、4:5、プラグインヘッダー／`#sbi_load` 非表示等）。**表示確認済み** → devnotes/202603221851-instagram-smash-balloon-feed-style-record.md
+  - **レスポンシブ**: 野菜グリッド **max-width: 480px で 1 列** に変更済み。
+- **2026/03/25（Phase F・Instagram・実装計画整合）**:
+  - **Phase F**: 上記 F-1・K-1 のとおり、**20 件 shuffle 全件表示**、**1024 / 768–1023 / 767 / 480** のグリッド分岐、左列レイアウト・sticky 対象を **`.wrap_content`** に限定、オーバーレイ **padding 8px**。
+  - **Instagram**: `[instagram-feed feed=1]` のテーマ側出力箇所を **`front-page.php`（Instagram ブロック内・`do_shortcode`）** と明記。実装位置の確認を記録（devnotes/202603251500-current-status-record.md）。
+  - **現状記録**: devnotes/202503021800-current-status.md を同日内容で更新済み。
 
 ---
 
@@ -311,3 +368,8 @@
 - devnotes/202503021430-dev-env-and-implementation-plan.md（全体実装計画）
 - devnotes/202503021800-current-status.md（現状記録）
 - devnotes/202603121148-sub-page-archive-implementation-plan.md（下層ページ・アーカイブページ実装計画）
+- devnotes/202603221851-instagram-smash-balloon-feed-style-record.md（Instagram / Smash Balloon フィードのテーマ CSS 記録）
+- devnotes/202603221856-implementation-plan-and-status-update.md（実装計画・現状記録の一括更新メモ）
+- devnotes/202603221932-client-wordpress-manual-draft-v1.md（クライアント向け WordPress 簡易マニュアル初稿）／同 PDF・`manual-captures-placeholder/`・`npm run manual:pdf`
+- devnotes/202603221956-current-status-record.md（2026/03/22 後半の現状メモ）
+- devnotes/202603251500-current-status-record.md（2026/03/25: Phase F レスポンシブ・sticky・Instagram 実装位置のスナップショット）

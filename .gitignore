@@ -34,3 +34,6 @@ Thumbs.db
 # ログ・一時ファイル
 *.log
 *.tmp
+
+# マニュアル PDF 中間生成（Pandoc HTML）
+devnotes/.manual-pdf-build/

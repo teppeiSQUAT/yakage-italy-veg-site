@@ -1,7 +1,9 @@
 // ========================================
 // イタリア野菜とは（Phase F）
-// 左: タイトル・テキスト・ボタン（パディングは .p-vegetables__content に適用）
-// 右: 野菜グリッドを上下・右端まで隙間なく配置
+// ブレークポイント: PC ≥1024 / タブレット 768–1023 / スマホ ≤767 / 最小 ≤480
+// PC: 左 3.5fr（.wrap_content のみ sticky）／右 6.5fr、グリッド 4 列
+// タブレット: 左 4fr／右 6fr、グリッド 3 列
+// スマホ: 1 列レイアウト・グリッド 2 列 → 最小幅で 1 列・10 枚
 // ========================================
 
 .p-vegetables {
@@ -11,10 +13,15 @@
 
 .p-vegetables__inner {
   display: grid;
-  grid-template-columns: 4fr 6fr;
+  grid-template-columns: 3.5fr 6.5fr;
   gap: 0;
   align-items: stretch;
   width: 100%;
+
+  // タブレット幅: テキスト列をやや広く
+  @media (max-width: 1023px) and (min-width: 768px) {
+    grid-template-columns: 4fr 6fr;
+  }
 
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
@@ -23,17 +30,31 @@
 }
 
 .p-vegetables__content {
-  position: sticky;
-  top: 100px;
   padding: var(--section-padding-y) var(--section-padding-x);
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
+  background-color: var(--section-vegetables-bg);
 }
 
+// 見出し〜CTA のブロックのみヘッダー下に固定（front-page .wrap_content）
 .p-vegetables__content .wrap_content {
   width: 100%;
   max-width: 80%;
+
+  @media (min-width: 768px) {
+    position: sticky;
+    top: 100px;
+    z-index: 2;
+    background-color: var(--section-vegetables-bg);
+    padding-bottom: 8px;
+  }
+
+  @media (max-width: 767px) {
+    position: static;
+    max-width: min(720px, 90vw);
+    margin-inline: auto;
+  }
 }
 
 .p-vegetables__title {
@@ -93,19 +114,36 @@
   }
 }
 
-// 野菜グリッド: PC 3x3 / スマホ 2列（上下・右端まで隙間なし）
+// 野菜グリッド: PC 4列 / タブレット 3列 / スマホ 2列 / 最小 1列×10行
 .p-vegetables__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(240px, 1fr);
   gap: 0;
   margin: 0;
   padding: var(--section-padding-y) 0;
   list-style: none;
   align-self: stretch;
+  width: 100%;
+  min-width: 0;
+
+  @media (max-width: 1023px) and (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(220px, 1fr);
+  }
 
   @media (max-width: 767px) {
     grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(240px, 1fr);
+  }
+
+  // 最小スマホ: 1列・10行（PHP でシャッフル済みの先頭10枚）
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+
+    .p-vegetables__card:nth-child(n + 11) {
+      display: none;
+    }
   }
 }
 
@@ -144,7 +182,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 12px;
+  padding: 8px;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
   color: var(--color-white);
   opacity: 0;
@@ -179,7 +217,8 @@
 
 .p-vegetables__card-name {
   margin: 0 0 6px;
-  font-size: 18px;
+  font-size: 17px;
+  line-height: 1.4;
   font-weight: bold;
   color: var(--color-red);
 

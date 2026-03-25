@@ -30,6 +30,13 @@ get_header();
 		</div>
 	</section>
 
+	<!-- スマホ用ロゴセクション（ヒーロー下） -->
+	<section class="p-hero-logo">
+		<div class="p-hero-logo__top">
+			<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/logo.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="p-hero-logo__image">
+		</div>
+	</section>
+
 	<!-- お知らせセクション（Phase C） -->
 	<?php
 	$pickup_cat = get_category_by_slug( 'pickup' );
@@ -233,7 +240,7 @@ get_header();
 				<h3 class="p-project__heading">矢掛町って?</h3>
 				<div class="p-project__body">
 					<div class="p-project__text">
-						<p>岡山県南西部に位置する人口約1万3千人の小さな町、矢掛町。太陽と清流に恵まれ、野菜や果物が豊かに育つ里山です。江戸時代には旧山陽道の宿場町として栄え、大名行列を迎えてきました。全国でも珍しく本陣と脇本陣がともに現存し、篤姫がお輿入れの際に宿泊した記録も残されています。戦後は空き家となった古民家を一軒ずつ再生し、店舗や宿泊施設として活用。江戸の町並みをよみがえらせ、地域再生の成功例として注目され、重要伝統的建造物群保存地区にも選定されています。</p>
+						<p>岡山県南西部に位置する人口約1万3千人の小さな町、矢掛町。太陽と清流に恵まれ、野菜や果物が豊かに育つ里山です。江戸時代には旧山陽道の宿場町として栄え、大名行列を迎えてきました。全国でも、本陣と脇本陣がともに現存するのは実は矢掛町だけ。篤姫がお輿入れの時に宿泊した記録も残されています。一時はほとんどが空き家となってしまった古民家群を、十数年前、一軒ずつ再生し、店舗や宿泊施設として活用することで江戸の町並みが見事に復活。地域再生の成功例として注目され、重要伝統的建造物群保存地区にも選定されています。</p>
 					</div>
 					<div class="p-project__image">
 						<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_about-01.jpg' ) ); ?>" alt="矢掛町の町並み" width="800" height="450" loading="lazy">
@@ -261,7 +268,7 @@ get_header();
 				<h3 class="p-project__heading">イタリアチームのホストタウン</h3>
 				<div class="p-project__body">
 					<div class="p-project__text">
-						<p>2018年、矢掛町は分散型宿泊の取り組みが評価され、イタリアのアルベルゴ・ディフーゾ協会から日本初の「アルベルゴ・ディフーゾ・タウン」に認定されました。これを機にイタリアとの交流が深まり、東京2020大会ではイタリア代表のホストタウンにも選定されました。しかし新型コロナウイルスの影響で交流事業は中止に。それでも遠くから応援したいとの思いから、町自慢の野菜でアスリートを支える取り組みが始まりました。</p>
+						<p>2018年、矢掛町はこうした古民家再生の取り組みが評価され、イタリアのアルベルゴ・ディフーゾ協会から日本初の「アルベルゴ・ディフーゾ・タウン」に認定されました。これを機にイタリアとの交流が深まり、東京2020オリンピック・パラリンピック競技大会ではイタリア代表のホストタウンにも認定されました。しかし新型コロナウイルスの影響で交流事業はすべて中止に。それでも遠くから応援したいという思いを形にするために、町自慢の野菜でアスリートを支える取り組みが始まりました。</p>
 					</div>
 					<div class="p-project__image">
 						<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_about-02.jpg' ) ); ?>" alt="イタリアチーム交流" width="800" height="450" loading="lazy">
@@ -273,7 +280,7 @@ get_header();
 				<h3 class="p-project__heading">コロナ禍の中、自慢の野菜でイタリアを応援</h3>
 				<div class="p-project__body">
 					<div class="p-project__text p-project__text--full">
-						<p>矢掛町は「がんばれイタリア！」の思いをトマトやアスパラガス、玉ねぎなど自慢の野菜に託し、所沢で合宿中のイタリア選手団へ届けました。さらに、野菜本来の味わいを生かしたリゾットやスープなどのオリジナルメニューを提供。「実家のマンマの味がする」「野菜の味が濃い」と選手たちからも高い評価をいただき、多くのメダリストも誕生しました。宿場町に息づくおもてなしの心が選手たちを食で支え、生産者にとっても大きな励みとなりました。</p>
+						<p>矢掛町は「がんばれイタリア！」の思いをトマトやアスパラガス、玉ねぎなど自慢の野菜に託し、所沢で合宿中のイタリア選手団へ届けました。さらに、矢掛野菜の味わいを生かして、リゾットやスープなどのイタリア家庭料理を提供。「実家のマンマの味がする」「野菜の味が濃い」と選手たちからも高い評価をいただき、多くのメダリストも誕生しました。宿場町に息づくおもてなしの心を野菜に込め、選手たちを食で支えることができたことは、生産者にとっても大きな励みとなりました。</p>
 					</div>
 				</div>
 			</div>
@@ -290,7 +297,7 @@ get_header();
 				</div>
 			</div>
 		</div>
-</div>
+		</div>
 		<div class="p-project__hero">
 			<div class="p-project__hero-bg" aria-hidden="true"></div>
 			<div class="p-project__hero-overlay">
@@ -304,18 +311,30 @@ get_header();
 
 	<!-- イタリア野菜とは（Phase F） -->
 	<?php
+	// データ元: 制作資料「配置画像/野菜リスト.xlsx」（列: 野菜名・紹介文・時期・画像）
 	$vegetables_data = array(
-		array( 'name' => 'ズッキーニ', 'desc' => '色よし、艶よし。種も少なく、身がずっしり詰まっています', 'season' => '5月中旬〜7月中旬', 'image' => 'img_veg_01.jpg' ),
-		array( 'name' => 'カーヴォロ・ネーロ', 'desc' => '凹凸のしっかりついた肉厚の葉が、料理人の期待に応えます。', 'season' => '12月上旬～3月中旬', 'image' => 'img_veg_02.jpg' ),
-		array( 'name' => 'サヴォイキャベツ', 'desc' => '煮込むほどに甘くなる。煮込んでも煮崩れない。', 'season' => '12月中旬～1月上旬', 'image' => 'img_veg_03.jpg' ),
-		array( 'name' => '満点リーキ', 'desc' => '太さ、巻き、そして甘み。すべてにこだわった自信作。', 'season' => '1月上旬～3月中旬', 'image' => 'img_veg_04.jpg' ),
-		array( 'name' => 'フェンネル', 'desc' => '全国のシェフ待望の肉厚フェンネルができました。', 'season' => '6月中旬～7月中旬,11月下旬～3月下旬', 'image' => 'img_veg_05.jpg' ),
-		array( 'name' => 'プンタレッラ', 'desc' => '鮮度が命の野菜だから、みんな待ってた国産もの。', 'season' => '12月中旬～2月上旬', 'image' => 'img_veg_06.jpg' ),
-		array( 'name' => 'カリーノ・ケール', 'desc' => '苦味が少なく、食べやすいケール', 'season' => '11月中旬～3月下旬', 'image' => 'img_veg_07.jpg' ),
-		array( 'name' => 'チーマ・ディ・ラーパ', 'desc' => '煮日本の菜花とは似て非なるこのコシ、味の濃さ。', 'season' => '11月中旬～3月上旬', 'image' => 'img_veg_08.jpg' ),
-		array( 'name' => 'ボンジョールノトマト', 'desc' => '加熱すると甘み倍増。型崩れしにくくグリルに最適', 'season' => '7月中旬～9月上旬', 'image' => 'img_veg_09.jpg' ),
+		array( 'name' => 'イタリアントマト', 'desc' => '火入れした瞬間に違いがわかる、瀬戸内の太陽を浴びたトマト。', 'season' => '7月中旬～9月上旬', 'image' => 'img_veg_01.png' ),
+		array( 'name' => 'ビステッカ ナス', 'desc' => 'しっとり柔らかい肉質。油との相性も抜群。', 'season' => '6月下旬～9月上旬', 'image' => 'img_veg_02.png' ),
+		array( 'name' => 'フェンネル', 'desc' => '全国のシェフ待望の肉厚フェンネルができました。', 'season' => '6月中旬～7月中旬,11月下旬～3月下旬', 'image' => 'img_veg_03.png' ),
+		array( 'name' => '花ズッキーニ', 'desc' => '丸ごとフリットに最適な花と実の黄金バランス。', 'season' => '5月上旬～6月下旬', 'image' => 'img_veg_04.png' ),
+		array( 'name' => 'ズッキーニ', 'desc' => '色よし、艶よし、種も少なく、身がずっしり詰まっています。', 'season' => '5月中旬～7月中旬', 'image' => 'img_veg_05.png' ),
+		array( 'name' => 'ケル玉', 'desc' => '備中エリアの集落ぐるみで手がける自慢のたまねぎ。', 'season' => '7月上旬～1月中旬', 'image' => 'img_veg_06.png' ),
+		array( 'name' => 'ケル玉ルビ', 'desc' => 'イタリアンに欠かせない赤たまねぎも、安定品質。', 'season' => '7月上旬～10月下旬', 'image' => 'img_veg_07.png' ),
+		array( 'name' => '矢掛アスパラガス', 'desc' => '露地、ハウスともに瑞々しく、生でも食べられると評判。', 'season' => '4月上旬～9月下旬', 'image' => 'img_veg_08.png' ),
+		array( 'name' => 'ほたるリゾット', 'desc' => 'ほたるの住む山里のおいしい水で育ちました。', 'season' => '10月中旬～11月下旬,（出荷は通年）', 'image' => 'img_veg_09.png' ),
+		array( 'name' => 'ラディッキオ・プレコーチェ', 'desc' => 'リゾットでもサラダでも本領発揮の冬野菜の代表格。', 'season' => '11月下旬～2月下旬', 'image' => 'img_veg_10.png' ),
+		array( 'name' => 'ルーコラ・セルヴァティカ', 'desc' => '野生種特有の辛味と香ばしさ。もう普通のルーコラに戻れない。', 'season' => '11月中旬～1月上旬,3月下旬～6月下旬', 'image' => 'img_veg_11.png' ),
+		array( 'name' => 'サヴォイキャベツ', 'desc' => '煮込むほどに甘くなる。煮込んでも煮崩れしない。', 'season' => '12月中旬～1月上旬', 'image' => 'img_veg_12.png' ),
+		array( 'name' => 'カーヴォロ・ネーロ', 'desc' => '凹凸のしっかりついた肉厚の葉が、料理人の期待に応えます。', 'season' => '12月上旬～3月中旬', 'image' => 'img_veg_13.png' ),
+		array( 'name' => 'プンタレッラ', 'desc' => '鮮度が命の野菜だから、みんな待ってた国産もの。', 'season' => '12月中旬～2月上旬', 'image' => 'img_veg_14.png' ),
+		array( 'name' => 'カリーノ・ケール', 'desc' => '苦味が少なく、食べやすいケール。', 'season' => '11月中旬～3月下旬', 'image' => 'img_veg_15.png' ),
+		array( 'name' => 'チーマ・ディ・ラーパ', 'desc' => '日本の菜花とは似て非なるこのコシ、味の濃さ。', 'season' => '11月中旬～3月上旬', 'image' => 'img_veg_16.png' ),
+		array( 'name' => 'カタローニャ', 'desc' => '煮込んでもへこたれない苦味と滋味がクセになる。', 'season' => '11月中旬～2月中旬', 'image' => 'img_veg_17.png' ),
+		array( 'name' => '満点リーキ', 'desc' => '太さ、巻き、そして甘み。すべてにこだわった自信作。', 'season' => '1月上旬～３月中旬', 'image' => 'img_veg_18.png' ),
+		array( 'name' => '芽キャベツ', 'desc' => '＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊。', 'season' => '12月中旬～2月上旬', 'image' => 'img_veg_19.png' ),
+		array( 'name' => 'コーララビ', 'desc' => '＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊。', 'season' => '11月中旬～1月上旬', 'image' => 'img_veg_20.png' ),
 	);
-	// 読み込み時にランダム配置
+	// ランダムに並び替え（PC は20枚すべて、最小スマホは CSS で先頭10枚のみ表示）
 	shuffle( $vegetables_data );
 	$order_link = get_theme_mod( 'yakage_vegetables_order_url', 'https://forms.gle/1hs63P1vK5d8qavN8' );
 	?>
@@ -323,9 +342,9 @@ get_header();
 			<div class="p-vegetables__inner">
 				<div class="p-vegetables__content">
 					<div class="wrap_content">
-					<h2 class="p-vegetables__title c-border-line-bottom">イタリア野菜とは</h2>
+					<h2 class="p-vegetables__title c-border-line-bottom">イタリア野菜の魅力</h2>
 					<span class="p-vegetables__title-line" aria-hidden="true"></span>
-					<p class="p-vegetables__text">イタリア野菜は、イタリア料理に欠かせない品種で、味わいの濃さや程よい苦味、はっきりとした甘味が特徴です。紫や黄色、縞模様など彩りが豊かで、形も個性的なものが多く、料理に華やかさを添えます。リゾットやパスタ、スープなど素材を生かす調理法と相性が良く、加熱することで旨味が一層引き立ちます。矢掛町では、温暖な気候と高い晴天率、寒暖差のある中山間地の環境、清らかな水に恵まれ、野菜本来の味がより濃く育つのが特徴です。（ダミーテキスト）</p>
+					<p class="p-vegetables__text">南北に細長く四季の恵み豊かなイタリアは、甘み、苦み、酸味、歯応えといった個性が際立つ野菜がとっても豊富。チーマ・ディ・ラーパ（イタリア菜花）が欠かせない南イタリアのパスタや、カーヴォロ・ネーロ（黒キャベツ）がないと味が決まらないトスカーナ州の煮込み料理など、「この料理にはこの野菜が欠かせない」といった郷土料理が地方ごとに受け継がれているのもイタリアならでは。生食で楽しめる野菜も、加熱することで、苦みが旨みに化けたり、酸味が滋味を増したりと野菜の持ち味が開花するのも大きな特徴です。矢掛町では、こうしたイタリア野菜ならではの力強さを大事にした野菜づくりを心がけています。</p>
 					<div class="p-vegetables__cta">
 						<a href="<?php echo esc_url( $order_link ); ?>" class="c-btn c-btn--red">ご注文はこちら</a>
 					</div>
@@ -370,6 +389,8 @@ get_header();
 		array( 'catchphrase' => '“天空のアスパラ畑”の主', 'name' => '中本静満', 'supplement' => 'アスパラ生産者', 'image' => 'img_frmr_04.jpg' ),
 		array( 'catchphrase' => '遺伝子工学専攻の
 		研究肌トマト職人', 'name' => '出原健吾', 'supplement' => 'トマト生産者', 'image' => 'img_frmr_05.jpg' ),
+		array( 'catchphrase' => '調理師免許も持つ
+		ズッキーニ名人', 'name' => '佐野禎夫', 'supplement' => 'ズッキーニ生産者', 'image' => 'img_frmr_06.jpg' ),
 	);
 	?>
 	<section class="p-producers c-border-line-top" id="producers">
@@ -469,7 +490,7 @@ get_header();
 				<!-- ブロック1: 大阪・関西万博に出展 -->
 				<div class="p-achievements__block">
 					<h2 class="p-achievements__title">大阪・関西万博に出展</h2>
-					<p class="p-achievements__text">矢掛町のイタリア野菜約20種類を、大阪・関西万博のイタリア館で出展しました。町・JA・生産者が一体となった産地づくりとブランド化の取り組みが評価され、「食と暮らしの未来」をテーマにした週間ではイタリア政府との連携のもと、多くの来場者・メディア・SNSの注目を集めました。</p>
+					<p class="p-achievements__text">大阪・関西万博のイタリア館の前に、イタリア野菜の畑を再現したほか、PINSAのトッピングとして味わっていただきました。町・JA・生産者が一体となった産地化事業とブランド化の取り組みが評価され、「食と暮らしの未来」をテーマにした週間ではイタリア政府との連携のもと、多くの来場者・メディア・SNSの注目を集めました。</p>
 					<div class="p-achievements__gallery p-achievements__gallery--1">
 						<div class="p-achievements__img">
 							<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_archive_03.jpg' ) ); ?>" alt="大阪・関西万博出展" width="800" height="600" loading="lazy">
@@ -479,7 +500,7 @@ get_header();
 				<!-- ブロック2: 矢掛町テーブル CROSS -->
 				<div class="p-achievements__block">
 					<h2 class="p-achievements__title">矢掛町テーブル CROSS</h2>
-					<p class="p-achievements__text">県内外の方がイタリア料理を通じて「食卓」でつながる体験型イベントです。「育てる」「つくる」（シェフとともに）、「味わう」の3つのステージで、矢掛町のイタリア野菜と人とのご縁を紡いでいます。</p>
+					<p class="p-achievements__text">野菜を「育てる」生産者、料理を「つくる」シェフ、そして「味わう」人たちが集い、県内外の人々と町民がイタリア野菜の食卓「テーブル」で交流（CROSS）する体験型イベントを、毎年2月に開催しています。</p>
 					<div class="p-achievements__gallery p-achievements__gallery--1">
 						<div class="p-achievements__img">
 							<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/img_archive_02.jpg' ) ); ?>" alt="矢掛町テーブル CROSS" width="800" height="600" loading="lazy">
@@ -504,52 +525,13 @@ get_header();
 		<div class="l-container">
 			<header class="p-contact__header">
 				<h2 class="p-contact__title c-border-line-bottom">お問い合わせ</h2>
-				
 			</header>
 			<div class="p-contact__form-wrap">
-				<form class="p-contact__form" action="" method="post" novalidate>
-					<?php wp_nonce_field( 'yakage_contact', 'yakage_contact_nonce' ); ?>
-					<div class="p-contact__field">
-						<label for="contact-name">お名前</label>
-						<div class="p-contact__input-wrap">
-							<input type="text" id="contact-name" name="contact_name" required placeholder="山田 太郎" />
-						</div>
-					</div>
-					<div class="p-contact__field">
-						<label for="contact-affiliation">所属</label>
-						<div class="p-contact__input-wrap">
-							<input type="text" id="contact-affiliation" name="contact_affiliation" placeholder="会社名・団体名など" />
-						</div>
-					</div>
-					<div class="p-contact__field">
-						<label for="contact-email">メールアドレス</label>
-						<div class="p-contact__input-wrap">
-							<input type="email" id="contact-email" name="contact_email" required placeholder="example@example.com" />
-						</div>
-					</div>
-					<div class="p-contact__field">
-						<label for="contact-tel">TEL</label>
-						<div class="p-contact__input-wrap">
-							<input type="tel" id="contact-tel" name="contact_tel" placeholder="090-1234-5678" />
-						</div>
-					</div>
-					<div class="p-contact__field">
-						<label for="contact-body">内容</label>
-						<div class="p-contact__input-wrap">
-							<textarea id="contact-body" name="contact_body" rows="6" required placeholder="お問い合わせ内容をご記入ください"></textarea>
-						</div>
-					</div>
-					<div class="p-contact__consent">
-						<span class="p-contact__consent-label">個人情報の取り扱い</span>
-						<label class="p-contact__checkbox-wrap">
-							<input type="checkbox" name="contact_consent" required value="1" />
-							<span class="p-contact__checkbox-text">同意します</span>
-						</label>
-					</div>
-					<p class="p-contact__submit">
-						<button type="submit" class="c-btn c-btn--green">送信</button>
-					</p>
-				</form>
+				<?php
+				// Contact Form 7 のショートコードを出力
+				// フォームID は管理画面で作成後に変更してください
+				echo do_shortcode( '[contact-form-7 id="18b5500" title="コンタクトフォーム 1"]' );
+				?>
 			</div>
 			<span class="p-contact__note-line" aria-hidden="true"></span>
 			<p class="p-contact__note">※担当者より内容確認次第、返信させていただきます。</p>

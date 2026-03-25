@@ -1,6 +1,6 @@
 # プロジェクト現状記録
 
-- **記録日**: 2026年3月12日（最終追記: PICKUP スライダー）
+- **記録日**: 2026年3月25日（最終追記: Phase F 現状・Instagram 実装位置の記録）
 - **プロジェクト**: 矢掛町イタリア野菜プロジェクト 公式サイト（yakage-italy-veg-site）
 - **スケジュール**: **2025年3月11日（火）本番サーバーへテストアップ予定** → devnotes/202503031000-schedule-to-production-test.md
 
@@ -12,10 +12,54 @@
 | **フェーズ0** | 開発環境・2台運用基盤構築 | **進行中（本マシンほぼ完了）** |
 | **テーマ Phase A〜B** | テーマ基盤・ヘッダー・ヒーロー・フッター | **完了** |
 | **テーマ Phase C〜J** | お知らせ→Instagram→プロジェクト→イタリア野菜とは→生産者→サポーター→実績→お問い合わせ | **完了** |
-| **テーマ Phase K** | レスポンシブ・仕上げ | **3/11 までに実施**（スケジュール参照） |
+| **テーマ Phase K** | レスポンシブ・仕上げ | **進行中**（主要レスポンシブ・納品マニュアル PDF まで反映。残: 全体微調整・A11y・性能・本番確認）→ 実装計画書「次のフェーズ」節参照 |
 | **テーマ Phase L** | 下層ページ・アーカイブ（page/home/archive/single） | **完了** |
 | **本番テストアップ** | さくらサーバーへアップロード・確認 | **目標 3/11** |
 | フェーズ1〜8 | キックオフ 〜 リリース | 未着手／随時 |
+
+### 直近の反映（2026/03/22 TOP・画像・構成）
+
+- **野菜データ**: `front-page.php` の `$vegetables_data` を **野菜リスト.xlsx**（`Documents/2026_矢掛町イタリア野菜プロジェクト/配置画像/`）に合わせ **20 件**。画像 `img_veg_01.png`〜`20.png` をテーマ `assets/images/` に揃え済み。**`shuffle` 後に 20 件すべて出力**（表示列数・枚数はブレークポイントで制御）。芽キャベツ・コーララビの紹介文は Excel プレースホルダのまま。
+- **イタリア野菜セクション**: 見出し「イタリア野菜の魅力」、本文はイタリア産野菜の特徴・矢掛の取り組みの長文に手動更新。
+- **プロジェクト**: 各ブロック本文・SPECIAL movie・下部ヒーロー「人をつなぐ、イタリア野菜でありたい。」・ロゴ alt 等を手動更新。`gradation_wrap` 閉じタグのインデント整理。
+- **生産者**: **6 名**（`img_frmr_01.jpg`〜`06.jpg`、6 人目 佐野禎夫氏）。
+- **サポーター**: **10 名**の氏名・所属・`img_spt_01.jpg`〜`10.jpg` を手動更新。
+- **実績**: 万博・テーブル CROSS・大使館パーティの見出し・本文を手動更新。
+- **お問い合わせ**: CF7 ショートコード `id="18b5500"`（環境依存）。
+- **レスポンシブ（Phase F グリッド）**: **≥1024px** 4 列／**768–1023px** 3 列／**≤767px** 2 列／**≤480px** 1 列で先頭 10 枚のみ（`_vegetables.scss`）。内側カラム比・sticky は同ファイル参照。
+- **詳細**: devnotes/202503032300-top-page-theme-implementation-plan.md の「2026/03/22（現状スナップショット）」を参照。
+
+### 直近の反映（2026/03/25 Phase F・Instagram）
+
+- **Instagram**: `[instagram-feed feed=1]` の**テーマ上の指定箇所を確認済み** → `front-page.php` **215 行付近** `do_shortcode( '[instagram-feed feed=1]' )`（`.p-instagram` 内）。
+- **Phase F**: 左カラム **≥1024** `3.5fr/6.5fr`、**768–1023** `4fr/6fr`、**≤767** 1 列。`.wrap_content` のみ **≥768** で sticky（`box-shadow` なし）。オーバーレイ `padding: 8px`。
+- **詳細スナップショット**: devnotes/202603251500-current-status-record.md
+
+### 直近の反映（2026/03/22 Instagram・Smash Balloon フィード）
+
+- **状態**: TOP の Instagram ブロック（`[instagram-feed feed=1]`）について、**テーマ側スタイルでの表示を確認済み**。
+- **実装**: `scss/_instagram.scss` で `#sb_instagram` を縦積み、`#sbi_images` のみグリッド（PC 4列・767px 以下 2列）、`.sbi_photo` のインライン高さを上書き、タイルは **4:5**。プラグインの `.sb_instagram_header` と `#sbi_load`（フォローボタン）は非表示（テーマの見出し・`.p-instagram__follow-btn` と重複回避）。
+- **詳細**: devnotes/202603221851-instagram-smash-balloon-feed-style-record.md
+
+### 直近の反映（2026/03/22 お問い合わせ・Contact Form 7 スピナー）
+
+- **課題**: `.wpcf7-spinner` が `display: inline-block` のまま DOM に残り、送信ボタンと並んだブロックとして **中央寄せ（`.p-contact__submit` の text-align）が視覚的にずれる**。
+- **対応**: `scss/_contact.scss` で待機中は `.wpcf7-spinner` を **`display: none`**。送信中は CF7 が付与する **`form.wpcf7-form.submitting`** のときだけ **`display: inline-block`**＋左マージンでスピナーを表示。**表示確認済み**。
+- **ドキュメント**: 実装計画・現状の一括反映は devnotes/202603221856-implementation-plan-and-status-update.md
+
+### 直近の反映（2026/03/22 クライアント向けマニュアル・Pandoc・PDF）
+
+- **マニュアル初稿**: `devnotes/202603221932-client-wordpress-manual-draft-v1.md`（WordPress 初心者向け操作説明・カテゴリー運用・CF7 / Instagram 注意事項等）。
+- **ダミーキャプチャ**: `devnotes/manual-captures-placeholder/` に SVG 10 点を配置し本文から参照。
+- **PDF**: `devnotes/202603221932-client-wordpress-manual-draft-v1.pdf`。**Pandoc**（`--embed-resources`）→ **Chrome headless**（`--print-to-pdf`）で生成。再生成は `npm run manual:pdf` または `bash scripts/build-client-manual-pdf.sh`。
+- **Pandoc**: 本機に Homebrew で導入済み（`pandoc --version` で確認）。
+- **詳細**: devnotes/202603221956-current-status-record.md
+
+### 直近の反映（2026/03/22 テーマ UI 微修正）
+
+- **PICKUP ラベル**: `.p-news__pickup-label` を上部三角欠け風に調整（`clip-path`、`_news.scss`）。
+- **生産者スライダー**: **1024px以上 3枚 / 768–1023px 2枚 / 767px以下 1枚**（`_producers.scss` のトラック幅）。
+- **生産者キャッチコピー**: スマホで改行を畳んで折り返し（`767px` 以下 `white-space: normal`）。
 
 ### 直近の反映（2026/03/12 PICKUP スライダー）
 
@@ -171,6 +215,11 @@
 | devnotes/202503031000-schedule-to-production-test.md | **3/11 本番テストアップ スケジュール・フェーズ別TODO** |
 | devnotes/202503032300-top-page-theme-implementation-plan.md | TOPページテーマ実装計画（Phase A〜K、コンテンツブロック単位） |
 | devnotes/202603121148-sub-page-archive-implementation-plan.md | 下層ページ・アーカイブページ実装計画（Phase L） |
+| devnotes/202603221851-instagram-smash-balloon-feed-style-record.md | Instagram（Smash Balloon）テーマ CSS 調整・確認記録 |
+| devnotes/202603221856-implementation-plan-and-status-update.md | 実装計画・現状記録の一括更新メモ（2026/03/22） |
+| devnotes/202603221932-client-wordpress-manual-draft-v1.md | クライアント向け WordPress 簡易マニュアル（初稿・Markdown） |
+| devnotes/202603221932-client-wordpress-manual-draft-v1.pdf | 同上 PDF（キャプチャ埋め込み・Pandoc + Chrome で再生成可） |
+| devnotes/202603221956-current-status-record.md | 2026/03/22 後半の現状詳細（マニュアル・Pandoc・UI 微修正） |
 | devnotes/202503032300-scss-workflow.md | SCSS 開発環境ワークフロー（コンパイル・watch） |
 | devnotes/202503091000-theme-dev-watch-and-reload.md | テーマ開発: SCSS 自動ビルド・Browsersync によるブラウザ自動リロード |
 | devnotes/202503021500-phase0-runbook.md | フェーズ0 実施手順（本マシン・別マシン） |

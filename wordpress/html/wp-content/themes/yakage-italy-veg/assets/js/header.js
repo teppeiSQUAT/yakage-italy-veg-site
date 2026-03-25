@@ -9,6 +9,7 @@
   const hamburger = document.querySelector('.c-hamburger');
   const drawer = document.getElementById('drawer-nav');
   const overlay = document.getElementById('drawer-overlay');
+  const drawerCloseBtn = document.querySelector('.l-drawer__close');
 
   if (!header) return;
 
@@ -72,6 +73,11 @@
 
   if (overlay) {
     overlay.addEventListener('click', closeDrawer);
+  }
+
+  // ドロワー内の閉じるボタン
+  if (drawerCloseBtn) {
+    drawerCloseBtn.addEventListener('click', closeDrawer);
   }
 
   // ドロワー内リンククリックで閉じる

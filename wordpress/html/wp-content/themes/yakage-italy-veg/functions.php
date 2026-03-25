@@ -268,3 +268,8 @@ function yakage_italy_veg_default_drawer_menu() {
 	echo '<li><a href="' . esc_url( home_url( '/' ) . '#contact' ) . '">お問い合わせ</a></li>';
 	echo '</ul>';
 }
+
+/**
+ * Contact Form 7: 自動 <p> タグ挿入を無効化
+ */
+add_filter( 'wpcf7_autop_or_not', '__return_false' );
